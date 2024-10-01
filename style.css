@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@100..900&display=swap');
+
+body {
+    font-family: "Noto Sans Mono", monospace;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+    .toggle-track {
+        position: relative;
+        width: 2.5rem;
+        height: 1.5rem;
+        background-color: #d1d5db;
+        border-radius: 9999px;
+        transition: background-color 0.3s ease;
+    }
+
+    .toggle-thumb {
+        position: absolute;
+        top: 0.125rem;
+        left: 0.125rem;
+        width: 1.25rem; 
+        height: 1.25rem;
+        background-color: white;
+        border-radius: 9999px;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    #darkModeToggle:checked + label .toggle-thumb {
+        transform: translateX(1.25rem);
+    }
+
+    #darkModeToggle:checked + label .toggle-track {
+        background-color: #4ade80;
+    }

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="dark"> <!-- Add dark class to html for manual toggle or leave it for OS preference -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tailwind.css">
+    <script src="app.js"></script>
+    <div class="dark-mode-toggle absolute top-4 right-4">
+        <input type="checkbox" id="darkModeToggle" class="hidden" />
+        <label for="darkModeToggle" class="flex items-center cursor-pointer">
+            <span class="mr-2 text-gray-700 dark:text-gray-300">Toggle Dark Mode</span>
+            <span class="relative toggle-track">
+                <span class="toggle-thumb"></span>
+            </span>
+        </label>
+    </div>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 dark:text-gray-200 flex flex-col min-h-screen">
+    <script src="https://kit.fontawesome.com/40f485eb77.js" crossorigin="anonymous"></script>
+    <header class="bg-white dark:bg-gray-800 shadow-xl">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-5xl font-semibold text-gray-800 dark:text-gray-200">Abhinav Kumar Choudhary</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">I can center a div. I use arch, btw.</p>
+        </div>
+    </header>
+    <div class="flex max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div class="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-xl">
+            <img src="https://media.licdn.com/dms/image/v2/D5603AQEMIBpZiZPEzg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1719162440124?e=1733356800&v=beta&t=C3CkQ-SoHKV7aGJTS_LBrcgqZDK6qcrppqTx-WVdgEc" alt="image">
+        </div>
+        <section id="about" class="py-16 bg-white dark:bg-gray-800 ml-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-8">About Me</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400">I am a sophomore at the Birla of Information Technology, Ranchi. I am a tech enthusiast and a passionate coder. I am also into UI/UX design as well as graphic design. I am also a music lover and a travel enthusiast. I am well versed with Visual Studio Code, Figma, Adobe Creative Suite, etc.</p>
+            </div>
+        </section>
+    </div>
+    <section id="achievements" class="py-16 bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-8">Achievements</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <div
+                    class="card bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-xl transition-transform duration-300 ease-in-out">
+                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Stood 10th in the entire city
+                    </h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Achieved 97.5% in 10th grade</p>
+                </div>
+
+                <div
+                    class="card bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-xl transition-transform duration-300 ease-in-out">
+                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Finished school with flying colours</h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Scored 92% in PCM in 12th grade</p>
+                </div>
+
+                <div
+                    class="card bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-xl transition-transform duration-300 ease-in-out">
+                    <h3 class="text-xl font-semibold text-gray-700 dark:text-gray-300">Striving in college</h3>
+                    <p class="mt-2 text-gray-600 dark:text-gray-400">Became a sophomore</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="hobbies" class="py-12 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-8">Hobbies</h2>
+            <ul class="grid grid-cols-2 sm:grid-cols-4 gap-8">
+                <li class="text-center">
+                    <i class="fas fa-code text-4xl text-gray-700 dark:text-gray-300"></i>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400">Coding</p>
+                </li>
+                <li class="text-center">
+                    <i class="fab fa-uikit text-4xl text-gray-700 dark:text-gray-300"></i>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400">UI/UX Design</p>
+                <li class="text-center">
+                    <i class="fas fa-pen-nib text-4xl text-gray-700 dark:text-gray-300"></i>
+                    <p class="mt-4 text-gray-600 dark:text-gray-400">Poetry</p>
+                </li>
+            </li>
+            <li class="text-center">
+                <i class="fas fa-music text-4xl text-gray-700 dark:text-gray-300"></i>
+                <p class="mt-4 text-gray-600 dark:text-gray-400">Music</p>
+            </li>
+            </ul>
+        </div>
+    </section>
+    <section id="contacts" class="py-16 bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-semibold text-gray-800 dark:text-gray-200 mb-8">Get in touch</h2>
+            <ul class="flex justify-center space-x-8">
+                <li>
+                    <a href="https://www.instagram.com/poetry_aficionado/" target="_blank" rel="noopener noreferrer" title="Instagram">
+                        <i class="fab fa-instagram text-4xl text-gray-700 dark:text-gray-300"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/abhinav-kumar-choudhary-784062288/" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+                        <i class="fab fa-linkedin text-4xl text-gray-700 dark:text-gray-300"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/Abhi1264" target="_blank" rel="noopener noreferrer" title="GitHub">
+                        <i class="fab fa-github text-4xl text-gray-700 dark:text-gray-300"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="mailto:abhinav.kumar.1264@gmail.com" title="Email">
+                        <i class="fas fa-envelope text-4xl text-gray-700 dark:text-gray-300"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <footer class="bg-gray-800 dark:bg-gray-700 mt-auto py-4">
+        <div class="max-w-7xl mx-auto text-center text-white">
+            <p>© 2024 Abhinav Kumar Choudhary. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
