@@ -16,6 +16,27 @@ import { toast } from "sonner";
 import emailjs from "@emailjs/browser";
 
 export function ContactSection() {
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: "abhinav.kumar.1264@gmail.com",
+      href: "mailto:abhinav.kumar.1264@gmail.com",
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "+91 9939 110 848",
+      href: "tel:+919939110848",
+    },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: "Ranchi, Jharkhand, India",
+      href: null,
+    },
+  ];
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -60,6 +81,7 @@ export function ContactSection() {
         message: "",
       });
     } catch (error) {
+      console.error(error);
       toast.error("Failed to send message.", {
         description: "Please try again later.",
       });
@@ -93,53 +115,28 @@ export function ContactSection() {
               <h3 className="text-xl font-bold mb-6">Contact Information</h3>
 
               <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-5 w-5 text-purple-400" />
+                {contactInfo.map((info, idx) => (
+                  <div className="flex items-start gap-4" key={info.label}>
+                    <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                      <info.icon className="h-5 w-5 text-purple-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-sm text-purple-300">
+                        {info.label}
+                      </h4>
+                      {info.href ? (
+                        <a
+                          href={info.href}
+                          className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        >
+                          {info.value}
+                        </a>
+                      ) : (
+                        <p className="text-muted-foreground">{info.value}</p>
+                      )}
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-medium text-sm text-purple-300">
-                      Email
-                    </h4>
-                    <a
-                      href="mailto:abhinav.kumar.1264@gmail.com"
-                      className="text-muted-foreground hover:text-purple-400 transition-colors"
-                    >
-                      abhinav.kumar.1264@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-5 w-5 text-purple-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-sm text-purple-300">
-                      Phone
-                    </h4>
-                    <a
-                      href="tel:+919939110848"
-                      className="text-muted-foreground hover:text-purple-400 transition-colors"
-                    >
-                      +91 9939 110 848
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-5 w-5 text-purple-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-sm text-purple-300">
-                      Location
-                    </h4>
-                    <p className="text-muted-foreground">
-                      Ranchi, Jharkhand, India
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
 
               <div className="mt-8">
