@@ -60,9 +60,9 @@ export function HeroSection() {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col items-center text-center space-y-4">
-          <div className="inline-block rounded-full px-3 py-1 text-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-4">
-            Hello, I'm
-          </div>
+          <p className="inline-block rounded-full px-3 py-1 text-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-4">
+          I&apos;m a developer
+          </p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter mb-4">
             Abhinav Kumar Choudhary
           </h1>
