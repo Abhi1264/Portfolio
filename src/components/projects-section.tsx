@@ -5,7 +5,7 @@ import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ExternalLink, Github, Eye } from "lucide-react"
+import { FiExternalLink, FiGithub } from "react-icons/fi";
 
 const projects = [
   {
@@ -152,7 +152,7 @@ export function ProjectsSection() {
                           asChild
                         >
                           <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-4 w-4 mr-2" />
+                            <FiExternalLink className="h-4 w-4 mr-2" />
                             Live
                           </a>
                         </Button>
@@ -163,7 +163,7 @@ export function ProjectsSection() {
                           asChild
                         >
                           <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
-                            <Github className="h-4 w-4 mr-2" />
+                            <FiGithub className="h-4 w-4 mr-2" />
                             Code
                           </a>
                         </Button>
