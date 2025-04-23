@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { MdArrowDownward } from "react-icons/md";
 import { IoLogoGithub } from "react-icons/io";
@@ -10,7 +10,7 @@ import { IoLogoInstagram } from "react-icons/io5";
 import { cn } from "@/lib/utils"
 
 export function HeroSection() {
-  const words = ["Designer", "Developer"]
+  const words = useMemo(() => ["Designer", "Developer"], [])
   const [currentWordIndex, setCurrentWordIndex] = useState(0)
   const [typedText, setTypedText] = useState("")
   const [isDeleting, setIsDeleting] = useState(false)

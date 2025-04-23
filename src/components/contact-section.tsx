@@ -16,22 +16,6 @@ import { IoLogoInstagram } from "react-icons/io5";
 import { toast } from "sonner";
 import emailjs from "@emailjs/browser";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html lang="en">
-      <head />
-      <body>
-        <main>{children}</main>
-        <Toaster />
-      </body>
-    </html>
-  );
-}
-
 export function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
