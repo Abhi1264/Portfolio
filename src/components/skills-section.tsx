@@ -89,8 +89,9 @@ export function SkillsSection() {
                     <Image
                       src={image.src}
                       alt={image.name}
-                      width={72}
-                      height={72}
+                      width={imageWidth *0.75}
+                      height={imageHeight *0.75}
+                      draggable={false} // Prevent dragging
                       className="mb-2 rounded-2xl object-contain" // Added object-contain
                       priority={idx < 10} // Prioritize loading initial images
                     />
@@ -120,8 +121,9 @@ export function SkillsSection() {
                     <Image
                       src={image.src}
                       alt={image.name}
-                      width={72}
-                      height={72}
+                      width={imageWidth *0.75}
+                      height={imageHeight *0.75}
+                      draggable={false} // Prevent dragging
                       className="mb-2 rounded-2xl object-contain" // Added object-contain
                       priority={idx < 10} // Prioritize loading initial images
                     />

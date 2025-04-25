@@ -1,7 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { FaPaintRoller, FaCode, FaP } from "react-icons/fa6";
+import { FaPaintRoller, FaCode } from "react-icons/fa6";
 import { LuPenTool } from "react-icons/lu";
 
 const skills = [
