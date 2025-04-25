@@ -108,7 +108,9 @@ export function HeroSection() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tighter mb-4">
             Abhinav Kumar Choudhary
           </h1>
-          <div className="h-8 mb-6"> {/* Increased height for better spacing */}
+          <div className="h-8 mb-6">
+            {" "}
+            {/* Increased height for better spacing */}
             <h2 className="text-xl md:text-2xl text-purple-300">
               {typedText}
               <span
@@ -120,7 +122,8 @@ export function HeroSection() {
           </div>
           <p className="max-w-3xl text-muted-foreground text-xl mb-8">
             I design and develop beautiful, functional, and user-centered
-            websites. I am also a poet and love to write poetry in my free time which you can read on my instagram.
+            websites. I am also a poet and love to write poetry in my free time
+            which you can read on my instagram.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-5 mb-8">

@@ -138,7 +138,6 @@ export function ContactSection() {
               <h3 className="text-xl font-bold mb-6">Contact Information</h3>
 
               <div className="space-y-4">
-                {/* Iterate over contactInfo array */}
                 {contactInfo.map((info) => (
                   <div className="flex items-start gap-4" key={info.label}>
                     <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">

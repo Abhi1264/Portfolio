@@ -82,24 +82,24 @@ const AboutSection = ({ spotlightColor = "rgb(147 51 234 / 0.4)" }) => {
             About Me
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
-            <p className="max-w-5xl text-muted-foreground text-justify">
+          <p className="max-w-5xl text-muted-foreground text-justify">
             I am a passionate UI/UX designer and frontend developer working with
-            the sole purpose of creating beautiful, functional, and user-centered
-            digital experiences. My journey began in graphic design, but I quickly
-            fell in love with the world of code, where I could bring my designs to
-            life. Today, I work at the intersection of design and development,
-            creating cohesive digital experiences from concept to implementation.
-            Beyond the digital realm, I also find creative expression through the
-            art of poetry, weaving words to capture thoughts and emotions.
+            the sole purpose of creating beautiful, functional, and
+            user-centered digital experiences. My journey began in graphic
+            design, but I quickly fell in love with the world of code, where I
+            could bring my designs to life. Today, I work at the intersection of
+            design and development, creating cohesive digital experiences from
+            concept to implementation. Beyond the digital realm, I also find
+            creative expression through the art of poetry, weaving words to
+            capture thoughts and emotions.
             <br />
-            <br />
-            I am always eager to learn and grow, and I strive to stay updated with
-            the latest trends and technologies in the industry. My goal is to
-            create products that not only look good but also provide a seamless
-            user experience. I am excited to take on new challenges and collaborate
-            with like-minded individuals who share my passion for design,
-            development, and creative expression.
-            </p>
+            <br />I am always eager to learn and grow, and I strive to stay
+            updated with the latest trends and technologies in the industry. My
+            goal is to create products that not only look good but also provide
+            a seamless user experience. I am excited to take on new challenges
+            and collaborate with like-minded individuals who share my passion
+            for design, development, and creative expression.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">

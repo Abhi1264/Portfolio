@@ -2,7 +2,7 @@ import type React from "react";
 import "@/app/globals.css";
 import { Manrope } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 const manrope = Manrope({ subsets: ["latin"] });
 

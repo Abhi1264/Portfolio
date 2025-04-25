@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { useRef } from "react"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { BriefcaseIcon } from "lucide-react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { BriefcaseIcon } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 const experiences = [
   {
@@ -27,24 +27,25 @@ const experiences = [
     title: "Graphic Designer",
     company: "Bloom Tide Consulting",
     period: "July 2024 - Feb 2025",
-    description: "Created visual assets for social media, focusing on branding.",
+    description:
+      "Created visual assets for social media, focusing on branding.",
     skills: ["Figma", "Canva", "Adobe Creative Suite"],
   },
-]
+];
 
 export function ExperienceSection() {
-  const timelineRef = useRef<HTMLDivElement>(null)
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   // Track scroll progress of the timeline container
   const { scrollYProgress } = useScroll({
     target: timelineRef,
     offset: ["start center", "end center"],
-  })
+  });
 
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1])
+  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="experience" className="py-20 relative bg-black/50">
+    <section id="experience" className="py-20 relative">
       {/* Background blur */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute bottom-1/3 left-1/4 w-64 h-64 bg-pink-600/20 rounded-full blur-[100px]" />
@@ -103,12 +104,8 @@ export function ExperienceSection() {
                       <CardContent className="p-6">
                         <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                           <div>
-                            <h3 className="text-xl font-bold">
-                              {exp.title}
-                            </h3>
-                            <p className="text-purple-400">
-                              {exp.company}
-                            </p>
+                            <h3 className="text-xl font-bold">{exp.title}</h3>
+                            <p className="text-purple-400">{exp.company}</p>
                           </div>
                           <Badge
                             variant="outline"
@@ -142,5 +139,5 @@ export function ExperienceSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

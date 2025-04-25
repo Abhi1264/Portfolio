@@ -30,9 +30,7 @@ export function Navbar() {
     <header
       className={cn(
         "fixed top-0 z-50 w-full transition-all duration-300",
-        isScrolled
-          ? "bg-black/80 backdrop-blur-md border-b border-purple-500/20"
-          : "bg-transparent"
+        isScrolled ? "bg-black/80 backdrop-blur-sm" : "bg-transparent"
       )}
     >
       <div className="container mx-auto flex h-18 items-center justify-between pl-4">
