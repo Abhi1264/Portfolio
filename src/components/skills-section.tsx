@@ -59,7 +59,7 @@ export function SkillsSection() {
     // { name: "VueJS", src: "/Skills-logos/VueJS.svg" },
     { name: "Webflow", src: "/Skills-logos/Webflow.svg" },
     // { name: "WindiCSS", src: "/Skills-logos/WindiCSS.svg" },
-    { name: "WordPress", src: "/Skills-logos/WordPress.svg" },
+    { name: "WordPress", src: "/Skills-logos/Wordpress.svg" },
     { name: "XD", src: "/Skills-logos/XD.svg" },
   ];
 
