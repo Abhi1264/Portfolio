@@ -9,7 +9,7 @@ const education = [
     period: "2023 - 2027",
     description:
       "Pursuing a degree in Electronics and Communication Engineering with a focus on Signal Processing and Deep Learning. Engaged in various projects and research activities.",
-    achievements: ["General Secretary, EDC", "Design Head, ECE Society", "Senior Executive Member, IET"],
+    achievements: ["Associate Member, EDC", "Design Head, ECE Society", "Senior Executive Member, IET"],
   },
   {
     degree: "Class XII - CBSE",
