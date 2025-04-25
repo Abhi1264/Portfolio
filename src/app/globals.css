@@ -23,6 +23,10 @@
   --radius: 0.5rem;
 }
 
+html, body {
+  background: black;
+}
+
 .dark {
   --background: 0 0% 0%;
   --foreground: 0 0% 98%;
