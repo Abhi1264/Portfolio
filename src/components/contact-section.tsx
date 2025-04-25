@@ -15,28 +15,51 @@ import { IoLogoInstagram } from "react-icons/io5";
 import { toast } from "sonner";
 import emailjs from "@emailjs/browser";
 
-export function ContactSection() {
-  const contactInfo = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "abhinav.kumar.1264@gmail.com",
-      href: "mailto:abhinav.kumar.1264@gmail.com",
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+91 9939 110 848",
-      href: "tel:+919939110848",
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "Ranchi, Jharkhand, India",
-      href: null,
-    },
-  ];
+const contactInfo = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: "abhinav.kumar.1264@gmail.com",
+    href: "mailto:abhinav.kumar.1264@gmail.com",
+  },
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "+91 9939 110 848",
+    href: "tel:+919939110848",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Ranchi, Jharkhand, India",
+    href: "https://maps.app.goo.gl/uEgSGqWbiASdMYXGA",
+  },
+];
 
+const socialLinks = [
+  {
+    icon: IoLogoGithub,
+    label: "GitHub",
+    href: "https://github.com/Abhi1264",
+  },
+  {
+    icon: ImLinkedin2,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/abhinav-kumar-choudhary-784062288/",
+  },
+  {
+    icon: BsTwitterX,
+    label: "X",
+    href: "https://x.com/akc1264",
+  },
+  {
+    icon: IoLogoInstagram,
+    label: "Instagram",
+    href: "https://www.instagram.com/poetry_aficionado/",
+  },
+];
+
+export function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -81,9 +104,9 @@ export function ContactSection() {
         message: "",
       });
     } catch (error) {
-      console.error(error);
+      console.error("EmailJS Error:", error);
       toast.error("Failed to send message.", {
-        description: "Please try again later.",
+        description: "Please check your connection or try again later.",
       });
     }
 
@@ -99,7 +122,7 @@ export function ContactSection() {
 
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+          <h2 className="text-3xl font-semibold tracking-tighter sm:text-4xl md:text-5xl mb-4">
             Get In Touch
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
@@ -115,6 +138,7 @@ export function ContactSection() {
               <h3 className="text-xl font-bold mb-6">Contact Information</h3>
 
               <div className="space-y-4">
+                {/* Iterate over contactInfo array */}
                 {contactInfo.map((info) => (
                   <div className="flex items-start gap-4" key={info.label}>
                     <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0">
@@ -124,16 +148,14 @@ export function ContactSection() {
                       <h4 className="font-medium text-sm text-purple-300">
                         {info.label}
                       </h4>
-                      {info.href ? (
-                        <a
-                          href={info.href}
-                          className="text-muted-foreground hover:text-purple-400 transition-colors"
-                        >
-                          {info.value}
-                        </a>
-                      ) : (
-                        <p className="text-muted-foreground">{info.value}</p>
-                      )}
+                      <a
+                        href={info.href}
+                        className="text-muted-foreground hover:text-purple-400 transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {info.value}
+                      </a>
                     </div>
                   </div>
                 ))}
@@ -142,66 +164,26 @@ export function ContactSection() {
               <div className="mt-8">
                 <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
                 <div className="flex gap-4">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="rounded-full border-purple-500/50 text-purple-300 hover:bg-purple-500/10 hover:text-purple-300"
-                    asChild
-                  >
-                    <a
-                      href="https://github.com/Abhi1264"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                  {/* Iterate over socialLinks array */}
+                  {socialLinks.map((link) => (
+                    <Button
+                      key={link.label}
+                      variant="outline"
+                      size="icon"
+                      className="rounded-full border-purple-500/50 text-purple-300 hover:bg-purple-500/10 hover:text-purple-300"
+                      asChild
                     >
-                      <IoLogoGithub className="h-5 w-5" />
-                      <span className="sr-only">GitHub</span>
-                    </a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="rounded-full border-purple-500/50 text-purple-300 hover:bg-purple-500/10 hover:text-purple-300"
-                    asChild
-                  >
-                    <a
-                      href="https://www.linkedin.com/in/abhinav-kumar-choudhary-784062288/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <ImLinkedin2 className="h-5 w-5" />
-                      <span className="sr-only">LinkedIn</span>
-                    </a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="rounded-full border-purple-500/50 text-purple-300 hover:bg-purple-500/10 hover:text-purple-300"
-                    asChild
-                  >
-                    <a
-                      href="https://x.com/akc1264"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <BsTwitterX className="h-5 w-5" />
-                      <span className="sr-only">X</span>
-                    </a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className="rounded-full border-purple-500/50 text-purple-300 hover:bg-purple-500/10 hover:text-purple-300"
-                    asChild
-                  >
-                    <a
-                      href="https://www.instagram.com/poetry_aficionado/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <IoLogoInstagram className="h-5 w-5" />
-                      <span className="sr-only">Instagram</span>
-                    </a>
-                  </Button>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={link.label} // Add aria-label for accessibility
+                      >
+                        <link.icon className="h-5 w-5" />
+                        <span className="sr-only">{link.label}</span>
+                      </a>
+                    </Button>
+                  ))}
                 </div>
               </div>
             </CardContent>
@@ -221,6 +203,7 @@ export function ContactSection() {
                     value={formData.name}
                     onChange={handleChange}
                     required
+                    autoComplete="name"
                     className="bg-black/30 border-purple-500/20 focus:border-purple-500/50"
                   />
                 </div>
@@ -235,6 +218,7 @@ export function ContactSection() {
                     value={formData.email}
                     onChange={handleChange}
                     required
+                    autoComplete="email"
                     className="bg-black/30 border-purple-500/20 focus:border-purple-500/50"
                   />
                 </div>
@@ -248,6 +232,7 @@ export function ContactSection() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
+                    autoComplete="off"
                     className="bg-black/30 border-purple-500/20 focus:border-purple-500/50"
                   />
                 </div>
@@ -261,6 +246,7 @@ export function ContactSection() {
                     value={formData.message}
                     onChange={handleChange}
                     required
+                    autoComplete="off"
                     className="min-h-[120px] bg-black/30 border-purple-500/20 focus:border-purple-500/50"
                   />
                 </div>

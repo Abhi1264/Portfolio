@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -45,7 +44,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-3">
+        <nav className="hidden lg:flex items-center space-x-3">
           {navItems.map((item) => (
             <Link
               key={item.name}
@@ -57,7 +56,8 @@ export function Navbar() {
           ))}
           <a
             href="https://drive.google.com/file/d/1V8q8yzVHgjv35e1ZuqXOcCn07vWNfF-J/view?usp=sharing"
-            target="_blank" rel="noopener noreferrer"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <Button
               variant="outline"
@@ -71,37 +71,62 @@ export function Navbar() {
         {/* Mobile Menu Button */}
         <Button
           variant="ghost"
-          size="icon"
-          className="md:hidden text-white hover:bg-purple-500/10"
+          size="lg"
+          className="lg:hidden text-white"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
-          {mobileMenuOpen ? <X /> : <Menu />}
+          <div className="relative w-6 h-6">
+            <span
+              className={cn(
+                "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
+                mobileMenuOpen ? "rotate-45 translate-y-0" : "-translate-y-1.5"
+              )}
+            />
+            <span
+              className={cn(
+                "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
+                mobileMenuOpen ? "-rotate-45 translate-y-0" : "translate-y-1.5"
+              )}
+            />
+          </div>
         </Button>
       </div>
 
       {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <nav className="md:hidden p-4 bg-black/80 border-b border-purple-500/20 backdrop-blur-md">
-          <div className="flex flex-col space-y-3">
+      <div
+        className={cn(
+          "lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
+          mobileMenuOpen ? "max-h-120" : "max-h-0"
+        )}
+      >
+        <nav className="bg-black/80 backdrop-blur-md border-b border-purple-500/20">
+          <div className="flex flex-col space-y-5 p-4 transform transition-transform duration-300 ease-in-out">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="px-3 py-2 text-base hover:text-purple-400 transition-colors"
+                className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.name}
               </Link>
             ))}
-            <Button
-              variant="outline"
-              className="text-base py-3 mt-2 border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
+            <a
+              href="https://drive.google.com/file/d/1V8q8yzVHgjv35e1ZuqXOcCn07vWNfF-J/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
             >
-              Resume
-            </Button>
+              <Button
+                variant="outline"
+                className="w-full text-lg py-3 mt-2 border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300"
+              >
+                Resume
+              </Button>
+            </a>
           </div>
         </nav>
-      )}
+      </div>
     </header>
   );
 }

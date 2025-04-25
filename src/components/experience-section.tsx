@@ -41,7 +41,6 @@ export function ExperienceSection() {
     offset: ["start center", "end center"],
   })
 
-  // Optionally clamp / transform it if you want it slower/faster
   const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
@@ -67,7 +66,7 @@ export function ExperienceSection() {
         <div className="relative mt-12" ref={timelineRef}>
           {/* Scroll-driven timeline line */}
           <motion.div
-            className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-purple-500 to-pink-500 z-0 hidden md:block"
+            className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-purple-500 to-pink-500 z-0"
             style={{
               scaleY,
               transformOrigin: "top",
