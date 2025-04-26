@@ -38,7 +38,7 @@ export function SkillsSection() {
     { name: "NextJS", src: "/Skills-logos/NextJS.svg" },
     { name: "NodeJS", src: "/Skills-logos/NodeJS.svg" },
     // { name: "NuxtJS", src: "/Skills-logos/NuxtJS.svg" },
-    { name: "Photoman", src: "/Skills-logos/Photoman.svg" },
+    { name: "Postman", src: "/Skills-logos/Postman.svg" },
     { name: "Photoshop", src: "/Skills-logos/Photoshop.svg" },
     { name: "PHP", src: "/Skills-logos/PHP.svg" },
     { name: "Premiere", src: "/Skills-logos/Premiere.svg" },
@@ -73,8 +73,7 @@ export function SkillsSection() {
   return (
     <>
       {/* Forward Scrolling Animation Section */}
-      <div className="relative py-20">
-        <div className="container mx-auto px-4 md:px-6">
+      <div className="relative pt-20">
           {/* Header */}
           <div className="flex flex-col items-center text-center mb-12">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
@@ -150,7 +149,6 @@ export function SkillsSection() {
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 }
