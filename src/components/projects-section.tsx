@@ -47,7 +47,7 @@ const projects = [
       "A personal portfolio website showcasing my design and development work, built with Next.js and Tailwind CSS.",
     image: "/portfolio.jpg",
     tags: ["Next", "Tailwind CSS", "Email JS", "Shadcn/ui"],
-    liveLink: "",
+    liveLink: "https://abhi1264.vercel.app/",
     githubLink: "https://github.com/Abhi1264/Portfolio",
     featured: false,
     type: "development",
