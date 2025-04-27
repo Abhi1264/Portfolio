@@ -15,12 +15,13 @@ import {
 import { LogOut } from "lucide-react";
 
 const navItems = [
-  { name: "Home", href: "#home" },
-  { name: "About", href: "#about" },
-  { name: "Experience", href: "#experience" },
-  { name: "Education", href: "#education" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/#about" },
+  { name: "Experience", href: "/#experience" },
+  { name: "Education", href: "/#education" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Works", href: "/#works" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 export function Navbar() {
@@ -103,7 +104,7 @@ export function Navbar() {
     >
       <div className="container mx-auto flex h-18 items-center justify-between pl-4">
         <Link
-          href="#home"
+          href="/"
           className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
         >
           Abhi.1264

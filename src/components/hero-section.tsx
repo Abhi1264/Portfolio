@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { MdArrowDownward } from "react-icons/md";
 import { IoLogoGithub } from "react-icons/io";
@@ -36,6 +36,84 @@ const socialLinks = [
     srText: "Instagram",
   },
 ];
+
+const SocialLinks = () => {
+  return (
+    <div className="flex space-x-4">
+      {socialLinks.map((link) => (
+        <Button
+          key={link.name}
+          variant="ghost"
+          size="icon"
+          className="rounded-full hover:bg-purple-500/10 hover:text-purple-400"
+          asChild
+        >
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={link.srText}
+          >
+            <link.icon className="h-5 w-5" />
+            <span className="sr-only">{link.srText}</span>
+          </a>
+        </Button>
+      ))}
+    </div>
+  );
+};
+
+const MemoizedSocialLinks = React.memo(SocialLinks);
+
+const ScrollDownButton = React.memo(() => (
+  <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <Button
+      variant="ghost"
+      size="icon"
+      className="rounded-full text-purple-400 hover:bg-purple-500/10"
+      onClick={() =>
+        document
+          .getElementById("about")
+          ?.scrollIntoView({ behavior: "smooth" })
+      }
+    >
+      <MdArrowDownward className="h-6 w-6" />
+      <span className="sr-only">Scroll Down</span>
+    </Button>
+  </div>
+));
+
+ScrollDownButton.displayName = "ScrollDownButton";
+
+const ActionButtons = React.memo(() => (
+  <div className="flex gap-5 mb-8">
+    <Button
+      className="bg-purple-600 hover:bg-purple-700 text-white cursor-pointer hover:scale-105 transition-all duration-200"
+      size="lg"
+      onClick={() =>
+        document
+          .getElementById("projects")
+          ?.scrollIntoView({ behavior: "smooth" })
+      }
+    >
+      View My Work
+    </Button>
+    <Button
+      variant="outline"
+      className="border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 cursor-pointer hover:scale-105 transition-all duration-200"
+      size="lg"
+      onClick={() =>
+        document
+          .getElementById("contact")
+          ?.scrollIntoView({ behavior: "smooth" })
+      }
+    >
+      Contact Me
+    </Button>
+  </div>
+));
+
+ActionButtons.displayName = "ActionButtons";
 
 export function HeroSection() {
   const words = useMemo(() => ["Designer", "Developer", "Poet"], []);
@@ -126,71 +204,12 @@ export function HeroSection() {
             which you can read on my instagram.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-5 mb-8">
-            <Button
-              className="bg-purple-600 hover:bg-purple-700 text-white cursor-pointer hover:scale-105 transition-all duration-200"
-              size="lg"
-              onClick={() =>
-                document
-                  .getElementById("projects")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              View My Work
-            </Button>
-            <Button
-              variant="outline"
-              className="border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 cursor-pointer hover:scale-105 transition-all duration-200"
-              size="lg"
-              onClick={() =>
-                document
-                  .getElementById("contact")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              Contact Me
-            </Button>
-          </div>
-
-          <div className="flex space-x-4">
-            {socialLinks.map((link) => (
-              <Button
-                key={link.name}
-                variant="ghost"
-                size="icon"
-                className="rounded-full hover:bg-purple-500/10 hover:text-purple-400"
-                asChild
-              >
-                <a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={link.srText}
-                >
-                  <link.icon className="h-5 w-5" />
-                  <span className="sr-only">{link.srText}</span>
-                </a>
-              </Button>
-            ))}
-          </div>
+          <ActionButtons />
+          <MemoizedSocialLinks />
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full text-purple-400 hover:bg-purple-500/10"
-          onClick={() =>
-            document
-              .getElementById("about")
-              ?.scrollIntoView({ behavior: "smooth" })
-          }
-        >
-          <MdArrowDownward className="h-6 w-6" />
-          <span className="sr-only">Scroll Down</span>
-        </Button>
-      </div>
+      <ScrollDownButton />
     </section>
   );
 }

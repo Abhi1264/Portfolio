@@ -22,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+      <script src="https://unpkg.com/react-scan/dist/auto.global.js" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={manrope.className}>
