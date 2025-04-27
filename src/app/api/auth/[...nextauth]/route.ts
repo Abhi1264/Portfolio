@@ -21,7 +21,7 @@ const handler = NextAuth({
   },
   debug: process.env.NODE_ENV === 'development',
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn() {
       return true;
     },
     async redirect({ url, baseUrl }) {
