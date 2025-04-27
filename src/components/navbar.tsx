@@ -52,23 +52,39 @@ export function Navbar() {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
+            <Button
             variant="ghost"
-            className="relative h-9 w-9 rounded-full"
-          >
+            className="relative h-9 w-9 rounded-full overflow-hidden ring-1 ring-purple-500/20 hover:ring-purple-500/40 transition-all cursor-pointer"
+            >
             <Image
               src={session.user?.image || ""}
               alt={session.user?.name || "Profile"}
-              className="rounded-full"
-              width={36}
-              height={36}
+              className="object-cover"
+              fill
+              sizes="2.5rem"
+              priority
             />
-          </Button>
+            </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="w-56">
+          <div className="flex items-center gap-2 p-2">
+            <div className="rounded-full w-8 h-8 overflow-hidden">
+              <Image
+                src={session.user?.image || ""}
+                alt={session.user?.name || "Profile"}
+                className="object-cover"
+                width={32}
+                height={32}
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-medium">{session.user?.name}</span>
+              <span className="text-xs text-muted-foreground">{session.user?.email}</span>
+            </div>
+          </div>
           <DropdownMenuItem
+            className="text-red-500 cursor-pointer"
             onClick={() => signOut()}
-            className="text-red-500 focus:text-red-500"
           >
             <LogOut className="mr-2 h-4 w-4" />
             <span>Sign Out</span>
@@ -108,7 +124,7 @@ export function Navbar() {
         </nav>
 
         {/* Mobile Navigation */}
-        <div className="flex items-center gap-4 lg:hidden">
+        <div className="flex items-center lg:hidden">
           <UserButton />
           <Button
             variant="ghost"
