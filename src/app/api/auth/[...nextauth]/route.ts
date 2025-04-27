@@ -20,18 +20,14 @@ const handler = NextAuth({
     },
   },
   debug: process.env.NODE_ENV === 'development',
-  callbacks: {
-    async signIn() {
-      return true;
-    },
-    async redirect({ url, baseUrl }) {
-      // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url
-      return baseUrl
-    },
+  pages: {
+    signIn: '/auth/signin',
   },
-})
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    }
+  },
+});
 
 export { handler as GET, handler as POST };

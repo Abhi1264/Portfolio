@@ -42,7 +42,7 @@ export function Navbar() {
         <Button
           variant="outline"
           className="border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 cursor-pointer"
-          onClick={() => signIn()}
+          onClick={() => signIn('google', { callbackUrl: '/' })}
         >
           Sign In
         </Button>
