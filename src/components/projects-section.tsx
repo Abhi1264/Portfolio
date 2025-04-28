@@ -144,53 +144,54 @@ export function ProjectsSection() {
               key={index}
               className="bg-black/50 border border-purple-500/40 overflow-hidden group"
             >
-              <div className="relative h-48 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-4">
                   <div className="flex gap-2">
-                    {project.type === "development" ||
-                    project.type === "design-dev" ? (
-                      <>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="bg-black/50 border-white/20 backdrop-blur-sm"
-                          asChild
-                        >
-                          <a
-                            href={project.liveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <FiExternalLink className="h-4 w-4 mr-2" />
-                            Live
-                          </a>
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          className="bg-black/50 border-white/20 backdrop-blur-sm"
-                          asChild
-                        >
-                          <a
-                            href={project.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <FiGithub className="h-4 w-4 mr-2" />
-                            Code
-                          </a>
-                        </Button>
-                      </>
-                    ) : null}
+                  {project.type === "development" ||
+                  project.type === "design-dev" ? (
+                    <>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="bg-black/50 border-white/20 backdrop-blur-sm"
+                      asChild
+                    >
+                      <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >
+                      <FiExternalLink className="h-4 w-4 mr-2" />
+                      Live
+                      </a>
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="bg-black/50 border-white/20 backdrop-blur-sm"
+                      asChild
+                    >
+                      <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >
+                      <FiGithub className="h-4 w-4 mr-2" />
+                      Code
+                      </a>
+                    </Button>
+                    </>
+                  ) : null}
                   </div>
                 </div>
-              </div>
+                </div>
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                 <p className="text-muted-foreground mb-4 text-sm">

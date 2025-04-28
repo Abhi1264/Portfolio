@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
+import { useRouter, usePathname } from "next/navigation";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -28,6 +29,8 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { data: session } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,6 +39,17 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleSectionNav = (href: string) => {
+    if (pathname !== "/") {
+      router.push("/" + href);
+    } else {
+      const el = document.querySelector(href);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   const UserButton = () => {
     if (!session) {
@@ -117,13 +131,15 @@ export function Navbar() {
         <nav className="hidden lg:flex items-center space-x-3">
           {navItems.map((item) =>
             item.href.startsWith("#") ? (
-              <a
+              <button
                 key={item.name}
-                href={item.href}
-                className="px-3 py-2 text-base hover:text-purple-400 transition-colors"
+                type="button"
+                onClick={() => handleSectionNav(item.href)}
+                className="px-3 py-2 text-base hover:text-purple-400 transition-colors bg-transparent border-none cursor-pointer"
+                style={{ background: "none" }}
               >
                 {item.name}
-              </a>
+              </button>
             ) : (
               <Link
                 key={item.name}
@@ -179,14 +195,18 @@ export function Navbar() {
           <div className="flex flex-col space-y-5 p-4 transform transition-transform duration-300 ease-in-out">
             {navItems.map((item) =>
               item.href.startsWith("#") ? (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
-                  className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
+                  type="button"
+                  onClick={() => {
+                    handleSectionNav(item.href);
+                    setMobileMenuOpen(false);
+                  }}
+                  className="px-3 py-2 text-lg hover:text-purple-400 transition-colors bg-transparent border-none"
+                  style={{ background: "none" }}
                 >
                   {item.name}
-                </a>
+                </button>
               ) : (
                 <Link
                   key={item.name}
