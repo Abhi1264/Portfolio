@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "./button";
 import { Textarea } from "./textarea";
-import { doc, updateDoc, arrayUnion, arrayRemove, getDoc } from "firebase/firestore";
+import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Avatar } from "@/components/ui/avatar";
 import { format } from "date-fns";
