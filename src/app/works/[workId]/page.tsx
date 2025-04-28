@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { format } from "date-fns";
+import { WorkInteractions } from "@/components/ui/work-interactions";
 
 type Work = {
   id: string;
@@ -13,6 +14,15 @@ type Work = {
   category: string;
   date: string;
   tags: string[];
+  likes?: string[];
+  comments?: Array<{
+    id: string;
+    text: string;
+    userId: string;
+    userImage: string;
+    userName: string;
+    createdAt: string;
+  }>;
 };
 
 export default function WorkPage({ params }: { params: Promise<{ workId: string }> }) {
@@ -77,7 +87,7 @@ export default function WorkPage({ params }: { params: Promise<{ workId: string 
         </div>
 
         <footer className="mt-8 pt-8 border-t border-purple-500/40">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-8">
             {work.tags.map((tag) => (
               <Badge
                 key={tag}
@@ -88,6 +98,8 @@ export default function WorkPage({ params }: { params: Promise<{ workId: string 
               </Badge>
             ))}
           </div>
+          
+          <WorkInteractions workId={work.id} />
         </footer>
       </article>
     </main>
