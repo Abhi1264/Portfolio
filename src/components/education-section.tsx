@@ -68,7 +68,7 @@ export function EducationSection() {
             <React.Fragment key={index}>
               <Card
                 key={index}
-                className="bg-purple-950/10 border border-purple-500/20 overflow-hidden relative"
+                className="bg-purple-950/10 border border-purple-500/40 overflow-hidden relative"
               >
                 <CardContent className="p-6 flex flex-col md:flex-row gap-6">
                   <div className="flex-1">

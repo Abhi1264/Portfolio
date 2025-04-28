@@ -142,7 +142,7 @@ export function ProjectsSection() {
           {filteredProjects.map((project, index) => (
             <Card
               key={index}
-              className="bg-black/50 border border-purple-500/20 overflow-hidden group"
+              className="bg-black/50 border border-purple-500/40 overflow-hidden group"
             >
               <div className="relative h-48 overflow-hidden">
                 <Image

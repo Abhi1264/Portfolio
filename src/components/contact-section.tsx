@@ -133,7 +133,7 @@ export function ContactSection() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 mt-12">
-          <Card className="bg-black/50 border border-purple-500/20 overflow-hidden">
+          <Card className="bg-black/50 border border-purple-500/40 overflow-hidden">
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-6">Contact Information</h3>
 
@@ -188,7 +188,7 @@ export function ContactSection() {
             </CardContent>
           </Card>
 
-          <Card className="bg-black/50 border border-purple-500/20 overflow-hidden">
+          <Card className="bg-black/50 border border-purple-500/40 overflow-hidden">
             <CardContent className="p-6">
               <h3 className="text-xl font-bold mb-6">Send Me a Message</h3>
 
@@ -203,7 +203,7 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     autoComplete="name"
-                    className="bg-black/30 border-purple-500/20 focus:border-purple-500/50"
+                    className="bg-black/30 border-purple-500/40 focus:border-purple-500/50"
                   />
                 </div>
 
@@ -218,7 +218,7 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     autoComplete="email"
-                    className="bg-black/30 border-purple-500/20 focus:border-purple-500/50"
+                    className="bg-black/30 border-purple-500/40 focus:border-purple-500/50"
                   />
                 </div>
 
@@ -232,7 +232,7 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     autoComplete="off"
-                    className="bg-black/30 border-purple-500/20 focus:border-purple-500/50"
+                    className="bg-black/30 border-purple-500/40 focus:border-purple-500/50"
                   />
                 </div>
 
@@ -246,7 +246,7 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     autoComplete="off"
-                    className="min-h-[120px] bg-black/30 border-purple-500/20 focus:border-purple-500/50"
+                    className="min-h-[120px] bg-black/30 border-purple-500/40 focus:border-purple-500/50"
                   />
                 </div>
 

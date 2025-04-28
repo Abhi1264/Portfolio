@@ -76,7 +76,7 @@ export default function WorkPage({ params }: { params: Promise<{ workId: string 
           ))}
         </div>
 
-        <footer className="mt-8 pt-8 border-t border-purple-500/20">
+        <footer className="mt-8 pt-8 border-t border-purple-500/40">
           <div className="flex flex-wrap gap-2">
             {work.tags.map((tag) => (
               <Badge

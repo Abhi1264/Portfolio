@@ -16,12 +16,12 @@ import { LogOut } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "/" },
-  { name: "About", href: "/#about" },
-  { name: "Experience", href: "/#experience" },
-  { name: "Education", href: "/#education" },
-  { name: "Projects", href: "/#projects" },
-  { name: "Works", href: "/#works" },
-  { name: "Contact", href: "/#contact" },
+  { name: "About", href: "#about" },
+  { name: "Experience", href: "#experience" },
+  { name: "Education", href: "#education" },
+  { name: "Projects", href: "#projects" },
+  { name: "Works", href: "#works" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export function Navbar() {
@@ -43,7 +43,7 @@ export function Navbar() {
         <Button
           variant="outline"
           className="border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 cursor-pointer"
-          onClick={() => signIn('google', { callbackUrl: '/' })}
+          onClick={() => signIn("google", { callbackUrl: "/" })}
         >
           Sign In
         </Button>
@@ -53,10 +53,10 @@ export function Navbar() {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-            <Button
+          <Button
             variant="ghost"
             className="relative h-9 w-9 rounded-full overflow-hidden ring-1 ring-purple-500/20 hover:ring-purple-500/40 transition-all cursor-pointer"
-            >
+          >
             <Image
               src={session.user?.image || ""}
               alt={session.user?.name || "Profile"}
@@ -65,7 +65,7 @@ export function Navbar() {
               sizes="2.5rem"
               priority
             />
-            </Button>
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56">
           <div className="flex items-center gap-2 p-2">
@@ -80,7 +80,9 @@ export function Navbar() {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-medium">{session.user?.name}</span>
-              <span className="text-xs text-muted-foreground">{session.user?.email}</span>
+              <span className="text-xs text-muted-foreground">
+                {session.user?.email}
+              </span>
             </div>
           </div>
           <DropdownMenuItem
@@ -106,21 +108,32 @@ export function Navbar() {
         <Link
           href="/"
           className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
+          onClick={() => setMobileMenuOpen(false)}
         >
           Abhi.1264
         </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center space-x-3">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="px-3 py-2 text-base hover:text-purple-400 transition-colors"
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.href.startsWith("#") ? (
+              <a
+                key={item.name}
+                href={item.href}
+                className="px-3 py-2 text-base hover:text-purple-400 transition-colors"
+              >
+                {item.name}
+              </a>
+            ) : (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="px-3 py-2 text-base hover:text-purple-400 transition-colors"
+              >
+                {item.name}
+              </Link>
+            )
+          )}
           <UserButton />
         </nav>
 
@@ -137,13 +150,17 @@ export function Navbar() {
               <span
                 className={cn(
                   "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
-                  mobileMenuOpen ? "rotate-45 translate-y-0" : "-translate-y-1.5"
+                  mobileMenuOpen
+                    ? "rotate-45 translate-y-0"
+                    : "-translate-y-1.5"
                 )}
               />
               <span
                 className={cn(
                   "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
-                  mobileMenuOpen ? "-rotate-45 translate-y-0" : "translate-y-1.5"
+                  mobileMenuOpen
+                    ? "-rotate-45 translate-y-0"
+                    : "translate-y-1.5"
                 )}
               />
             </div>
@@ -158,18 +175,29 @@ export function Navbar() {
           mobileMenuOpen ? "max-h-120" : "max-h-0"
         )}
       >
-        <nav className="bg-black/80 backdrop-blur-md border-b border-purple-500/20">
+        <nav className="bg-black/80 backdrop-blur-md border-b border-purple-500/40">
           <div className="flex flex-col space-y-5 p-4 transform transition-transform duration-300 ease-in-out">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.href.startsWith("#") ? (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              )
+            )}
           </div>
         </nav>
       </div>

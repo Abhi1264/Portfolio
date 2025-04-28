@@ -49,7 +49,7 @@ const SpotlightCard = ({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setOpacity(0.5)}
       onMouseLeave={() => setOpacity(0)}
-      className="bg-black/50 border border-purple-500/20 hover:border-purple-500/40 transition-colors group relative"
+      className="bg-black/50 border border-purple-500/40 hover:border-purple-500/60 transition-colors group relative"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"

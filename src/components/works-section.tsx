@@ -65,7 +65,7 @@ export function WorksSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
           {works.map((work) => (
             <Link href={`/works/${work.id}`} key={work.id}>
-              <Card className="bg-black/50 border border-purple-500/20 overflow-hidden hover:border-purple-500/40 hover:transform hover:scale-[1.02] transition-all duration-200 cursor-pointer">
+              <Card className="bg-black/50 border border-purple-500/40 overflow-hidden hover:border-purple-500/40 hover:transform hover:scale-[1.02] transition-all duration-200 cursor-pointer">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
                     <h3 className="text-xl font-bold line-clamp-2">{work.title}</h3>

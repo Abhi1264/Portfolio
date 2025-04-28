@@ -100,7 +100,7 @@ export function ExperienceSection() {
                       i % 2 === 0 ? "md:pr-12" : "md:pl-12"
                     }`}
                   >
-                    <Card className="bg-black/50 border border-purple-500/20 overflow-hidden">
+                    <Card className="bg-black/50 border border-purple-500/40 overflow-hidden">
                       <CardContent className="p-6">
                         <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                           <div>

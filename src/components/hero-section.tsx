@@ -96,7 +96,7 @@ const ActionButtons = React.memo(() => (
           ?.scrollIntoView({ behavior: "smooth" })
       }
     >
-      View My Work
+      View My Projects
     </Button>
     <Button
       variant="outline"
@@ -104,11 +104,11 @@ const ActionButtons = React.memo(() => (
       size="lg"
       onClick={() =>
         document
-          .getElementById("contact")
+          .getElementById("works")
           ?.scrollIntoView({ behavior: "smooth" })
       }
     >
-      Contact Me
+      View My Works
     </Button>
   </div>
 ));
@@ -180,7 +180,7 @@ export function HeroSection() {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10 flex flex-col justify-center items-center h-full">
         <div className="flex flex-col items-center text-center space-y-4">
-          <p className="inline-block rounded-full px-3 py-1 text-lg bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-4">
+          <p className="inline-block rounded-full px-3 py-1 text-lg bg-purple-500/10 text-purple-400 border border-purple-500/40 mb-4">
             Hello, I&apos;m
           </p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold tracking-tighter mb-4">

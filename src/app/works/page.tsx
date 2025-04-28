@@ -8,13 +8,12 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { format } from "date-fns";
 import Link from "next/link";
-import { MdOutlineCategory } from "react-icons/md";
-import { FaTag } from "react-icons/fa6";
 
 type Work = {
   id: string;
   title: string;
   content: string;
+  excerpt: string;
   category: string;
   date: string;
   tags: string[];
@@ -78,12 +77,11 @@ export default function WorksPage() {
             onClick={() => setSelectedCategory("all")}
             className={
               selectedCategory === "all"
-                ? "bg-purple-600 hover:bg-purple-700"
-                : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10"
+                ? "bg-purple-600 hover:bg-purple-700 cursor-pointer capitalize"
+                : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10 cursor-pointer capitalize"
             }
           >
-            <MdOutlineCategory className="mr-2" />
-            All Categories
+            all categories
           </Button>
           {categories.map((category) => (
             <Button
@@ -92,11 +90,10 @@ export default function WorksPage() {
               onClick={() => setSelectedCategory(category)}
               className={
                 selectedCategory === category
-                  ? "bg-purple-600 hover:bg-purple-700"
-                  : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10"
+                  ? "bg-purple-600 hover:bg-purple-700 cursor-pointer capitalize"
+                  : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10 cursor-pointer capitalize"
               }
             >
-              <MdOutlineCategory className="mr-2" />
               {category}
             </Button>
           ))}
@@ -106,7 +103,7 @@ export default function WorksPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredWorks.map((work) => (
             <Link href={`/works/${work.id}`} key={work.id}>
-              <Card className="h-full bg-black/50 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+              <Card className="h-full bg-black/50 border border-purple-500/40 hover:border-purple-500/60 transition-all duration-300">
                 <CardContent className="p-6">
                   <div className="flex flex-col h-full">
                     <div className="flex items-start justify-between gap-4 mb-4">
@@ -121,15 +118,14 @@ export default function WorksPage() {
                       </Badge>
                     </div>
                     <p className="text-muted-foreground mb-4 line-clamp-3 flex-1">
-                      {work.content}
+                      {work.excerpt}
                     </p>
                     <div className="mt-auto">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
-                        <FaTag className="text-purple-400" />
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-4">
                           {work.tags.map((tag) => (
-                            <span key={tag} className="hover:text-purple-400">
-                              #{tag}
+                            <span key={tag} className="capitalize bg-purple-500/10 text-purple-300 hover:bg-purple-500/20">
+                              {tag}
                             </span>
                           ))}
                         </div>
