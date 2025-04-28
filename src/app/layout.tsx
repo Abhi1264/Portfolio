@@ -34,7 +34,18 @@ export default function RootLayout({
           >
             {children}
             <Analytics />
-            <Toaster />
+            <Toaster
+              theme="dark"
+              position="bottom-right"
+              expand={false}
+              richColors
+              closeButton
+              style={{
+                background: 'hsl(var(--background))',
+                color: 'hsl(var(--foreground))',
+                border: '1px solid hsl(var(--border))',
+              }}
+            />
           </ThemeProvider>
         </NextAuthProvider>
       </body>
