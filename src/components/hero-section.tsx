@@ -86,29 +86,31 @@ const ScrollDownButton = React.memo(() => (
 ScrollDownButton.displayName = "ScrollDownButton";
 
 const ActionButtons = React.memo(() => (
-  <div className="flex gap-5 mb-8">
+  <div className="flex flex-wrap gap-5 mb-8">
     <Button
       className="bg-purple-600 hover:bg-purple-700 text-white cursor-pointer hover:scale-105 transition-all duration-200"
       size="lg"
       onClick={() =>
         document
-          .getElementById("projects")
+          .getElementById("contact")
           ?.scrollIntoView({ behavior: "smooth" })
       }
     >
-      View My Projects
+      Contact Me
     </Button>
     <Button
       variant="outline"
       className="border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 cursor-pointer hover:scale-105 transition-all duration-200"
       size="lg"
-      onClick={() =>
-        document
-          .getElementById("works")
-          ?.scrollIntoView({ behavior: "smooth" })
-      }
+      asChild
     >
-      View My Works
+      <a
+        href="https://drive.google.com/file/d/1V8q8yzVHgjv35e1ZuqXOcCn07vWNfF-J/view?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        View My Resume
+      </a>
     </Button>
   </div>
 ));
