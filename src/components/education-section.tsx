@@ -6,16 +6,16 @@ import { GraduationCap } from "lucide-react";
 
 const education = [
   {
-    degree: "Bachelor of Technology in Electronics & Communication Engineering",
-    institution: "Birla Institute of Technology, Mesra, Ranchi",
-    period: "2023 - 2027",
-    image: "/bitmesra.webp",
+    degree: "Class X - ICSE",
+    institution: "St. Thomas School, Dhurwa, Ranchi",
+    period: "2009 - 2021",
+    image: "/stthomas.jpg",
     description:
-      "Pursuing a degree in Electronics and Communication Engineering with a focus on Signal Processing and Deep Learning. Engaged in various projects and research activities.",
+      "Completed Class X with a strong academic record and a keen interest in Science and Mathematics. Involved in various school activities and national olympiads competitions.",
     achievements: [
-      "Associate Member, EDC",
-      "Design Head, ECE Society",
-      "Senior Executive Member, IET",
+      "Scored 97.5%: City Rank 10",
+      "6 times Internation Mathematics Olympiad Medalist",
+      "5 times National Science Olympiad Medalist",
     ],
   },
   {
@@ -31,16 +31,16 @@ const education = [
     ],
   },
   {
-    degree: "Class X - ICSE",
-    institution: "St. Thomas School, Dhurwa, Ranchi",
-    period: "2009 - 2021",
-    image: "/stthomas.jpg",
+    degree: "Bachelor of Technology in Electronics & Communication Engineering",
+    institution: "Birla Institute of Technology, Mesra, Ranchi",
+    period: "2023 - 2027",
+    image: "/bitmesra.webp",
     description:
-      "Completed Class X with a strong academic record and a keen interest in Science and Mathematics. Involved in various school activities and national olympiads competitions.",
+      "Pursuing a degree in Electronics and Communication Engineering with a focus on Signal Processing and Deep Learning. Engaged in various projects and research activities.",
     achievements: [
-      "Scored 97.5%: City Rank 10",
-      "6 times Internation Mathematics Olympiad Medalist",
-      "5 times National Science Olympiad Medalist",
+      "Associate Member, EDC",
+      "Design Head, ECE Society",
+      "Senior Executive Member, IET",
     ],
   },
 ];

@@ -8,12 +8,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const experiences = [
   {
-    title: "SDE Intern",
+    title: "Graphic Designer",
     company: "Bloom Tide Consulting",
-    period: "Feb 2025 - Present",
+    period: "July 2024 - Feb 2025",
     description:
-      "Developed front-end for a social media platform and led UI/UX redesigns.",
-    skills: ["TypeScript", "React", "Tailwind CSS", "Vite"],
+      "Created visual assets for social media, focusing on branding.",
+    skills: ["Figma", "Canva", "Adobe Creative Suite"],
   },
   {
     title: "UI/UX Designer & Frontend Developer",
@@ -24,12 +24,12 @@ const experiences = [
     skills: ["Figma", "React", "Next", "Tailwind CSS", "Shadcn/ui", "Three"],
   },
   {
-    title: "Graphic Designer",
+    title: "SDE Intern",
     company: "Bloom Tide Consulting",
-    period: "July 2024 - Feb 2025",
+    period: "Feb 2025 - Present",
     description:
-      "Created visual assets for social media, focusing on branding.",
-    skills: ["Figma", "Canva", "Adobe Creative Suite"],
+      "Developed front-end for a social media platform and led UI/UX redesigns.",
+    skills: ["TypeScript", "React", "Tailwind CSS", "Vite"],
   },
 ];
 
