@@ -21,8 +21,9 @@ const getFirebaseAdmin = () => {
         credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
       });
       console.log('Firebase Admin SDK initialized successfully');
-    } catch (error: any) {
-      console.error('Firebase Admin initialization error:', error.message);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      console.error('Firebase Admin initialization error:', errorMessage);
       
       // If we're in development, provide more guidance
       if (process.env.NODE_ENV !== 'production') {

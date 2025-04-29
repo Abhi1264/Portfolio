@@ -62,17 +62,19 @@ export async function POST(request: NextRequest) {
         success: true,
         comment
       });
-    } catch (dbError: any) {
-      console.error('Firestore operation error:', dbError);
+    } catch (dbError: unknown) {
+      const errorMessage = dbError instanceof Error ? dbError.message : 'Unknown database error';
+      console.error('Firestore operation error:', errorMessage);
       return NextResponse.json(
-        { error: `Database error: ${dbError.message}` },
+        { error: `Database error: ${errorMessage}` },
         { status: 500 }
       );
     }
-  } catch (error: any) {
-    console.error('Error adding comment:', error);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('Error adding comment:', errorMessage);
     return NextResponse.json(
-      { error: `Internal server error: ${error.message}` },
+      { error: `Internal server error: ${errorMessage}` },
       { status: 500 }
     );
   }
