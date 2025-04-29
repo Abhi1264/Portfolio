@@ -213,7 +213,7 @@ export function Navbar() {
     if (isWorksPage && !isScrolled) {
       setIsScrolled(true);
     }
-  }, [isWorksPage]);
+  }, [isWorksPage, isScrolled]);
 
   // Optimized scroll handler with debounce and state update check
   const handleScroll = useCallback(() => {

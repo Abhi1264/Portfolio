@@ -233,8 +233,6 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       return;
     }
 
-    setIsLoading(true);
-
     // Create a comment object for optimistic UI update
     const optimisticComment: Comment = {
       id: `temp-${Date.now()}`,
@@ -311,7 +309,3 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
     </div>
   );
 }
-function setIsLoading(arg0: boolean) {
-  throw new Error("Function not implemented.");
-}
-
