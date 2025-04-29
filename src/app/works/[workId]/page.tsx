@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
@@ -31,13 +31,20 @@ export default function WorkPage({
   params: Promise<{ workId: string }>;
 }) {
   const [work, setWork] = useState<Work | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const unwrappedParams = React.use(params);
 
   useEffect(() => {
-    if (!unwrappedParams?.workId) return;
+    async function fetchWork() {
+      if (!unwrappedParams?.workId) {
+        setError("Work ID not found");
+        setLoading(false);
+        return;
+      }
 
-    const fetchWork = async () => {
       try {
+        setLoading(true);
         const workRef = doc(db, "works", unwrappedParams.workId);
         const workSnap = await getDoc(workRef);
 
@@ -46,16 +53,45 @@ export default function WorkPage({
             id: workSnap.id,
             ...workSnap.data(),
           } as Work);
+        } else {
+          setError("Work not found");
         }
       } catch (error) {
         console.error("Error fetching work:", error);
+        setError("Failed to load the work. Please try again later.");
+      } finally {
+        setLoading(false);
       }
-    };
+    }
 
     fetchWork();
   }, [unwrappedParams?.workId]);
 
-  if (!work) {
+  // Memoize the content paragraphs to avoid re-rendering
+  const contentParagraphs = useMemo(() => {
+    if (!work?.content) return [];
+    return work.content.split("\n").map((paragraph, idx) => (
+      <p key={idx} className="mb-4">
+        {paragraph}
+      </p>
+    ));
+  }, [work?.content]);
+
+  // Memoize the tags to avoid re-rendering
+  const tagBadges = useMemo(() => {
+    if (!work?.tags) return [];
+    return work.tags.map((tag) => (
+      <Badge
+        key={tag}
+        variant="outline"
+        className="border-purple-500/50 text-purple-300 capitalize"
+      >
+        {tag}
+      </Badge>
+    ));
+  }, [work?.tags]);
+
+  if (loading) {
     return (
       <main className="pt-24">
         <div className="container">
@@ -65,6 +101,29 @@ export default function WorkPage({
         </div>
       </main>
     );
+  }
+
+  if (error) {
+    return (
+      <main className="pt-24">
+        <div className="container">
+          <div className="flex flex-col justify-center items-center min-h-[60vh] text-center">
+            <h1 className="text-3xl font-bold text-red-500 mb-4">Error</h1>
+            <p className="text-muted-foreground mb-6">{error}</p>
+            <a 
+              href="/works"
+              className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+            >
+              Return to Works
+            </a>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (!work) {
+    return null;
   }
 
   return (
@@ -86,24 +145,12 @@ export default function WorkPage({
         </header>
 
         <div className="prose prose-invert prose-purple max-w-none">
-          {work.content.split("\n").map((paragraph, idx) => (
-            <p key={idx} className="mb-4">
-              {paragraph}
-            </p>
-          ))}
+          {contentParagraphs}
         </div>
 
         <footer className="mt-8 pt-8 border-t border-purple-500/40">
           <div className="flex flex-wrap gap-2 mb-8">
-            {work.tags.map((tag) => (
-              <Badge
-                key={tag}
-                variant="outline"
-                className="border-purple-500/50 text-purple-300 capitalize"
-              >
-                {tag}
-              </Badge>
-            ))}
+            {tagBadges}
           </div>
 
           <WorkInteractions workId={work.id} />
