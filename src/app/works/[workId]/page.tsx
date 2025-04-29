@@ -99,7 +99,7 @@ export default function WorkPage({
               <Badge
                 key={tag}
                 variant="outline"
-                className="border-purple-500/50 text-purple-300"
+                className="border-purple-500/50 text-purple-300 capitalize"
               >
                 {tag}
               </Badge>

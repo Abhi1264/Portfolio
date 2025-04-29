@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import { Button } from "./button";
 import { Textarea } from "./textarea";
 import { doc, getDoc } from "firebase/firestore";
@@ -54,7 +54,7 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       }
     };
 
-    if (workId && session) {
+    if (workId) {
       fetchInteractions();
     }
   }, [workId, session]);
@@ -196,7 +196,7 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
           variant="ghost"
           onClick={handleLike}
           disabled={!session}
-          className="flex items-center gap-2 text-purple-300 hover:text-purple-400"
+          className="flex items-center gap-2 text-purple-300 hover:text-purple-400 cursor-pointer"
         >
           {liked ? (
             <AiFillHeart className="text-red-500" />
@@ -228,7 +228,13 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
         </div>
       ) : (
         <div className="mb-8 p-4 bg-purple-500/10 rounded-md text-center">
-          <p>Please sign in to comment</p>
+          <p className="mb-3">Join the discussion by signing in!</p>
+          <Button 
+            onClick={() => signIn("google")}
+            className="bg-purple-600 hover:bg-purple-700 px-8 cursor-pointer"
+          >
+            Sign In
+          </Button>
         </div>
       )}
 

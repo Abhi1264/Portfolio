@@ -73,7 +73,7 @@ export function WorksSection() {
                     </h3>
                     <Badge
                       variant="outline"
-                      className="border-purple-500/50 text-purple-300"
+                      className="border-purple-500/50 text-purple-300 capitalize"
                     >
                       {work.category}
                     </Badge>
@@ -92,7 +92,7 @@ export function WorksSection() {
                       {work.tags.slice(0, 3).map((tag) => (
                         <Badge
                           key={tag}
-                          className="bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
+                          className="bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 capitalize"
                         >
                           {tag}
                         </Badge>
