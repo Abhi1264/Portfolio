@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "./button";
 import { Textarea } from "./textarea";
-import { doc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { Avatar } from "@/components/ui/avatar";
 import { format } from "date-fns";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { toast } from "sonner";
 
 type Comment = {
   id: string;
@@ -33,53 +34,101 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
 
   useEffect(() => {
     const fetchInteractions = async () => {
-      const docRef = doc(db, "works", workId);
-      const docSnap = await getDoc(docRef);
-      
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const likesArray = data.likes || [];
-        setLikes(likesArray);
-        setComments(data.comments || []);
-        setLiked(session?.user?.email ? likesArray.includes(session.user.email) : false);
+      try {
+        const docRef = doc(db, "works", workId);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const likesArray = data.likes || [];
+          setLikes(likesArray);
+          setComments(data.comments || []);
+          setLiked(
+            session?.user?.email
+              ? likesArray.includes(session.user.email)
+              : false
+          );
+        }
+      } catch (error) {
+        console.error("Error fetching interactions:", error);
       }
     };
 
-    fetchInteractions();
-  }, [workId, session?.user?.email]);
+    if (workId && session) {
+      fetchInteractions();
+    }
+  }, [workId, session]);
 
   const handleLike = async () => {
-    if (!session?.user?.email) return;
+    if (!session?.user?.email) {
+      toast.error("You need to be signed in to like works");
+      return;
+    }
+
+    // Optimistic UI update
+    const newLikedState = !liked;
     const userEmail = session.user.email;
+    const optimisticLikes = newLikedState
+      ? [...likes, userEmail]
+      : likes.filter((email) => email !== userEmail);
+
+    setLiked(newLikedState);
+    setLikes(optimisticLikes);
 
     try {
-      const workRef = doc(db, "works", workId);
-      const workDoc = await getDoc(workRef);
-      
-      if (!workDoc.exists()) return;
-      
-      const currentLikes = workDoc.data().likes || [];
-      const newLikes = liked
-        ? currentLikes.filter((email: string) => email !== userEmail)
-        : [...currentLikes, userEmail];
-
-      await updateDoc(workRef, {
-        likes: newLikes
+      // Use absolute URL with base path
+      const response = await fetch(`${window.location.origin}/api/works/like`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ workId }),
       });
 
-      setLiked(!liked);
-      setLikes(newLikes);
+      // Log response details for debugging
+      console.log(`Like API Response Status: ${response.status}`);
+      const responseText = await response.text();
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error("Failed to parse response as JSON:", responseText);
+        throw new Error("Invalid response format");
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to update like");
+      }
+
+      // Update with actual server data
+      setLiked(data.liked);
+      setLikes(data.likes);
     } catch (error) {
-      console.error("Error updating likes:", error);
+      console.error("Error updating like:", error);
+      // Revert UI on error
+      setLiked(liked);
+      setLikes(likes);
+      toast.error("Failed to update like. Please try again.");
     }
   };
 
   const handleComment = async () => {
-    if (!session?.user || !newComment.trim()) return;
+    if (!session?.user) {
+      toast.error("You need to be signed in to comment");
+      return;
+    }
+    
+    if (!newComment.trim()) {
+      toast.error("Comment cannot be empty");
+      return;
+    }
 
     setIsLoading(true);
-    const comment: Comment = {
-      id: Date.now().toString(),
+    
+    // Create a comment object for optimistic UI update
+    const optimisticComment: Comment = {
+      id: `temp-${Date.now()}`,
       text: newComment.trim(),
       userId: session.user.email!,
       userImage: session.user.image || "",
@@ -87,14 +136,53 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       createdAt: new Date().toISOString()
     };
 
-    const workRef = doc(db, "works", workId);
-    await updateDoc(workRef, {
-      comments: arrayUnion(comment)
-    });
-
-    setComments(prev => [...prev, comment]);
+    // Optimistic UI update
+    setComments(prev => [...prev, optimisticComment]);
     setNewComment("");
-    setIsLoading(false);
+    
+    try {
+      // Use absolute URL with base path
+      const response = await fetch(`${window.location.origin}/api/works/comment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          workId, 
+          text: optimisticComment.text 
+        }),
+      });
+      
+      // Log response details for debugging
+      console.log(`Comment API Response Status: ${response.status}`);
+      const responseText = await response.text();
+      
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error("Failed to parse response as JSON:", responseText);
+        throw new Error("Invalid response format");
+      }
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to post comment');
+      }
+      
+      // Replace the temp comment with the real one from server
+      setComments(prev => 
+        prev.map(c => c.id === optimisticComment.id ? data.comment : c)
+      );
+      
+    } catch (error) {
+      console.error("Error adding comment:", error);
+      // Remove the optimistic comment on error
+      setComments(prev => prev.filter(c => c.id !== optimisticComment.id));
+      setNewComment(optimisticComment.text);
+      toast.error("Failed to post comment. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -106,13 +194,19 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
           disabled={!session}
           className="flex items-center gap-2 text-purple-300 hover:text-purple-400"
         >
-          {liked ? <AiFillHeart className="text-red-500" /> : <AiOutlineHeart />}
-          <span>{likes.length} {likes.length === 1 ? "Like" : "Likes"}</span>
+          {liked ? (
+            <AiFillHeart className="text-red-500" />
+          ) : (
+            <AiOutlineHeart />
+          )}
+          <span>
+            {likes.length} {likes.length === 1 ? "Like" : "Likes"}
+          </span>
         </Button>
         <span className="text-purple-300">{comments.length} Comments</span>
       </div>
 
-      {session && (
+      {session ? (
         <div className="mb-8">
           <Textarea
             value={newComment}
@@ -122,11 +216,15 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
           />
           <Button
             onClick={handleComment}
-            disabled={!newComment.trim() || isLoading}
+            disabled={isLoading}
             className="bg-purple-600 hover:bg-purple-700"
           >
             {isLoading ? "Posting..." : "Post Comment"}
           </Button>
+        </div>
+      ) : (
+        <div className="mb-8 p-4 bg-purple-500/10 rounded-md text-center">
+          <p>Please sign in to comment</p>
         </div>
       )}
 
@@ -136,7 +234,9 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
             <Avatar src={comment.userImage} alt={comment.userName} />
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-semibold text-purple-300">{comment.userName}</span>
+                <span className="font-semibold text-purple-300">
+                  {comment.userName}
+                </span>
                 <span className="text-sm text-purple-400">
                   {format(new Date(comment.createdAt), "MMM d, yyyy")}
                 </span>
