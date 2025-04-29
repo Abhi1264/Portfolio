@@ -153,7 +153,6 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState<string[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchInteractions = async () => {
@@ -280,11 +279,9 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       // Remove the optimistic comment on error
       setComments((prev) => prev.filter((c) => c.id !== optimisticComment.id));
       toast.error("Failed to post comment. Please try again.");
-    } finally {
-      setIsLoading(false);
+      toast.error("Failed to post comment. Please try again.");
     }
   }, [session, workId]);
-
   // Stable props for the like button - only change when needed
   const likeButtonProps = useMemo(() => ({
     liked,
@@ -314,3 +311,7 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
     </div>
   );
 }
+function setIsLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+

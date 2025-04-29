@@ -6,6 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { format } from "date-fns";
 import { WorkInteractions } from "@/components/ui/work-interactions";
+import Link from "next/link";
 
 type Work = {
   id: string;
@@ -110,12 +111,12 @@ export default function WorkPage({
           <div className="flex flex-col justify-center items-center min-h-[60vh] text-center">
             <h1 className="text-3xl font-bold text-red-500 mb-4">Error</h1>
             <p className="text-muted-foreground mb-6">{error}</p>
-            <a 
+            <Link
               href="/works"
               className="px-6 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
             >
               Return to Works
-            </a>
+            </Link>
           </div>
         </div>
       </main>
