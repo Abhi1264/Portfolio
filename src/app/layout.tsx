@@ -41,9 +41,9 @@ export default function RootLayout({
               richColors
               closeButton
               style={{
-                background: 'hsl(var(--background))',
-                color: 'hsl(var(--foreground))',
-                border: '1px solid hsl(var(--border))',
+                background: "hsl(var(--background))",
+                color: "hsl(var(--foreground))",
+                border: "1px solid hsl(var(--border))",
               }}
             />
           </ThemeProvider>

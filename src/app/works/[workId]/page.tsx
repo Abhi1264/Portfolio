@@ -25,7 +25,11 @@ type Work = {
   }>;
 };
 
-export default function WorkPage({ params }: { params: Promise<{ workId: string }> }) {
+export default function WorkPage({
+  params,
+}: {
+  params: Promise<{ workId: string }>;
+}) {
   const [work, setWork] = useState<Work | null>(null);
   const unwrappedParams = React.use(params);
 
@@ -72,7 +76,10 @@ export default function WorkPage({ params }: { params: Promise<{ workId: string 
             <time dateTime={work.date}>
               {format(new Date(work.date), "MMMM d, yyyy")}
             </time>
-            <Badge variant="outline" className="border-purple-500/50 text-purple-300">
+            <Badge
+              variant="outline"
+              className="border-purple-500/50 text-purple-300"
+            >
               {work.category.charAt(0).toUpperCase() + work.category.slice(1)}
             </Badge>
           </div>
@@ -98,7 +105,7 @@ export default function WorkPage({ params }: { params: Promise<{ workId: string 
               </Badge>
             ))}
           </div>
-          
+
           <WorkInteractions workId={work.id} />
         </footer>
       </article>

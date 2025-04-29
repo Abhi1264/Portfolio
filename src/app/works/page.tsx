@@ -51,9 +51,10 @@ export default function WorksPage() {
     fetchWorks();
   }, []);
 
-  const filteredWorks = selectedCategory === "all"
-    ? works
-    : works.filter((work) => work.category === selectedCategory);
+  const filteredWorks =
+    selectedCategory === "all"
+      ? works
+      : works.filter((work) => work.category === selectedCategory);
 
   return (
     <main className="pt-24 pb-16">
@@ -65,8 +66,8 @@ export default function WorksPage() {
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
           <p className="max-w-3xl text-muted-foreground text-lg">
-            A collection of my writings, including poems, essays, and creative works.
-            Explore different categories to find what interests you.
+            A collection of my writings, including poems, essays, and creative
+            works. Explore different categories to find what interests you.
           </p>
         </div>
 
@@ -124,7 +125,10 @@ export default function WorksPage() {
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
                         <div className="flex flex-wrap gap-4">
                           {work.tags.map((tag) => (
-                            <span key={tag} className="capitalize bg-purple-500/10 text-purple-300 hover:bg-purple-500/20">
+                            <span
+                              key={tag}
+                              className="capitalize bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
+                            >
                               {tag}
                             </span>
                           ))}

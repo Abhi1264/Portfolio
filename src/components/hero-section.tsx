@@ -72,9 +72,7 @@ const ScrollDownButton = React.memo(() => (
       size="icon"
       className="rounded-full text-purple-400 hover:bg-purple-500/10"
       onClick={() =>
-        document
-          .getElementById("about")
-          ?.scrollIntoView({ behavior: "smooth" })
+        document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })
       }
     >
       <MdArrowDownward className="h-6 w-6" />

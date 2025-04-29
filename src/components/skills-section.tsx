@@ -74,81 +74,81 @@ export function SkillsSection() {
     <>
       {/* Forward Scrolling Animation Section */}
       <div className="relative pt-20">
-          {/* Header */}
-          <div className="flex flex-col items-center text-center mb-12">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-              Skills & Technologies
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
-            <p className="max-w-5xl text-muted-foreground">
-              A collection of tools and technologies I have worked with.
-            </p>
-          </div>
-          <div className="absolute top-0 left-0 h-full w-36 sm:w-56 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute top-0 right-0 h-full w-36 sm:w-56 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
-          {/* Scrolling Container */}
-          <div className="overflow-hidden">
-            <div className="flex animate-infinite-slide shrink-0 flex-nowrap w-[700%]">
-              {/* Repeat the images 4 times for continuous scrolling */}
-              {[...Array(4)].map((_, fadeIndex) => (
-                <div key={fadeIndex} className="flex whitespace-nowrap">
-                  {images.map((image, idx) => (
-                    <div
-                      key={idx}
-                      className="h-28 w-28 sm:h-40 sm:w-40 flex flex-col justify-center items-center my-6 sm:my-0"
-                    >
-                      {/* Display each image with its name using Next/Image */}
-                      <Image
-                        src={image.src}
-                        alt={image.name}
-                        width={imageWidth * 0.75}
-                        height={imageHeight * 0.75}
-                        draggable={false} // Prevent dragging
-                        className="mb-2 rounded-2xl object-contain" // Added object-contain
-                        priority={idx < 10} // Prioritize loading initial images
-                      />
-                      <p className="text-sm">{image.name}</p>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
+        {/* Header */}
+        <div className="flex flex-col items-center text-center mb-12">
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+            Skills & Technologies
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
+          <p className="max-w-5xl text-muted-foreground">
+            A collection of tools and technologies I have worked with.
+          </p>
+        </div>
+        <div className="absolute top-0 left-0 h-full w-36 sm:w-56 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 h-full w-36 sm:w-56 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+        {/* Scrolling Container */}
+        <div className="overflow-hidden">
+          <div className="flex animate-infinite-slide shrink-0 flex-nowrap w-[700%]">
+            {/* Repeat the images 4 times for continuous scrolling */}
+            {[...Array(4)].map((_, fadeIndex) => (
+              <div key={fadeIndex} className="flex whitespace-nowrap">
+                {images.map((image, idx) => (
+                  <div
+                    key={idx}
+                    className="h-28 w-28 sm:h-40 sm:w-40 flex flex-col justify-center items-center my-6 sm:my-0"
+                  >
+                    {/* Display each image with its name using Next/Image */}
+                    <Image
+                      src={image.src}
+                      alt={image.name}
+                      width={imageWidth * 0.75}
+                      height={imageHeight * 0.75}
+                      draggable={false} // Prevent dragging
+                      className="mb-2 rounded-2xl object-contain" // Added object-contain
+                      priority={idx < 10} // Prioritize loading initial images
+                    />
+                    <p className="text-sm">{image.name}</p>
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* Reverse Scrolling Animation Section */}
-        <div className="relative mb-20">
-          <div className="absolute top-0 left-0 h-full w-36 sm:w-56 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute top-0 right-0 h-full w-36 sm:w-56 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
-          {/* Scrolling Container */}
-          <div className="overflow-hidden">
-            <div className="flex animate-infinite-slide-reverse shrink-0 flex-nowrap w-[700%]">
-              {/* Repeat the reversed images 4 times for continuous reverse scrolling */}
-              {[...Array(4)].map((_, fadeIndex) => (
-                <div key={fadeIndex} className="flex whitespace-nowrap">
-                  {reversedImages.map((image, idx) => (
-                    <div
-                      key={`reverse-${idx}`}
-                      className="h-28 w-28 sm:h-40 sm:w-40 flex flex-col justify-center items-center my-6 sm:my-0"
-                    >
-                      {/* Display each reversed image with its name using Next/Image */}
-                      <Image
-                        src={image.src}
-                        alt={image.name}
-                        width={imageWidth * 0.75}
-                        height={imageHeight * 0.75}
-                        draggable={false} // Prevent dragging
-                        className="mb-2 rounded-2xl object-contain" // Added object-contain
-                        priority={idx < 10} // Prioritize loading initial images
-                      />
-                      <p className="text-sm">{image.name}</p>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
+      {/* Reverse Scrolling Animation Section */}
+      <div className="relative mb-20">
+        <div className="absolute top-0 left-0 h-full w-36 sm:w-56 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 h-full w-36 sm:w-56 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+        {/* Scrolling Container */}
+        <div className="overflow-hidden">
+          <div className="flex animate-infinite-slide-reverse shrink-0 flex-nowrap w-[700%]">
+            {/* Repeat the reversed images 4 times for continuous reverse scrolling */}
+            {[...Array(4)].map((_, fadeIndex) => (
+              <div key={fadeIndex} className="flex whitespace-nowrap">
+                {reversedImages.map((image, idx) => (
+                  <div
+                    key={`reverse-${idx}`}
+                    className="h-28 w-28 sm:h-40 sm:w-40 flex flex-col justify-center items-center my-6 sm:my-0"
+                  >
+                    {/* Display each reversed image with its name using Next/Image */}
+                    <Image
+                      src={image.src}
+                      alt={image.name}
+                      width={imageWidth * 0.75}
+                      height={imageHeight * 0.75}
+                      draggable={false} // Prevent dragging
+                      className="mb-2 rounded-2xl object-contain" // Added object-contain
+                      priority={idx < 10} // Prioritize loading initial images
+                    />
+                    <p className="text-sm">{image.name}</p>
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
+      </div>
     </>
   );
 }

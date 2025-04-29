@@ -68,8 +68,13 @@ export function WorksSection() {
               <Card className="bg-black/50 border border-purple-500/40 overflow-hidden hover:border-purple-500/40 hover:transform hover:scale-[1.02] transition-all duration-200 cursor-pointer">
                 <CardContent className="p-6">
                   <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold line-clamp-2">{work.title}</h3>
-                    <Badge variant="outline" className="border-purple-500/50 text-purple-300">
+                    <h3 className="text-xl font-bold line-clamp-2">
+                      {work.title}
+                    </h3>
+                    <Badge
+                      variant="outline"
+                      className="border-purple-500/50 text-purple-300"
+                    >
                       {work.category}
                     </Badge>
                   </div>
@@ -77,7 +82,10 @@ export function WorksSection() {
                     {work.excerpt}
                   </p>
                   <div className="flex justify-between items-center">
-                    <time dateTime={work.date} className="text-sm text-muted-foreground">
+                    <time
+                      dateTime={work.date}
+                      className="text-sm text-muted-foreground"
+                    >
                       {format(new Date(work.date), "MMMM d, yyyy")}
                     </time>
                     <div className="flex flex-wrap gap-2">

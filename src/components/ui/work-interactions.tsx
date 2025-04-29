@@ -92,7 +92,8 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       let data;
       try {
         data = JSON.parse(responseText);
-      } catch (e) {
+      } catch (_) {
+        // Using underscore to indicate intentionally unused parameter
         console.error("Failed to parse response as JSON:", responseText);
         throw new Error("Invalid response format");
       }
@@ -118,14 +119,14 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       toast.error("You need to be signed in to comment");
       return;
     }
-    
+
     if (!newComment.trim()) {
       toast.error("Comment cannot be empty");
       return;
     }
 
     setIsLoading(true);
-    
+
     // Create a comment object for optimistic UI update
     const optimisticComment: Comment = {
       id: `temp-${Date.now()}`,
@@ -133,51 +134,54 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       userId: session.user.email!,
       userImage: session.user.image || "",
       userName: session.user.name || "",
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
 
     // Optimistic UI update
-    setComments(prev => [...prev, optimisticComment]);
+    setComments((prev) => [...prev, optimisticComment]);
     setNewComment("");
-    
+
     try {
       // Use absolute URL with base path
-      const response = await fetch(`${window.location.origin}/api/works/comment`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ 
-          workId, 
-          text: optimisticComment.text 
-        }),
-      });
-      
+      const response = await fetch(
+        `${window.location.origin}/api/works/comment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            workId,
+            text: optimisticComment.text,
+          }),
+        }
+      );
+
       // Log response details for debugging
       console.log(`Comment API Response Status: ${response.status}`);
       const responseText = await response.text();
-      
+
       let data;
       try {
         data = JSON.parse(responseText);
-      } catch (e) {
+      } catch (_) {
+        // Using underscore to indicate intentionally unused parameter
         console.error("Failed to parse response as JSON:", responseText);
         throw new Error("Invalid response format");
       }
-      
+
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to post comment');
+        throw new Error(data.error || "Failed to post comment");
       }
-      
+
       // Replace the temp comment with the real one from server
-      setComments(prev => 
-        prev.map(c => c.id === optimisticComment.id ? data.comment : c)
+      setComments((prev) =>
+        prev.map((c) => (c.id === optimisticComment.id ? data.comment : c))
       );
-      
     } catch (error) {
       console.error("Error adding comment:", error);
       // Remove the optimistic comment on error
-      setComments(prev => prev.filter(c => c.id !== optimisticComment.id));
+      setComments((prev) => prev.filter((c) => c.id !== optimisticComment.id));
       setNewComment(optimisticComment.text);
       toast.error("Failed to post comment. Please try again.");
     } finally {

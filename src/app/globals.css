@@ -23,7 +23,8 @@
   --radius: 0.5rem;
 }
 
-html, body {
+html,
+body {
   background: black;
   scroll-behavior: smooth;
 }
