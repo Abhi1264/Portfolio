@@ -92,8 +92,8 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       let data;
       try {
         data = JSON.parse(responseText);
-      } catch (_) {
-        // Using underscore to indicate intentionally unused parameter
+      } catch {
+        // No parameter needed here
         console.error("Failed to parse response as JSON:", responseText);
         throw new Error("Invalid response format");
       }
@@ -164,8 +164,8 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       let data;
       try {
         data = JSON.parse(responseText);
-      } catch (_) {
-        // Using underscore to indicate intentionally unused parameter
+      } catch {
+        // No parameter needed here
         console.error("Failed to parse response as JSON:", responseText);
         throw new Error("Invalid response format");
       }
