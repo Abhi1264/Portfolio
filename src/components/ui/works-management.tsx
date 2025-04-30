@@ -217,12 +217,7 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
     [session?.user?.email, authorizedEmail]
   );
   
-  // Don't render anything if not authorized
-  if (!isAuthorized) {
-    return null;
-  }
-
-  // Form submission handlers
+  // Form submission handlers - defined before any conditional returns
   const handleAddWork = useCallback(async (formData: {
     title: string;
     excerpt: string;
@@ -290,6 +285,11 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
       setIsSubmitting(false);
     }
   }, [onWorksChanged]);
+  
+  // Don't render anything if not authorized
+  if (!isAuthorized) {
+    return null;
+  }
   
   return (
     <div className="mb-8 border border-purple-500/40 rounded-lg p-4 bg-black/30">
