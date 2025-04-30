@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,6 +20,91 @@ type Work = {
   date: string;
   tags: string[];
 };
+
+// Memoized category button component to prevent re-renders
+const CategoryButton = React.memo(({ 
+  category, 
+  isSelected, 
+  onClick 
+}: { 
+  category: string; 
+  isSelected: boolean; 
+  onClick: () => void;
+}) => (
+  <Button
+    variant={isSelected ? "default" : "outline"}
+    onClick={onClick}
+    className={
+      isSelected
+        ? "bg-purple-600 hover:bg-purple-700 cursor-pointer capitalize"
+        : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10 cursor-pointer capitalize"
+    }
+  >
+    {category === "all" ? "all categories" : category}
+  </Button>
+));
+
+CategoryButton.displayName = "CategoryButton";
+
+// Memoized work card component to prevent re-renders
+const WorkCard = React.memo(({ work }: { work: Work }) => (
+  <Link href={`/works/${work.id}`}>
+    <Card className="h-full bg-black/50 border border-purple-500/40 hover:border-purple-500/60 transition-all duration-300">
+      <CardContent className="p-6">
+        <div className="flex flex-col h-full">
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <h2 className="text-xl font-bold line-clamp-2 flex-1">
+              {work.title}
+            </h2>
+            <Badge
+              variant="outline"
+              className="border-purple-500/50 text-purple-300 shrink-0 capitalize"
+            >
+              {work.category}
+            </Badge>
+          </div>
+          <p className="text-muted-foreground mb-4 line-clamp-3 flex-1">
+            {work.excerpt}
+          </p>
+          <div className="mt-auto">
+            <div className="flex flex-wrap gap-2 mb-3">
+              {work.tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs px-2 py-1 rounded-full capitalize bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
+                >
+                  {tag}
+                </span>
+              ))}
+              {work.tags.length > 3 && (
+                <span className="text-xs text-purple-400">+{work.tags.length - 3} more</span>
+              )}
+            </div>
+            <time
+              dateTime={work.date}
+              className="text-sm text-purple-400"
+            >
+              {format(new Date(work.date), "MMMM d, yyyy")}
+            </time>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  </Link>
+));
+
+WorkCard.displayName = "WorkCard";
+
+// Memoized work grid component to prevent re-renders
+const WorksGrid = React.memo(({ works }: { works: Work[] }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {works.map((work) => (
+      <WorkCard key={work.id} work={work} />
+    ))}
+  </div>
+));
+
+WorksGrid.displayName = "WorksGrid";
 
 export default function WorksPage() {
   const [works, setWorks] = useState<Work[]>([]);
@@ -54,14 +139,31 @@ export default function WorksPage() {
     }
   }, []);
 
+  // Only fetch works on initial mount
   useEffect(() => {
     fetchWorks();
   }, [fetchWorks]);
 
-  const filteredWorks =
+  // Memoize filtered works to prevent recalculation on every render
+  const filteredWorks = useMemo(() => 
     selectedCategory === "all"
       ? works
-      : works.filter((work) => work.category === selectedCategory);
+      : works.filter((work) => work.category === selectedCategory),
+    [works, selectedCategory]
+  );
+  
+  // Memoize category button click handlers to prevent recreation
+  const categoryHandlers = useMemo(() => {
+    const handlers: Record<string, () => void> = {
+      all: () => setSelectedCategory("all")
+    };
+    
+    categories.forEach(category => {
+      handlers[category] = () => setSelectedCategory(category);
+    });
+    
+    return handlers;
+  }, [categories]);
 
   return (
     <main className="pt-24 pb-16">
@@ -85,30 +187,19 @@ export default function WorksPage() {
 
         {/* Categories */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
-          <Button
-            variant={selectedCategory === "all" ? "default" : "outline"}
-            onClick={() => setSelectedCategory("all")}
-            className={
-              selectedCategory === "all"
-                ? "bg-purple-600 hover:bg-purple-700 cursor-pointer capitalize"
-                : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10 cursor-pointer capitalize"
-            }
-          >
-            all categories
-          </Button>
+          <CategoryButton 
+            category="all" 
+            isSelected={selectedCategory === "all"} 
+            onClick={categoryHandlers.all} 
+          />
+          
           {categories.map((category) => (
-            <Button
+            <CategoryButton
               key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              onClick={() => setSelectedCategory(category)}
-              className={
-                selectedCategory === category
-                  ? "bg-purple-600 hover:bg-purple-700 cursor-pointer capitalize"
-                  : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10 cursor-pointer capitalize"
-              }
-            >
-              {category}
-            </Button>
+              category={category}
+              isSelected={selectedCategory === category}
+              onClick={categoryHandlers[category]}
+            />
           ))}
         </div>
 
@@ -119,61 +210,16 @@ export default function WorksPage() {
           </div>
         )}
 
-        {/* Works Grid */}
+        {/* Empty state */}
         {!isLoading && filteredWorks.length === 0 && (
           <div className="text-center py-12">
             <p className="text-muted-foreground">No works found in this category.</p>
           </div>
         )}
         
-        {!isLoading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredWorks.map((work) => (
-              <Link href={`/works/${work.id}`} key={work.id}>
-                <Card className="h-full bg-black/50 border border-purple-500/40 hover:border-purple-500/60 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <div className="flex flex-col h-full">
-                      <div className="flex items-start justify-between gap-4 mb-4">
-                        <h2 className="text-xl font-bold line-clamp-2 flex-1">
-                          {work.title}
-                        </h2>
-                        <Badge
-                          variant="outline"
-                          className="border-purple-500/50 text-purple-300 shrink-0"
-                        >
-                          {work.category}
-                        </Badge>
-                      </div>
-                      <p className="text-muted-foreground mb-4 line-clamp-3 flex-1">
-                        {work.excerpt}
-                      </p>
-                      <div className="mt-auto">
-                        <div className="flex flex-wrap gap-2 mb-3">
-                          {work.tags.slice(0, 3).map((tag) => (
-                            <span
-                              key={tag}
-                              className="text-xs px-2 py-1 rounded-full capitalize bg-purple-500/10 text-purple-300 hover:bg-purple-500/20"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                          {work.tags.length > 3 && (
-                            <span className="text-xs text-purple-400">+{work.tags.length - 3} more</span>
-                          )}
-                        </div>
-                        <time
-                          dateTime={work.date}
-                          className="text-sm text-purple-400"
-                        >
-                          {format(new Date(work.date), "MMMM d, yyyy")}
-                        </time>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
+        {/* Works Grid - Only render when not loading and has works */}
+        {!isLoading && filteredWorks.length > 0 && (
+          <WorksGrid works={filteredWorks} />
         )}
       </div>
     </main>

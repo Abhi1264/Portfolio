@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback, useMemo, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { Button } from "./button";
 import {
@@ -34,56 +34,204 @@ interface WorksManagementProps {
   onWorksChanged: () => void;
 }
 
+// Create a fully uncontrolled form component with refs to prevent any re-renders during typing
+const AddWorkForm = React.memo(({ 
+  onSubmit,
+  isSubmitting
+}: { 
+  onSubmit: (formData: {
+    title: string;
+    excerpt: string;
+    content: string;
+    category: string;
+    tags: string[];
+  }) => Promise<void>;
+  isSubmitting: boolean;
+}) => {
+  // Use refs for form inputs to avoid state updates during typing
+  const titleRef = useRef<HTMLInputElement>(null);
+  const categoryRef = useRef<HTMLInputElement>(null);
+  const excerptRef = useRef<HTMLTextAreaElement>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+  const tagsRef = useRef<HTMLInputElement>(null);
+  
+  // Handle form submission without any state updates
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Convert tags string to array
+    const tagsArray = tagsRef.current?.value
+      .split(',')
+      .map(tag => tag.trim())
+      .filter(tag => tag.length > 0) || [];
+    
+    // Call the parent's submit handler with all form data
+    onSubmit({
+      title: titleRef.current?.value || '',
+      category: categoryRef.current?.value || '',
+      excerpt: excerptRef.current?.value || '',
+      content: contentRef.current?.value || '',
+      tags: tagsArray
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="grid gap-4 py-4">
+        <div className="grid gap-2">
+          <Label htmlFor="title">Title</Label>
+          <Input 
+            id="title"
+            ref={titleRef}
+            required
+          />
+        </div>
+        
+        <div className="grid gap-2">
+          <Label htmlFor="category">Category</Label>
+          <Input 
+            id="category"
+            ref={categoryRef}
+            placeholder="poetry, essay, story, etc."
+            required
+          />
+        </div>
+        
+        <div className="grid gap-2">
+          <Label htmlFor="excerpt">Excerpt (Short Description)</Label>
+          <Textarea 
+            id="excerpt"
+            ref={excerptRef}
+            className="h-20"
+            required
+          />
+        </div>
+        
+        <div className="grid gap-2">
+          <Label htmlFor="content">Content</Label>
+          <Textarea 
+            id="content"
+            ref={contentRef}
+            className="h-40"
+            required
+          />
+        </div>
+        
+        <div className="grid gap-2">
+          <Label htmlFor="tags">Tags (comma-separated)</Label>
+          <Input 
+            id="tags"
+            ref={tagsRef}
+            placeholder="poetry, life, nature"
+            required
+          />
+        </div>
+      </div>
+      
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button type="button" variant="outline" className="cursor-pointer">Cancel</Button>
+        </DialogClose>
+        <Button 
+          type="submit" 
+          disabled={isSubmitting}
+          className="bg-purple-600 hover:bg-purple-700 cursor-pointer"
+        >
+          {isSubmitting ? "Adding..." : "Add Work"}
+        </Button>
+      </DialogFooter>
+    </form>
+  );
+});
+
+AddWorkForm.displayName = "AddWorkForm";
+
+// Create memoized delete form component with ref
+const DeleteWorkForm = React.memo(({
+  works,
+  isSubmitting,
+  onDelete
+}: {
+  works: Work[];
+  isSubmitting: boolean;
+  onDelete: (workId: string) => Promise<void>;
+}) => {
+  // Use ref for work selection to avoid re-renders
+  const workSelectRef = useRef<HTMLSelectElement>(null);
+  
+  const handleDelete = () => {
+    const selectedId = workSelectRef.current?.value;
+    if (selectedId) {
+      onDelete(selectedId);
+    }
+  };
+  
+  return (
+    <>
+      <div className="py-4">
+        <Label htmlFor="workToDelete">Select Work</Label>
+        <select
+          id="workToDelete"
+          ref={workSelectRef}
+          className="flex h-10 w-full mt-2 rounded-md border border-purple-500/40 bg-black px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
+          defaultValue=""
+        >
+          <option value="" disabled>Select a work to delete</option>
+          {works.map((work) => (
+            <option key={work.id} value={work.id}>
+              {work.title}
+            </option>
+          ))}
+        </select>
+      </div>
+      
+      <DialogFooter>
+        <DialogClose asChild>
+          <Button type="button" variant="outline" className="cursor-pointer">Cancel</Button>
+        </DialogClose>
+        <Button 
+          variant="destructive" 
+          onClick={handleDelete}
+          disabled={isSubmitting}
+          className="cursor-pointer"
+        >
+          {isSubmitting ? "Deleting..." : "Delete Work"}
+        </Button>
+      </DialogFooter>
+    </>
+  );
+});
+
+DeleteWorkForm.displayName = "DeleteWorkForm";
+
 export function WorksManagement({ works, onWorksChanged }: WorksManagementProps) {
   const { data: session } = useSession();
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [selectedWork, setSelectedWork] = useState<Work | null>(null);
-  
-  // Form state for adding a new work
-  const [formData, setFormData] = useState({
-    title: "",
-    excerpt: "",
-    content: "",
-    category: "",
-    tags: ""
-  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Check if the current user is authorized
+  // Check if the current user is authorized - memoize this calculation
   const authorizedEmail = process.env.NEXT_PUBLIC_AUTHORIZED_EMAIL;
-  const isAuthorized = session?.user?.email === authorizedEmail;
-
+  const isAuthorized = useMemo(() => 
+    session?.user?.email === authorizedEmail, 
+    [session?.user?.email, authorizedEmail]
+  );
+  
+  // Don't render anything if not authorized
   if (!isAuthorized) {
-    return null; // Don't render anything if not authorized
+    return null;
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const resetForm = () => {
-    setFormData({
-      title: "",
-      excerpt: "",
-      content: "",
-      category: "",
-      tags: ""
-    });
-  };
-
-  const handleAddWork = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
+  // Form submission handlers
+  const handleAddWork = useCallback(async (formData: {
+    title: string;
+    excerpt: string;
+    content: string;
+    category: string;
+    tags: string[];
+  }) => {
     try {
       setIsSubmitting(true);
-      
-      // Process tags (convert comma-separated string to array)
-      const tagsArray = formData.tags
-        .split(",")
-        .map(tag => tag.trim())
-        .filter(tag => tag.length > 0);
       
       const response = await fetch("/api/works/add", {
         method: "POST",
@@ -95,7 +243,7 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
           excerpt: formData.excerpt,
           content: formData.content,
           category: formData.category.toLowerCase(),
-          tags: tagsArray
+          tags: formData.tags
         }),
       });
       
@@ -105,10 +253,9 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
         throw new Error(data.error || "Failed to add work");
       }
       
-      // Success - close dialog, reset form and refresh works
+      // Success - close dialog and refresh works
       toast.success("Work added successfully!");
       setIsAddDialogOpen(false);
-      resetForm();
       onWorksChanged();
     } catch (error) {
       console.error("Error adding work:", error);
@@ -116,15 +263,13 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [onWorksChanged]);
 
-  const handleDeleteWork = async () => {
-    if (!selectedWork) return;
-    
+  const handleDeleteWork = useCallback(async (workId: string) => {
     try {
       setIsSubmitting(true);
       
-      const response = await fetch(`/api/works/delete?id=${selectedWork.id}`, {
+      const response = await fetch(`/api/works/delete?id=${workId}`, {
         method: "DELETE",
       });
       
@@ -137,7 +282,6 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
       // Success - close dialog and refresh works
       toast.success("Work deleted successfully!");
       setIsDeleteDialogOpen(false);
-      setSelectedWork(null);
       onWorksChanged();
     } catch (error) {
       console.error("Error deleting work:", error);
@@ -145,7 +289,7 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }, [onWorksChanged]);
   
   return (
     <div className="mb-8 border border-purple-500/40 rounded-lg p-4 bg-black/30">
@@ -156,103 +300,32 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
             <Button className="bg-purple-600 hover:bg-purple-700 cursor-pointer">
-              <PlusIcon className="h-4 w-4" />Add New Work
+              <PlusIcon className="mr-2 h-4 w-4" /> Add New Work
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[600px] bg-black/90 border-purple-500/40">
             <DialogHeader>
               <DialogTitle>Add New Work</DialogTitle>
               <DialogDescription>
-                Add a new work
+                Create a new work to showcase on your site
               </DialogDescription>
             </DialogHeader>
             
-            <form onSubmit={handleAddWork}>
-              <div className="grid gap-4 py-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="title">Title</Label>
-                  <Input 
-                    id="title"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                
-                <div className="grid gap-2">
-                  <Label htmlFor="category">Category</Label>
-                  <Input 
-                    id="category"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    placeholder="poetry, essay, story, etc."
-                    required
-                  />
-                </div>
-                
-                <div className="grid gap-2">
-                  <Label htmlFor="excerpt">Excerpt (Short Description)</Label>
-                  <Textarea 
-                    id="excerpt"
-                    name="excerpt"
-                    value={formData.excerpt}
-                    onChange={handleInputChange}
-                    className="h-20"
-                    required
-                  />
-                </div>
-                
-                <div className="grid gap-2">
-                  <Label htmlFor="content">Content</Label>
-                  <Textarea 
-                    id="content"
-                    name="content"
-                    value={formData.content}
-                    onChange={handleInputChange}
-                    className="h-40"
-                    required
-                  />
-                </div>
-                
-                <div className="grid gap-2">
-                  <Label htmlFor="tags">Tags (comma-separated)</Label>
-                  <Input 
-                    id="tags"
-                    name="tags"
-                    value={formData.tags}
-                    onChange={handleInputChange}
-                    placeholder="poetry, life, nature"
-                    required
-                  />
-                </div>
-              </div>
-              
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button type="button" variant="outline" className="cursor-pointer">Cancel</Button>
-                </DialogClose>
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="bg-purple-600 hover:bg-purple-700 cursor-pointer"
-                >
-                  {isSubmitting ? "Adding..." : "Add Work"}
-                </Button>
-              </DialogFooter>
-            </form>
+            <AddWorkForm 
+              onSubmit={handleAddWork} 
+              isSubmitting={isSubmitting} 
+            />
           </DialogContent>
         </Dialog>
         
         {/* Delete Work Button */}
         <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="outline" className="cursor-pointe">
-              <TrashIcon className="h-4 w-4" /> Delete Work
+            <Button variant="destructive" className="cursor-pointer">
+              <TrashIcon className="mr-2 h-4 w-4" /> Delete Work
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-md bg-black/90 border-purple-500/40">
+          <DialogContent className="sm:max-w-[425px] bg-black/90 border-purple-500/40">
             <DialogHeader>
               <DialogTitle>Delete Work</DialogTitle>
               <DialogDescription>
@@ -260,39 +333,11 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
               </DialogDescription>
             </DialogHeader>
             
-            <div className="py-4">
-              <Label htmlFor="workToDelete">Select Work</Label>
-              <select
-                id="workToDelete"
-                className="flex h-10 w-full mt-2 rounded-md border border-purple-500/40 bg-black px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
-                value={selectedWork?.id || ""}
-                onChange={(e) => {
-                  const selected = works.find(w => w.id === e.target.value);
-                  setSelectedWork(selected || null);
-                }}
-              >
-                <option value="" disabled>Select a work to delete</option>
-                {works.map((work) => (
-                  <option key={work.id} value={work.id}>
-                    {work.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button type="button" variant="outline" className="cursor-pointer">Cancel</Button>
-              </DialogClose>
-              <Button 
-                variant="destructive" 
-                onClick={handleDeleteWork}
-                disabled={!selectedWork || isSubmitting}
-                className="cursor-pointer"
-              >
-                {isSubmitting ? "Deleting..." : "Delete Work"}
-              </Button>
-            </DialogFooter>
+            <DeleteWorkForm 
+              works={works}
+              isSubmitting={isSubmitting}
+              onDelete={handleDeleteWork}
+            />
           </DialogContent>
         </Dialog>
       </div>

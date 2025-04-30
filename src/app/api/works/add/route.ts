@@ -3,6 +3,25 @@ import { getServerSession } from "next-auth";
 import { adminDb } from "@/lib/firebase-admin";
 import { authOptions } from "@/lib/auth";
 
+// Helper function to create a URL-friendly slug from title
+function createSlugFromTitle(title: string): string {
+  // Convert to lowercase, replace spaces and special chars with hyphens
+  // Remove any non-alphanumeric characters except hyphens
+  return title
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')  // Remove special characters
+    .replace(/[\s_-]+/g, '-')  // Replace spaces and underscores with hyphens
+    .replace(/^-+|-+$/g, '');  // Remove leading/trailing hyphens
+}
+
+// Helper function to check if a document with the given ID already exists
+async function checkIfIdExists(id: string): Promise<boolean> {
+  const docRef = adminDb.collection("works").doc(id);
+  const doc = await docRef.get();
+  return doc.exists;
+}
+
 export async function POST(request: NextRequest) {
   try {
     // Get the authenticated user
@@ -37,8 +56,18 @@ export async function POST(request: NextRequest) {
     }
 
     try {
-      // Create a new work document
-      const workRef = adminDb.collection("works").doc();
+      // Create a slug from the title
+      let slug = createSlugFromTitle(title);
+      
+      // Check if work with same slug exists, if so add timestamp to make it unique
+      const slugExists = await checkIfIdExists(slug);
+      if (slugExists) {
+        const timestamp = new Date().getTime().toString().slice(-6); // Use last 6 digits of timestamp
+        slug = `${slug}-${timestamp}`;
+      }
+
+      // Create a new work document with the slug as the ID
+      const workRef = adminDb.collection("works").doc(slug);
       await workRef.set({
         title,
         content,
@@ -53,7 +82,7 @@ export async function POST(request: NextRequest) {
       // Return success with the new work ID
       return NextResponse.json({
         success: true,
-        id: workRef.id
+        id: slug
       });
     } catch (dbError: unknown) {
       const errorMessage =
