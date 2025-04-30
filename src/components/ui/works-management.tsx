@@ -77,13 +77,14 @@ const AddWorkForm = React.memo(({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid gap-4 py-4 text-muted-foreground">
+      <div className="grid gap-4 py-4">
         <div className="grid gap-2">
           <Label htmlFor="title">Title</Label>
           <Input 
             id="title"
             ref={titleRef}
             required
+            className="text-white"
           />
         </div>
         
@@ -94,6 +95,7 @@ const AddWorkForm = React.memo(({
             ref={categoryRef}
             placeholder="poetry, essay, story, etc."
             required
+            className="text-white"
           />
         </div>
         
@@ -102,7 +104,7 @@ const AddWorkForm = React.memo(({
           <Textarea 
             id="excerpt"
             ref={excerptRef}
-            className="h-20"
+            className="h-20 text-white"
             required
           />
         </div>
@@ -112,7 +114,7 @@ const AddWorkForm = React.memo(({
           <Textarea 
             id="content"
             ref={contentRef}
-            className="h-40"
+            className="h-40 text-white"
             required
           />
         </div>
@@ -124,6 +126,7 @@ const AddWorkForm = React.memo(({
             ref={tagsRef}
             placeholder="poetry, life, nature"
             required
+            className="text-white"
           />
         </div>
       </div>
@@ -168,7 +171,7 @@ const DeleteWorkForm = React.memo(({
   
   return (
     <>
-      <div className="py-4 text-muted-foreground">
+      <div className="py-4">
         <Label htmlFor="workToDelete">Select Work</Label>
         <select
           id="workToDelete"
