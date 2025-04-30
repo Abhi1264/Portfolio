@@ -132,7 +132,7 @@ export function SkillsSection() {
   return (
     <>
       {/* Forward Scrolling Animation Section */}
-      <div className="relative pt-20">
+      <div className="container mx-auto relative pt-20" id="skills">
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">

@@ -111,11 +111,11 @@ export function WorksSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
-            Latest Works
+            Literary Works
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
           <p className="max-w-5xl text-muted-foreground">
-            My recent writings and creative works.
+            A collection of my literary works. Each piece reflects my thoughts, experiences, and creativity.
           </p>
         </div>
 
