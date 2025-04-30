@@ -176,7 +176,7 @@ const DeleteWorkForm = React.memo(({
         <select
           id="workToDelete"
           ref={workSelectRef}
-          className="flex h-10 w-full mt-2 rounded-md border border-purple-500/40 bg-neutral-950 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
+          className="flex h-10 w-full mt-2 rounded-md border text-white border-purple-500/40 bg-neutral-950 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
           defaultValue=""
         >
           <option value="" disabled>Select a work to delete</option>
