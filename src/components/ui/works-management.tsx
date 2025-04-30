@@ -138,7 +138,7 @@ const AddWorkForm = React.memo(({
         <Button 
           type="submit" 
           disabled={isSubmitting}
-          className="bg-purple-600 hover:bg-purple-700 cursor-pointer"
+          className="bg-purple-600 hover:bg-purple-700 cursor-pointer text-white"
         >
           {isSubmitting ? "Adding..." : "Add Work"}
         </Button>
@@ -172,7 +172,7 @@ const DeleteWorkForm = React.memo(({
   return (
     <>
       <div className="py-4">
-        <Label htmlFor="workToDelete">Select Work</Label>
+        <Label htmlFor="workToDelete" className="text-white">Select Work</Label>
         <select
           id="workToDelete"
           ref={workSelectRef}
@@ -196,7 +196,7 @@ const DeleteWorkForm = React.memo(({
           variant="destructive" 
           onClick={handleDelete}
           disabled={isSubmitting}
-          className="cursor-pointer"
+          className="cursor-pointer text-white"
         >
           {isSubmitting ? "Deleting..." : "Delete Work"}
         </Button>
