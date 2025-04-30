@@ -79,61 +79,61 @@ const AddWorkForm = React.memo(({
     <form onSubmit={handleSubmit}>
       <div className="grid gap-4 py-4">
         <div className="grid gap-2">
-          <Label htmlFor="title">Title</Label>
+          <Label htmlFor="title" className="text-white">Title</Label>
           <Input 
             id="title"
             ref={titleRef}
             required
-            className="text-white"
+            className="bg-neutral-950 border-purple-500/40 text-white"
           />
         </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="category">Category</Label>
+          <Label htmlFor="category" className="text-white">Category</Label>
           <Input 
             id="category"
             ref={categoryRef}
             placeholder="poetry, essay, story, etc."
             required
-            className="text-white"
+            className="bg-neutral-950 border-purple-500/40 text-white"
           />
         </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="excerpt">Excerpt (Short Description)</Label>
+          <Label htmlFor="excerpt" className="text-white">Excerpt (Short Description)</Label>
           <Textarea 
             id="excerpt"
             ref={excerptRef}
-            className="h-20 text-white"
+            className="h-20 bg-neutral-950 border-purple-500/40 text-white"
             required
           />
         </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="content">Content</Label>
+          <Label htmlFor="content" className="text-white">Content</Label>
           <Textarea 
             id="content"
             ref={contentRef}
-            className="h-40 text-white"
+            className="h-40 bg-neutral-950 border-purple-500/40 text-white"
             required
           />
         </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="tags">Tags (comma-separated)</Label>
+          <Label htmlFor="tags" className="text-white">Tags (comma-separated)</Label>
           <Input 
             id="tags"
             ref={tagsRef}
             placeholder="poetry, life, nature"
             required
-            className="text-white"
+            className="bg-neutral-950 border-purple-500/40 text-white"
           />
         </div>
       </div>
       
       <DialogFooter>
         <DialogClose asChild>
-          <Button type="button" variant="outline" className="cursor-pointer">Cancel</Button>
+          <Button type="button" variant="outline" className="cursor-pointer bg-neutral-950 text-white hover:bg-neutral-600">Cancel</Button>
         </DialogClose>
         <Button 
           type="submit" 
@@ -176,7 +176,7 @@ const DeleteWorkForm = React.memo(({
         <select
           id="workToDelete"
           ref={workSelectRef}
-          className="flex h-10 w-full mt-2 rounded-md border border-purple-500/40 bg-black px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
+          className="flex h-10 w-full mt-2 rounded-md border border-purple-500/40 bg-neutral-950 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600"
           defaultValue=""
         >
           <option value="" disabled>Select a work to delete</option>
@@ -190,7 +190,7 @@ const DeleteWorkForm = React.memo(({
       
       <DialogFooter>
         <DialogClose asChild>
-          <Button type="button" variant="outline" className="cursor-pointer">Cancel</Button>
+          <Button type="button" variant="outline" className="cursor-pointer bg-neutral-950 text-white hover:bg-neutral-600">Cancel</Button>
         </DialogClose>
         <Button 
           variant="destructive" 
