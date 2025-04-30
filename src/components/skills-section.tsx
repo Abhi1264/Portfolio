@@ -3,12 +3,12 @@ import Image from "next/image";
 
 // Move images array outside component to prevent recreation on each render
 const images = [
-  { name: "AfterEffects", src: "/Skills-logos/AfterEffects.svg" },
+  // { name: "AfterEffects", src: "/Skills-logos/AfterEffects.svg" },
   // { name: "AlpineJS", src: "/Skills-logos/AlpineJS.svg" },
-  { name: "AndroidStudio", src: "/Skills-logos/AndroidStudio.svg" },
+  // { name: "AndroidStudio", src: "/Skills-logos/AndroidStudio.svg" },
   // { name: "Angular", src: "/Skills-logos/Angular.svg" },
-  { name: "AWS", src: "/Skills-logos/AWS.svg" },
-  { name: "Azure", src: "/Skills-logos/Azure.svg" },
+  // { name: "AWS", src: "/Skills-logos/AWS.svg" },
+  // { name: "Azure", src: "/Skills-logos/Azure.svg" },
   { name: "Bash", src: "/Skills-logos/Bash.svg" },
   { name: "Bootstrap", src: "/Skills-logos/Bootstrap.svg" },
   // { name: "BSD", src: "/Skills-logos/BSD.svg" },
@@ -16,8 +16,8 @@ const images = [
   { name: "C++", src: "/Skills-logos/C++.svg" },
   { name: "C#", src: "/Skills-logos/CSharp.svg" },
   { name: "CSS", src: "/Skills-logos/CSS.svg" },
-  { name: "Django", src: "/Skills-logos/Django.svg" },
-  { name: "Docker", src: "/Skills-logos/Docker.svg" },
+  // { name: "Django", src: "/Skills-logos/Django.svg" },
+  // { name: "Docker", src: "/Skills-logos/Docker.svg" },
   // { name: "DotNET", src: "/Skills-logos/DotNET.svg" },
   // { name: "DynamoDB", src: "/Skills-logos/DynamoDB.svg" },
   { name: "Express", src: "/Skills-logos/Express.svg" },
@@ -36,11 +36,11 @@ const images = [
   { name: "MongoDB", src: "/Skills-logos/MongoDB.svg" },
   { name: "MySQL", src: "/Skills-logos/MySQL.svg" },
   // { name: "NestJS", src: "/Skills-logos/NestJS.svg" },
-  { name: "Netlify", src: "/Skills-logos/Netlify.svg" },
+  // { name: "Netlify", src: "/Skills-logos/Netlify.svg" },
   { name: "NextJS", src: "/Skills-logos/NextJS.svg" },
   { name: "NodeJS", src: "/Skills-logos/NodeJS.svg" },
   // { name: "NuxtJS", src: "/Skills-logos/NuxtJS.svg" },
-  { name: "Postman", src: "/Skills-logos/Postman.svg" },
+  // { name: "Postman", src: "/Skills-logos/Postman.svg" },
   { name: "Photoshop", src: "/Skills-logos/Photoshop.svg" },
   { name: "PHP", src: "/Skills-logos/PHP.svg" },
   { name: "Premiere", src: "/Skills-logos/Premiere.svg" },
@@ -53,24 +53,30 @@ const images = [
   // { name: "SASS", src: "/Skills-logos/SASS.svg" },
   // { name: "SolidJS", src: "/Skills-logos/SolidJS.svg" },
   // { name: "Spring", src: "/Skills-logos/Spring.svg" },
-  { name: "SQLite", src: "/Skills-logos/SQLite.svg" },
+  // { name: "SQLite", src: "/Skills-logos/SQLite.svg" },
   // { name: "StackOverFlow", src: "/Skills-logos/StackOverFlow.svg" },
   // { name: "Swift", src: "/Skills-logos/Swift.svg" },
   { name: "TailwindCSS", src: "/Skills-logos/TailwindCSS.svg" },
   { name: "Typescript", src: "/Skills-logos/Typescript.svg" },
+  // { name: "Visual Studio Code", src: "/Skills-logos/VSCode.svg" },
   // { name: "VueJS", src: "/Skills-logos/VueJS.svg" },
   { name: "Webflow", src: "/Skills-logos/Webflow.svg" },
   // { name: "WindiCSS", src: "/Skills-logos/WindiCSS.svg" },
   { name: "WordPress", src: "/Skills-logos/Wordpress.svg" },
-  { name: "XD", src: "/Skills-logos/XD.svg" },
+  // { name: "XD", src: "/Skills-logos/XD.svg" },
 ];
 
 // Create a reusable image component for better performance
-const SkillImage = ({ image, imageWidth, imageHeight, isPriority }: { 
-  image: typeof images[0], 
-  imageWidth: number, 
-  imageHeight: number,
-  isPriority: boolean
+const SkillImage = ({
+  image,
+  imageWidth,
+  imageHeight,
+  isPriority,
+}: {
+  image: (typeof images)[0];
+  imageWidth: number;
+  imageHeight: number;
+  isPriority: boolean;
 }) => (
   <div className="h-28 w-28 sm:h-40 sm:w-40 flex flex-col justify-center items-center my-6 sm:my-0">
     <Image
@@ -92,42 +98,27 @@ export function SkillsSection() {
   const reversedImages = useMemo(() => [...images].reverse(), []);
 
   // Define image dimensions
-  const imageWidth = 100; 
+  const imageWidth = 100;
   const imageHeight = 100;
 
-  // Memoize the image groups to avoid unnecessary recalculation
-  const imageGroups = useMemo(() => (
-    [...Array(4)].map((_, fadeIndex) => (
-      <div key={fadeIndex} className="flex whitespace-nowrap">
-        {images.map((image, idx) => (
-          <SkillImage
-            key={`${fadeIndex}-${idx}`}
-            image={image}
-            imageWidth={imageWidth}
-            imageHeight={imageHeight}
-            isPriority={fadeIndex === 0 && idx < 5} // Only prioritize the first few images
-          />
-        ))}
-      </div>
-    ))
-  ), []);
-
   // Memoize the reversed image groups to avoid unnecessary recalculation
-  const reversedImageGroups = useMemo(() => (
-    [...Array(4)].map((_, fadeIndex) => (
-      <div key={`reverse-${fadeIndex}`} className="flex whitespace-nowrap">
-        {reversedImages.map((image, idx) => (
-          <SkillImage
-            key={`reverse-${fadeIndex}-${idx}`}
-            image={image}
-            imageWidth={imageWidth}
-            imageHeight={imageHeight}
-            isPriority={false} // No need to prioritize these since they come later
-          />
-        ))}
-      </div>
-    ))
-  ), [reversedImages]);
+  const reversedImageGroups = useMemo(
+    () =>
+      [...Array(4)].map((_, fadeIndex) => (
+        <div key={`reverse-${fadeIndex}`} className="flex whitespace-nowrap">
+          {reversedImages.map((image, idx) => (
+            <SkillImage
+              key={`reverse-${fadeIndex}-${idx}`}
+              image={image}
+              imageWidth={imageWidth}
+              imageHeight={imageHeight}
+              isPriority={false} // No need to prioritize these since they come later
+            />
+          ))}
+        </div>
+      )),
+    [reversedImages]
+  );
 
   return (
     <>
@@ -144,28 +135,17 @@ export function SkillsSection() {
           </p>
         </div>
 
-        {/* Gradient overlays */}
-        <div className="absolute top-0 left-0 h-full w-36 sm:w-56 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute top-0 right-0 h-full w-36 sm:w-56 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
-        
-        {/* Scrolling Container */}
-        <div className="overflow-hidden">
-          <div className="flex animate-infinite-slide shrink-0 flex-nowrap w-[650%]">
-            {imageGroups}
-          </div>
-        </div>
-      </div>
+        {/* Reverse Scrolling Animation Section */}
+        <div className="relative mb-20">
+          {/* Gradient overlays */}
+          <div className="absolute top-0 left-0 h-full w-28 sm:w-56 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 h-full w-28 sm:w-56 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
 
-      {/* Reverse Scrolling Animation Section */}
-      <div className="relative mb-20">
-        {/* Gradient overlays */}
-        <div className="absolute top-0 left-0 h-full w-36 sm:w-56 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute top-0 right-0 h-full w-36 sm:w-56 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
-        
-        {/* Scrolling Container */}
-        <div className="overflow-hidden">
-          <div className="flex animate-infinite-slide-reverse shrink-0 flex-nowrap w-[650%]">
-            {reversedImageGroups}
+          {/* Scrolling Container */}
+          <div className="overflow-hidden">
+            <div className="flex animate-infinite-slide-reverse shrink-0 flex-nowrap w-[600%]">
+              {reversedImageGroups}
+            </div>
           </div>
         </div>
       </div>
