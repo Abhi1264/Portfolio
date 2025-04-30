@@ -77,7 +77,7 @@ const AddWorkForm = React.memo(({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid gap-4 py-4">
+      <div className="grid gap-4 py-4 text-muted-foreground">
         <div className="grid gap-2">
           <Label htmlFor="title">Title</Label>
           <Input 
@@ -168,7 +168,7 @@ const DeleteWorkForm = React.memo(({
   
   return (
     <>
-      <div className="py-4">
+      <div className="py-4 text-muted-foreground">
         <Label htmlFor="workToDelete">Select Work</Label>
         <select
           id="workToDelete"
