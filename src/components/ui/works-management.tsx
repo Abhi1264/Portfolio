@@ -155,15 +155,15 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
         {/* Add Work Button */}
         <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-purple-600 hover:bg-purple-700">
-              <PlusIcon className="mr-2 h-4 w-4" /> Add New Work
+            <Button className="bg-purple-600 hover:bg-purple-700 cursor-pointer">
+              <PlusIcon className="h-4 w-4" />Add New Work
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[600px] bg-black/90 border-purple-500/40">
             <DialogHeader>
               <DialogTitle>Add New Work</DialogTitle>
               <DialogDescription>
-                Create a new work to showcase on your site
+                Add a new work
               </DialogDescription>
             </DialogHeader>
             
@@ -231,12 +231,12 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
               
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button type="button" variant="outline">Cancel</Button>
+                  <Button type="button" variant="outline" className="cursor-pointer">Cancel</Button>
                 </DialogClose>
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="bg-purple-600 hover:bg-purple-700"
+                  className="bg-purple-600 hover:bg-purple-700 cursor-pointer"
                 >
                   {isSubmitting ? "Adding..." : "Add Work"}
                 </Button>
@@ -248,11 +248,11 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
         {/* Delete Work Button */}
         <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
           <DialogTrigger asChild>
-            <Button variant="destructive">
-              <TrashIcon className="mr-2 h-4 w-4" /> Delete Work
+            <Button variant="outline" className="cursor-pointe">
+              <TrashIcon className="h-4 w-4" /> Delete Work
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] bg-black/90 border-purple-500/40">
+          <DialogContent className="sm:max-w-md bg-black/90 border-purple-500/40">
             <DialogHeader>
               <DialogTitle>Delete Work</DialogTitle>
               <DialogDescription>
@@ -282,12 +282,13 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
             
             <DialogFooter>
               <DialogClose asChild>
-                <Button type="button" variant="outline">Cancel</Button>
+                <Button type="button" variant="outline" className="cursor-pointer">Cancel</Button>
               </DialogClose>
               <Button 
                 variant="destructive" 
                 onClick={handleDeleteWork}
                 disabled={!selectedWork || isSubmitting}
+                className="cursor-pointer"
               >
                 {isSubmitting ? "Deleting..." : "Delete Work"}
               </Button>
