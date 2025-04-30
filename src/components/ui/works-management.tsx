@@ -306,10 +306,10 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
               <PlusIcon className="mr-2 h-4 w-4" /> Add New Work
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px] bg-black/90 border-purple-500/40">
+          <DialogContent className="sm:max-w-xl bg-neutral-950 border-purple-500/40">
             <DialogHeader>
-              <DialogTitle>Add New Work</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="text-white">Add New Work</DialogTitle>
+              <DialogDescription className="text-purple-300">
                 Create a new work to showcase on your site
               </DialogDescription>
             </DialogHeader>
@@ -328,10 +328,10 @@ export function WorksManagement({ works, onWorksChanged }: WorksManagementProps)
               <TrashIcon className="mr-2 h-4 w-4" /> Delete Work
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px] bg-black/90 border-purple-500/40">
+          <DialogContent className="sm:max-w-md bg-neutral-950 border-purple-500/40">
             <DialogHeader>
-              <DialogTitle>Delete Work</DialogTitle>
-              <DialogDescription>
+              <DialogTitle className="text-white">Delete Work</DialogTitle>
+              <DialogDescription className="text-purple-300">
                 Select a work to delete. This action cannot be undone.
               </DialogDescription>
             </DialogHeader>
