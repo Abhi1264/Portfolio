@@ -3,6 +3,16 @@ import { getServerSession } from "next-auth";
 import { adminDb } from "@/lib/firebase-admin";
 import { authOptions } from "@/lib/auth";
 
+// Comment type definition
+type Comment = {
+  id: string;
+  text: string;
+  userId: string;
+  userImage: string;
+  userName: string;
+  createdAt: string;
+};
+
 export async function DELETE(request: NextRequest) {
   try {
     // Get the authenticated user
@@ -41,7 +51,7 @@ export async function DELETE(request: NextRequest) {
       const comments = workData?.comments || [];
       
       // Find the comment
-      const commentIndex = comments.findIndex((c: any) => c.id === commentId);
+      const commentIndex = comments.findIndex((c: Comment) => c.id === commentId);
       
       if (commentIndex === -1) {
         return NextResponse.json(
