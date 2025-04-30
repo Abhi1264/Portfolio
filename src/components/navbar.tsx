@@ -145,37 +145,36 @@ const DesktopNav = React.memo<NavProps>(({ onSectionNav, renderUser }) => (
 DesktopNav.displayName = "DesktopNav";
 
 const MobileNav = React.memo<NavProps & { open: boolean }>(
-  ({ onSectionNav, renderUser, open }) => (
+  ({ onSectionNav, open }) => (
     <div
       className={cn(
         "lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
-        open ? "max-h-120" : "max-h-0"
+        open ? "max-h-130" : "max-h-0"
       )}
     >
       <nav className="bg-black/80 backdrop-blur-md border-b border-purple-500/40">
-        <div className="flex flex-col space-y-5 p-4">
+        <div className="flex flex-col items-center space-y-4 p-4">
           {navItems.map((item) =>
-            item.href.startsWith("#") ? (
-              <button
-                key={item.name}
-                type="button"
-                onClick={() => onSectionNav(item.href)}
-                className="px-3 py-2 text-lg hover:text-purple-400 transition-colors bg-transparent border-none"
-                style={{ background: "none" }}
-              >
-                {item.name}
-              </button>
-            ) : (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
-              >
-                {item.name}
-              </Link>
-            )
+        item.href.startsWith("#") ? (
+          <button
+            key={item.name}
+            type="button"
+            onClick={() => onSectionNav(item.href)}
+            className="px-3 py-2 text-lg hover:text-purple-400 transition-colors border-none"
+            style={{ background: "none" }}
+          >
+            {item.name}
+          </button>
+        ) : (
+          <Link
+            key={item.name}
+            href={item.href}
+            className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
+          >
+            {item.name}
+          </Link>
+        )
           )}
-          <div>{renderUser}</div>
         </div>
       </nav>
     </div>
@@ -288,7 +287,7 @@ export function Navbar() {
   const headerClassName = useMemo(() => {
     return cn(
       "fixed top-0 z-50 w-full transition-all duration-300",
-      isScrolled || isWorksPage ? "bg-black/80 backdrop-blur-sm" : "bg-transparent"
+      isScrolled || isWorksPage ? "bg-black/80 backdrop-blur-md" : "bg-transparent"
     );
   }, [isScrolled, isWorksPage]);
 

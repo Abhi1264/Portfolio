@@ -10,6 +10,7 @@ import { Avatar } from "@/components/ui/avatar";
 import { format } from "date-fns";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { toast } from "sonner";
+import { Trash2 } from "lucide-react";
 
 type Comment = {
   id: string;
@@ -107,21 +108,75 @@ const LikeButton = React.memo(({
 
 LikeButton.displayName = "LikeButton";
 
+// Create a memoized component for a delete button
+const DeleteButton = React.memo(({ 
+  onDelete, 
+  isDeleting 
+}: { 
+  onDelete: () => Promise<void>, 
+  isDeleting: boolean 
+}) => {
+  return (
+    <Button 
+      variant="ghost" 
+      size="sm" 
+      onClick={onDelete} 
+      disabled={isDeleting} 
+      className="text-red-400 hover:text-red-500 p-1 h-auto ml-auto cursor-pointer"
+    >
+      <Trash2 size={16} />
+    </Button>
+  );
+});
+
+DeleteButton.displayName = "DeleteButton";
+
 // Create a memoized component for comments list
-const CommentsList = React.memo(({ comments }: { comments: Comment[] }) => {
+const CommentsList = React.memo(({ 
+  comments, 
+  onDeleteComment, 
+  currentUserEmail,
+  isAdmin 
+}: { 
+  comments: Comment[], 
+  onDeleteComment: (commentId: string) => Promise<void>,
+  currentUserEmail: string | null,
+  isAdmin: boolean
+}) => {
+  const [deletingCommentId, setDeletingCommentId] = useState<string | null>(null);
+
+  const handleDelete = useCallback(async (commentId: string) => {
+    setDeletingCommentId(commentId);
+    try {
+      await onDeleteComment(commentId);
+    } finally {
+      setDeletingCommentId(null);
+    }
+  }, [onDeleteComment]);
+
   return (
     <div className="space-y-6">
       {comments.map((comment) => (
         <div key={comment.id} className="flex gap-4">
           <Avatar src={comment.userImage} alt={comment.userName} />
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-purple-300">
-                {comment.userName}
-              </span>
-              <span className="text-sm text-purple-400">
-                {format(new Date(comment.createdAt), "MMM d, yyyy")}
-              </span>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 justify-between">
+              <div>
+                <span className="font-semibold text-purple-300">
+                  {comment.userName}
+                </span>
+                <span className="text-sm text-purple-400 ml-2">
+                  {format(new Date(comment.createdAt), "MMM d, yyyy")}
+                </span>
+              </div>
+              
+              {/* Show delete button if user owns the comment or is admin */}
+              {(comment.userId === currentUserEmail || isAdmin) && (
+                <DeleteButton 
+                  onDelete={() => handleDelete(comment.id)} 
+                  isDeleting={deletingCommentId === comment.id} 
+                />
+              )}
             </div>
             <p className="text-neutral-300 mt-1">{comment.text}</p>
           </div>
@@ -153,6 +208,17 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState<string[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    // Check if current user is admin
+    if (session?.user?.email) {
+      const authorizedEmail = process.env.NEXT_PUBLIC_AUTHORIZED_EMAIL;
+      setIsAdmin(session.user.email === authorizedEmail);
+    } else {
+      setIsAdmin(false);
+    }
+  }, [session]);
 
   useEffect(() => {
     const fetchInteractions = async () => {
@@ -280,6 +346,50 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       toast.error("Failed to post comment. Please try again.");
     }
   }, [session, workId]);
+
+  // Add a new function to handle comment deletion
+  const handleDeleteComment = useCallback(async (commentId: string) => {
+    if (!session?.user?.email) {
+      toast.error("You need to be signed in to delete comments");
+      return;
+    }
+
+    // Optimistic UI update - remove the comment immediately
+    setComments((prev) => prev.filter((c) => c.id !== commentId));
+
+    try {
+      // Use absolute URL with base path
+      const response = await fetch(
+        `${window.location.origin}/api/works/comment/delete?workId=${workId}&commentId=${commentId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to delete comment");
+      }
+
+      // Toast notification for success
+      toast.success("Comment deleted successfully");
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      // Fetch comments again to restore state on error
+      const docRef = doc(db, "works", workId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        setComments(data.comments || []);
+      }
+      toast.error("Failed to delete comment. Please try again.");
+    }
+  }, [session, workId]);
+
   // Stable props for the like button - only change when needed
   const likeButtonProps = useMemo(() => ({
     liked,
@@ -305,7 +415,12 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       </div>
 
       {commentInputComponent}
-      <CommentsList comments={comments} />
+      <CommentsList 
+        comments={comments} 
+        onDeleteComment={handleDeleteComment}
+        currentUserEmail={session?.user?.email || null}
+        isAdmin={isAdmin}
+      />
     </div>
   );
 }
