@@ -32,7 +32,7 @@ This document serves as technical documentation for my personal portfolio websit
 - **Tailwind CSS** - For utility-first styling with custom theme configuration
 - **Shadcn UI** - For accessible and customizable UI components
 - **Framer Motion** - For scroll-based and interactive animations
-- **Three.js** with React Three Fiber - For 3D effects and particle animations
+- **OGL** - For 3D effects and particle animations
 - **EmailJS** - For serverless email sending directly from client-side
 
 ### Backend Services & Implementation

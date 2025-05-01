@@ -82,8 +82,8 @@ const SkillImage = ({
     <Image
       src={image.src}
       alt={image.name}
-      width={imageWidth * 0.75}
-      height={imageHeight * 0.75}
+      width={imageWidth}
+      height={imageHeight}
       draggable={false}
       className="mb-2 rounded-2xl object-contain"
       priority={isPriority}
@@ -94,30 +94,27 @@ const SkillImage = ({
 );
 
 export function SkillsSection() {
-  // Memoize the reversed array to prevent recreation on each render
-  const reversedImages = useMemo(() => [...images].reverse(), []);
-
   // Define image dimensions
-  const imageWidth = 100;
-  const imageHeight = 100;
+  const imageWidth = 75;
+  const imageHeight = 75;
 
-  // Memoize the reversed image groups to avoid unnecessary recalculation
-  const reversedImageGroups = useMemo(
+  // Use the original images array instead of reversing it
+  const imageGroups = useMemo(
     () =>
       [...Array(4)].map((_, fadeIndex) => (
-        <div key={`reverse-${fadeIndex}`} className="flex whitespace-nowrap">
-          {reversedImages.map((image, idx) => (
+        <div key={`group-${fadeIndex}`} className="flex whitespace-nowrap">
+          {images.map((image, idx) => (
             <SkillImage
-              key={`reverse-${fadeIndex}-${idx}`}
+              key={`group-${fadeIndex}-${idx}`}
               image={image}
               imageWidth={imageWidth}
               imageHeight={imageHeight}
-              isPriority={false} // No need to prioritize these since they come later
+              isPriority={false}
             />
           ))}
         </div>
       )),
-    [reversedImages]
+    []
   );
 
   return (
@@ -135,7 +132,7 @@ export function SkillsSection() {
           </p>
         </div>
 
-        {/* Reverse Scrolling Animation Section */}
+        {/* Scrolling Animation Section */}
         <div className="relative mb-20">
           {/* Gradient overlays */}
           <div className="absolute top-0 left-0 h-full w-28 sm:w-56 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
@@ -144,7 +141,7 @@ export function SkillsSection() {
           {/* Scrolling Container */}
           <div className="overflow-hidden">
             <div className="flex animate-infinite-slide-reverse shrink-0 flex-nowrap w-[600%]">
-              {reversedImageGroups}
+              {imageGroups}
             </div>
           </div>
         </div>
