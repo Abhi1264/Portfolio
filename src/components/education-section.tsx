@@ -38,9 +38,10 @@ const education = [
     description:
       "Pursuing a degree in Electronics and Communication Engineering with a focus on Signal Processing and Deep Learning. Engaged in various projects and research activities.",
     achievements: [
-      "Associate Member, EDC",
+      "General Secretary, EDC",
       "Design Head, ECE Society",
       "Senior Executive Member, IET",
+      "Senior Member, Literary Society",
     ],
   },
 ];
