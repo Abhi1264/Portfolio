@@ -14,7 +14,7 @@ const education = [
       "Completed Class X with a strong academic record and a keen interest in Science and Mathematics. Involved in various school activities and national olympiads competitions.",
     achievements: [
       "Scored 97.5%: City Rank 10",
-      "6 times Internation Mathematics Olympiad Medalist",
+      "6 times International Mathematics Olympiad Medalist",
       "5 times National Science Olympiad Medalist",
     ],
   },
