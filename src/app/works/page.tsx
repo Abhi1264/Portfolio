@@ -175,7 +175,7 @@ export default function WorksPage() {
         
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-12">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
             My Works
           </h1>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />

@@ -17,11 +17,12 @@ const images = [
   { name: "C#", src: "/Skills-logos/CSharp.svg" },
   { name: "CSS", src: "/Skills-logos/CSS.svg" },
   // { name: "Django", src: "/Skills-logos/Django.svg" },
-  // { name: "Docker", src: "/Skills-logos/Docker.svg" },
+  { name: "Docker", src: "/Skills-logos/Docker.svg" },
   // { name: "DotNET", src: "/Skills-logos/DotNET.svg" },
   // { name: "DynamoDB", src: "/Skills-logos/DynamoDB.svg" },
   { name: "Express", src: "/Skills-logos/Express.svg" },
   { name: "Figma", src: "/Skills-logos/Figma.svg" },
+  { name: "Firebase", src: "/Skills-logos/Firebase.svg" },
   { name: "Flutter", src: "/Skills-logos/Flutter.svg" },
   { name: "Framer", src: "/Skills-logos/Framer.svg" },
   { name: "Git", src: "/Skills-logos/Git.svg" },
@@ -31,7 +32,7 @@ const images = [
   { name: "Illustrator", src: "/Skills-logos/Illustrator.svg" },
   { name: "Java", src: "/Skills-logos/Java.svg" },
   { name: "JavaScript", src: "/Skills-logos/JavaScript.svg" },
-  { name: "JQuery", src: "/Skills-logos/JQuery.svg" },
+  // { name: "JQuery", src: "/Skills-logos/JQuery.svg" },
   { name: "Linux", src: "/Skills-logos/Linux.svg" },
   { name: "MongoDB", src: "/Skills-logos/MongoDB.svg" },
   { name: "MySQL", src: "/Skills-logos/MySQL.svg" },
@@ -43,7 +44,7 @@ const images = [
   // { name: "Postman", src: "/Skills-logos/Postman.svg" },
   { name: "Photoshop", src: "/Skills-logos/Photoshop.svg" },
   { name: "PHP", src: "/Skills-logos/PHP.svg" },
-  { name: "Premiere", src: "/Skills-logos/Premiere.svg" },
+  // { name: "Premiere", src: "/Skills-logos/Premiere.svg" },
   { name: "Python", src: "/Skills-logos/Python.svg" },
   // { name: "PyTorch", src: "/Skills-logos/PyTorch.svg" },
   // { name: "R", src: "/Skills-logos/R.svg" },
@@ -60,6 +61,7 @@ const images = [
   { name: "Typescript", src: "/Skills-logos/Typescript.svg" },
   // { name: "Visual Studio Code", src: "/Skills-logos/VSCode.svg" },
   // { name: "VueJS", src: "/Skills-logos/VueJS.svg" },
+  { name: "Vite", src: "/Skills-logos/Vite.svg" },
   { name: "Webflow", src: "/Skills-logos/Webflow.svg" },
   // { name: "WindiCSS", src: "/Skills-logos/WindiCSS.svg" },
   { name: "WordPress", src: "/Skills-logos/Wordpress.svg" },
@@ -103,7 +105,7 @@ export function SkillsSection() {
     () =>
       [...Array(4)].map((_, fadeIndex) => (
         <div key={`group-${fadeIndex}`} className="flex whitespace-nowrap">
-          {images.map((image, idx) => (
+          {[...images].reverse().map((image, idx) => (
             <SkillImage
               key={`group-${fadeIndex}-${idx}`}
               image={image}
@@ -123,7 +125,7 @@ export function SkillsSection() {
       <div className="container mx-auto relative pt-20" id="skills">
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
             Skills & Technologies
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />

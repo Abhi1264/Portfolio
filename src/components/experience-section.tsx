@@ -54,7 +54,7 @@ export function ExperienceSection() {
       <div className="container mx-auto px-4 md:px-6">
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-4">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl mb-4">
             Work Experience
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
