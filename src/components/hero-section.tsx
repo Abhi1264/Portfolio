@@ -19,13 +19,13 @@ const socialLinks = [
   },
   {
     name: "LinkedIn",
-    url: "https://www.linkedin.com/in/abhinav-kumar-choudhary-784062288/",
+    url: "https://www.linkedin.com/in/abhi1264/",
     icon: ImLinkedin2,
     srText: "LinkedIn",
   },
   {
     name: "X",
-    url: "https://x.com/akc1264",
+    url: "https://x.com/abhi1264",
     icon: BsTwitterX,
     srText: "X",
   },

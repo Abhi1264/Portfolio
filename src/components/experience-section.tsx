@@ -5,27 +5,32 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { BriefcaseIcon } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { FiExternalLink } from "react-icons/fi";
+import { ImLinkedin2 } from "react-icons/im";
 
 const experiences = [
   {
-    title: "Graphic Designer",
-    company: "Bloom Tide Consulting",
-    period: "July 2024 - Feb 2025",
+    title: "SDE Intern",
+    company: "Recrivio",
+    website: "https://www.recrivio.com",
+    linkedin: "https://www.linkedin.com/company/recrivio",
+    period: "May 2025 - Present",
     description: [
-      "Created engaging social media content and graphics for LinkedIn and Instagram, aligned with brand tone and strategy.",
-      "Scaled social media presence from 0 to 1700+ followers through consistent branding and content planning.",
-      "Contributed to UI/UX design for client projects using Figma and Framer, focusing on user-centric and responsive design.",
+      "Collaborated on a scalable job board platform with a modern tech stack: Next.js, Tailwind CSS and Supabase/PostgreSQL.",
+      "Achieved a 90% improvement in page load times through advanced Next.js optimization techniques and best practices like dynamic imports, suspense boundaries, static site generation, and server-side rendering.",
     ],
-    skills: ["Figma", "Canva", "Adobe Creative Suite"],
+    skills: ["TypeScript", "Next.js", "Tailwind CSS", "Supabase", "PostgreSQL"],
   },
   {
     title: "SDE Intern",
     company: "Bloom Tide Consulting",
+    website: "https://www.bloomtideconsulting.com",
+    linkedin: "https://www.linkedin.com/company/bloom-tide-consulting",
     period: "Feb 2025 - Present",
     description: [
       "Collaborated on a full-stack web application using React.js, Vite, and Tailwind CSS for the front-end, Node.js/Express.js for the back-end, and MongoDB database, implementing RESTful APIs and modern UI/UX practices.",
       "Independently developed the entire front-end of a social media platform using TypeScript, React.js, Tailwind CSS, and Vite.",
-      "Led the redesign of the UI / UX and performance optimization of the company’s official website to improve user retention and accessibility.",
+      "Led the redesign of the UI / UX and performance optimization of the company's official website to improve user retention and accessibility.",
     ],
     skills: [
       "TypeScript",
@@ -40,14 +45,17 @@ const experiences = [
     ],
   },
   {
-    title: "SDE Intern",
-    company: "Recrivio",
-    period: "May 2025 - Present",
+    title: "Graphic Designer",
+    company: "Bloom Tide Consulting",
+    website: "https://www.bloomtideconsulting.com",
+    linkedin: "https://www.linkedin.com/company/bloom-tide-consulting",
+    period: "July 2024 - Feb 2025",
     description: [
-      "Collaborated on a scalable job board platform with a modern tech stack: Next.js, Tailwind CSS and Supabase/PostgreSQL.",
-      "Achieved a 90% improvement in page load times through advanced Next.js optimization techniques and best practices like dynamic imports, suspense boundaries, static site generation, and server-side rendering.",
+      "Created engaging social media content and graphics for LinkedIn and Instagram, aligned with brand tone and strategy.",
+      "Scaled social media presence from 0 to 1700+ followers through consistent branding and content planning.",
+      "Contributed to UI/UX design for client projects using Figma and Framer, focusing on user-centric and responsive design.",
     ],
-    skills: ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL"],
+    skills: ["Figma", "Canva", "Adobe Creative Suite"],
   },
 ];
 
@@ -123,7 +131,32 @@ export function ExperienceSection() {
                         <div className="flex flex-col md:flex-row md:items-center justify-between mb-4">
                           <div>
                             <h3 className="text-xl font-bold">{exp.title}</h3>
-                            <p className="text-purple-400">{exp.company}</p>
+                            <div className="flex items-center gap-2 text-purple-400">
+                              <span>{exp.company}</span>
+                              {/* Company links */}
+                              {exp.website && (
+                                <a
+                                  href={exp.website}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="hover:text-purple-300 ml-1"
+                                  aria-label={`${exp.company} Website`}
+                                >
+                                  <FiExternalLink className="inline-block align-middle h-4 w-4" />
+                                </a>
+                              )}
+                              {exp.linkedin && (
+                                <a
+                                  href={exp.linkedin}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="hover:text-purple-300 ml-1"
+                                  aria-label={`${exp.company} LinkedIn`}
+                                >
+                                  <ImLinkedin2 className="inline-block align-middle h-4 w-4" />
+                                </a>
+                              )}
+                            </div>
                           </div>
                           <Badge
                             variant="outline"

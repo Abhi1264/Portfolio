@@ -37,7 +37,7 @@ export function Footer() {
               className="rounded-full hover:bg-purple-500/10 hover:text-purple-400"
             >
               <a
-                href="https://www.linkedin.com/in/abhinav-kumar-choudhary-784062288/"
+                href="https://www.linkedin.com/in/abhi1264/"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -51,7 +51,7 @@ export function Footer() {
               className="rounded-full hover:bg-purple-500/10 hover:text-purple-400"
             >
               <a
-                href="https://x.com/akc1264"
+                href="https://x.com/abhi1264"
                 target="_blank"
                 rel="noopener noreferrer"
               >

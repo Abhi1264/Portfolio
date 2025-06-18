@@ -6,16 +6,17 @@ import { GraduationCap } from "lucide-react";
 
 const education = [
   {
-    degree: "Class X - ICSE",
-    institution: "St. Thomas School, Dhurwa, Ranchi",
-    period: "2009 - 2021",
-    image: "/stthomas.jpg",
+    degree: "Bachelor of Technology in Electronics & Communication Engineering",
+    institution: "Birla Institute of Technology, Mesra, Ranchi",
+    period: "2023 - 2027",
+    image: "/bitmesra.webp",
     description:
-      "Completed Class X with a strong academic record and a keen interest in Science and Mathematics. Involved in various school activities and national olympiads competitions.",
+      "Pursuing a degree in Electronics and Communication Engineering with a focus on Signal Processing and Deep Learning. Engaged in various projects and research activities.",
     achievements: [
-      "Scored 97.5%: City Rank 10",
-      "6 times International Mathematics Olympiad Medalist",
-      "5 times National Science Olympiad Medalist",
+      "General Secretary, EDC",
+      "Design Head, IET",
+      "Design Head, ECE Society",
+      "Technical and Design Head, Literary Society",
     ],
   },
   {
@@ -31,17 +32,16 @@ const education = [
     ],
   },
   {
-    degree: "Bachelor of Technology in Electronics & Communication Engineering",
-    institution: "Birla Institute of Technology, Mesra, Ranchi",
-    period: "2023 - 2027",
-    image: "/bitmesra.webp",
+    degree: "Class X - ICSE",
+    institution: "St. Thomas School, Dhurwa, Ranchi",
+    period: "2009 - 2021",
+    image: "/stthomas.jpg",
     description:
-      "Pursuing a degree in Electronics and Communication Engineering with a focus on Signal Processing and Deep Learning. Engaged in various projects and research activities.",
+      "Completed Class X with a strong academic record and a keen interest in Science and Mathematics. Involved in various school activities and national olympiads competitions.",
     achievements: [
-      "General Secretary, EDC",
-      "Design Head, IET",
-      "Design Head, ECE Society",
-      "Technical and Design Head, Literary Society",
+      "Scored 97.5%: City Rank 10",
+      "6 times International Mathematics Olympiad Medalist",
+      "5 times National Science Olympiad Medalist",
     ],
   },
 ];
