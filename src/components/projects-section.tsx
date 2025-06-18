@@ -9,6 +9,17 @@ import { FiExternalLink, FiGithub } from "react-icons/fi";
 
 const projects = [
   {
+    title: "Fairly",
+    description:
+      "Progressive Web App to track shared expenses and split bills with friends with features like split equally, by percentage, by amount, by share, currency conversion, and more.",
+    image: "/fairly-black.svg",
+    tags: ["React", "Vite", "Tailwind CSS", "Shadcn/ui", "Firebase"],
+    liveLink: "https://usefairly.vercel.app/",
+    githubLink: "https://github.com/Abhi1264/fairly",
+    featured: false,
+    type: "design-dev",
+  },
+  {
     title: "Bitotsav'25 Website",
     description:
       "Responsive website for BIT Mesra's annual techno-cultural fest, featuring event details, registration, and community engagement.",

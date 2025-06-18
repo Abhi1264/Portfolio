@@ -45,12 +45,12 @@ const socialLinks = [
   {
     icon: ImLinkedin2,
     label: "LinkedIn",
-    href: "https://www.linkedin.com/in/abhinav-kumar-choudhary-784062288/",
+    href: "https://www.linkedin.com/in/abhi1264",
   },
   {
     icon: BsTwitterX,
     label: "X",
-    href: "https://x.com/akc1264",
+    href: "https://x.com/abhi1264",
   },
   {
     icon: IoLogoInstagram,

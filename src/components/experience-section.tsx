@@ -11,25 +11,43 @@ const experiences = [
     title: "Graphic Designer",
     company: "Bloom Tide Consulting",
     period: "July 2024 - Feb 2025",
-    description:
-      "Created visual assets for social media, focusing on branding.",
+    description: [
+      "Created engaging social media content and graphics for LinkedIn and Instagram, aligned with brand tone and strategy.",
+      "Scaled social media presence from 0 to 1700+ followers through consistent branding and content planning.",
+      "Contributed to UI/UX design for client projects using Figma and Framer, focusing on user-centric and responsive design.",
+    ],
     skills: ["Figma", "Canva", "Adobe Creative Suite"],
-  },
-  {
-    title: "UI/UX Designer & Frontend Developer",
-    company: "Bitotsav'25",
-    period: "Feb 2025 - Mar 2025",
-    description:
-      "Designed and developed user interfaces for web and mobile websites.",
-    skills: ["Figma", "React", "Next", "Tailwind CSS", "Shadcn/ui", "Three"],
   },
   {
     title: "SDE Intern",
     company: "Bloom Tide Consulting",
     period: "Feb 2025 - Present",
-    description:
-      "Developed front-end for a social media platform and led UI/UX redesigns.",
-    skills: ["TypeScript", "React", "Tailwind CSS", "Vite"],
+    description: [
+      "Collaborated on a full-stack web application using React.js, Vite, and Tailwind CSS for the front-end, Node.js/Express.js for the back-end, and MongoDB database, implementing RESTful APIs and modern UI/UX practices.",
+      "Independently developed the entire front-end of a social media platform using TypeScript, React.js, Tailwind CSS, and Vite.",
+      "Led the redesign of the UI / UX and performance optimization of the company’s official website to improve user retention and accessibility.",
+    ],
+    skills: [
+      "TypeScript",
+      "React.js",
+      "Tailwind CSS",
+      "Vite",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Framer",
+      "Figma",
+    ],
+  },
+  {
+    title: "SDE Intern",
+    company: "Recrivio",
+    period: "May 2025 - Present",
+    description: [
+      "Collaborated on a scalable job board platform with a modern tech stack: Next.js, Tailwind CSS and Supabase/PostgreSQL.",
+      "Achieved a 90% improvement in page load times through advanced Next.js optimization techniques and best practices like dynamic imports, suspense boundaries, static site generation, and server-side rendering.",
+    ],
+    skills: ["Next.js", "Tailwind CSS", "Supabase", "PostgreSQL"],
   },
 ];
 
@@ -114,9 +132,18 @@ export function ExperienceSection() {
                             {exp.period}
                           </Badge>
                         </div>
-                        <p className="text-muted-foreground mb-4">
-                          {exp.description}
-                        </p>
+                        {/* Description: support string or bullet points */}
+                        {Array.isArray(exp.description) ? (
+                          <ul className="list-disc list-inside text-muted-foreground mb-4">
+                            {exp.description.map((point, idx) => (
+                              <li key={idx}>{point}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-muted-foreground mb-4">
+                            {exp.description}
+                          </p>
+                        )}
                         <div className="flex flex-wrap gap-2">
                           {exp.skills.map((s, idx) => (
                             <Badge
