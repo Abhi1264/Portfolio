@@ -54,7 +54,6 @@ const AddWorkForm = React.memo(
     const titleRef = useRef<HTMLInputElement>(null);
     const categoryRef = useRef<HTMLInputElement>(null);
     const excerptRef = useRef<HTMLTextAreaElement>(null);
-    const contentRef = useRef<HTMLTextAreaElement>(null);
     const tagsRef = useRef<HTMLInputElement>(null);
 
     const [richContent, setRichContent] = React.useState("");

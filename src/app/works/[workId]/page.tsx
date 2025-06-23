@@ -68,16 +68,6 @@ export default function WorkPage({
     fetchWork();
   }, [unwrappedParams?.workId]);
 
-  // Memoize the content paragraphs to avoid re-rendering
-  const contentParagraphs = useMemo(() => {
-    if (!work?.content) return [];
-    return work.content.split("\n").map((paragraph, idx) => (
-      <p key={idx} className="mb-4">
-        {paragraph}
-      </p>
-    ));
-  }, [work?.content]);
-
   // Memoize the tags to avoid re-rendering
   const tagBadges = useMemo(() => {
     if (!work?.tags) return [];
@@ -146,9 +136,17 @@ export default function WorkPage({
         </header>
 
         <div className="prose prose-invert prose-purple max-w-none">
-          {work?.content && (
-            <div dangerouslySetInnerHTML={{ __html: work.content }} />
-          )}
+          {work?.content &&
+            work.content
+              .split("\n")
+              .filter((p) => p.trim() !== "")
+              .map((paragraph, idx) => (
+                <p
+                  key={idx}
+                  className="mb-4"
+                  dangerouslySetInnerHTML={{ __html: paragraph }}
+                />
+              ))}
         </div>
 
         <footer className="mt-8 pt-8 border-t border-purple-500/40">
