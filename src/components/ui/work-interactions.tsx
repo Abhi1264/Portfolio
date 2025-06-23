@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import { useSession, signIn } from "next-auth/react";
 import { Button } from "./button";
 import { Textarea } from "./textarea";
@@ -26,165 +32,170 @@ type WorkInteractionsProps = {
 };
 
 // Create a completely uncontrolled input component that doesn't re-render during typing
-const UncontrolledCommentInput = React.memo(({ 
-  onSubmit 
-}: { 
-  onSubmit: (text: string) => Promise<void>
-}) => {
-  const inputRef = useRef<HTMLTextAreaElement>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const handleSubmit = useCallback(async () => {
-    if (!inputRef.current || !inputRef.current.value.trim()) {
-      toast.error("Comment cannot be empty");
-      return;
-    }
-    
-    const commentText = inputRef.current.value.trim();
-    setIsSubmitting(true);
-    
-    try {
-      await onSubmit(commentText);
-      // Clear the input field after successful submission
-      if (inputRef.current) {
-        inputRef.current.value = '';
+const UncontrolledCommentInput = React.memo(
+  ({ onSubmit }: { onSubmit: (text: string) => Promise<void> }) => {
+    const inputRef = useRef<HTMLTextAreaElement>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleSubmit = useCallback(async () => {
+      if (!inputRef.current || !inputRef.current.value.trim()) {
+        toast.error("Comment cannot be empty");
+        return;
       }
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [onSubmit]);
-  
-  // Prevent re-renders when typing by using an uncontrolled input
-  return (
-    <div className="mb-8">
-      <Textarea
-        ref={inputRef}
-        placeholder="Add a comment..."
-        className="mb-4 bg-black/50 border-purple-500/40"
-      />
-      <Button
-        onClick={handleSubmit}
-        disabled={isSubmitting}
-        className="bg-purple-600 hover:bg-purple-700"
-      >
-        {isSubmitting ? "Posting..." : "Post Comment"}
-      </Button>
-    </div>
-  );
-});
+
+      const commentText = inputRef.current.value.trim();
+      setIsSubmitting(true);
+
+      try {
+        await onSubmit(commentText);
+        // Clear the input field after successful submission
+        if (inputRef.current) {
+          inputRef.current.value = "";
+        }
+      } finally {
+        setIsSubmitting(false);
+      }
+    }, [onSubmit]);
+
+    // Prevent re-renders when typing by using an uncontrolled input
+    return (
+      <div className="mb-8">
+        <Textarea
+          ref={inputRef}
+          placeholder="Add a comment..."
+          className="mb-4 bg-black/50 border-purple-500/40"
+        />
+        <Button
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          className="bg-purple-600 hover:bg-purple-700"
+        >
+          {isSubmitting ? "Posting..." : "Post Comment"}
+        </Button>
+      </div>
+    );
+  }
+);
 
 UncontrolledCommentInput.displayName = "UncontrolledCommentInput";
 
 // Similarly, create a memoized component to display a like button
-const LikeButton = React.memo(({ 
-  liked, 
-  likesCount, 
-  onLike, 
-  disabled 
-}: { 
-  liked: boolean, 
-  likesCount: number, 
-  onLike: () => void, 
-  disabled: boolean 
-}) => {
-  return (
-    <Button
-      variant="ghost"
-      onClick={onLike}
-      disabled={disabled}
-      className="flex items-center gap-2 text-purple-300 hover:text-purple-400 cursor-pointer"
-    >
-      {liked ? (
-        <AiFillHeart className="text-red-500" />
-      ) : (
-        <AiOutlineHeart />
-      )}
-      <span>
-        {likesCount} {likesCount === 1 ? "Like" : "Likes"}
-      </span>
-    </Button>
-  );
-});
+const LikeButton = React.memo(
+  ({
+    liked,
+    likesCount,
+    onLike,
+    disabled,
+  }: {
+    liked: boolean;
+    likesCount: number;
+    onLike: () => void;
+    disabled: boolean;
+  }) => {
+    return (
+      <Button
+        variant="ghost"
+        onClick={onLike}
+        disabled={disabled}
+        className="flex items-center gap-2 text-purple-300 hover:text-purple-400 cursor-pointer"
+      >
+        {liked ? <AiFillHeart className="text-red-500" /> : <AiOutlineHeart />}
+        <span>
+          {likesCount} {likesCount === 1 ? "Like" : "Likes"}
+        </span>
+      </Button>
+    );
+  }
+);
 
 LikeButton.displayName = "LikeButton";
 
 // Create a memoized component for a delete button
-const DeleteButton = React.memo(({ 
-  onDelete, 
-  isDeleting 
-}: { 
-  onDelete: () => Promise<void>, 
-  isDeleting: boolean 
-}) => {
-  return (
-    <Button 
-      variant="ghost" 
-      size="sm" 
-      onClick={onDelete} 
-      disabled={isDeleting} 
-      className="text-red-400 hover:text-red-500 p-1 h-auto ml-auto cursor-pointer"
-    >
-      <Trash2 size={16} />
-    </Button>
-  );
-});
+const DeleteButton = React.memo(
+  ({
+    onDelete,
+    isDeleting,
+  }: {
+    onDelete: () => Promise<void>;
+    isDeleting: boolean;
+  }) => {
+    return (
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={onDelete}
+        disabled={isDeleting}
+        className="text-red-400 hover:text-red-500 p-1 h-auto ml-auto cursor-pointer"
+      >
+        <Trash2 size={16} />
+      </Button>
+    );
+  }
+);
 
 DeleteButton.displayName = "DeleteButton";
 
 // Create a memoized component for comments list
-const CommentsList = React.memo(({ 
-  comments, 
-  onDeleteComment, 
-  currentUserEmail,
-  isAdmin 
-}: { 
-  comments: Comment[], 
-  onDeleteComment: (commentId: string) => Promise<void>,
-  currentUserEmail: string | null,
-  isAdmin: boolean
-}) => {
-  const [deletingCommentId, setDeletingCommentId] = useState<string | null>(null);
+const CommentsList = React.memo(
+  ({
+    comments,
+    onDeleteComment,
+    currentUserEmail,
+    isAdmin,
+  }: {
+    comments: Comment[];
+    onDeleteComment: (commentId: string) => Promise<void>;
+    currentUserEmail: string | null;
+    isAdmin: boolean;
+  }) => {
+    const [deletingCommentId, setDeletingCommentId] = useState<string | null>(
+      null
+    );
 
-  const handleDelete = useCallback(async (commentId: string) => {
-    setDeletingCommentId(commentId);
-    try {
-      await onDeleteComment(commentId);
-    } finally {
-      setDeletingCommentId(null);
-    }
-  }, [onDeleteComment]);
+    const handleDelete = useCallback(
+      async (commentId: string) => {
+        setDeletingCommentId(commentId);
+        try {
+          await onDeleteComment(commentId);
+        } finally {
+          setDeletingCommentId(null);
+        }
+      },
+      [onDeleteComment]
+    );
 
-  return (
-    <div className="space-y-6">
-      {comments.map((comment) => (
-        <div key={comment.id} className="flex gap-4">
-          <Avatar src={comment.userImage} alt={comment.userName} />
-          <div className="flex-1">
-            <div className="flex items-center gap-2 justify-between">
-              <div>
-                <span className="font-semibold text-purple-300">
-                  {comment.userName}
-                </span>
-                <span className="text-sm text-purple-400 ml-2">
-                  {format(new Date(comment.createdAt), "MMM d, yyyy")}
-                </span>
+    return (
+      <div className="space-y-6">
+        {comments.map((comment) => (
+          <div key={comment.id} className="flex gap-4">
+            <Avatar src={comment.userImage} alt={comment.userName} />
+            <div className="flex-1">
+              <div className="flex items-center gap-2 justify-between">
+                <div>
+                  <span className="font-semibold text-purple-300">
+                    {comment.userName}
+                  </span>
+                  <span className="text-sm text-purple-400 ml-2">
+                    {format(new Date(comment.createdAt), "MMM d, yyyy")}
+                  </span>
+                </div>
+
+                {/* Show delete button if user owns the comment or is admin */}
+                {(comment.userId === currentUserEmail || isAdmin) && (
+                  <DeleteButton
+                    onDelete={() => handleDelete(comment.id)}
+                    isDeleting={deletingCommentId === comment.id}
+                  />
+                )}
               </div>
-              
-              {/* Show delete button if user owns the comment or is admin */}
-              {(comment.userId === currentUserEmail || isAdmin) && (
-                <DeleteButton 
-                  onDelete={() => handleDelete(comment.id)} 
-                  isDeleting={deletingCommentId === comment.id} 
-                />
-              )}
+              <p className="text-neutral-300 mt-1">{comment.text}</p>
             </div>
-            <p className="text-neutral-300 mt-1">{comment.text}</p>
           </div>
-        </div>
-      ))}
-    </div>
-  );
-});
+        ))}
+      </div>
+    );
+  }
+);
 
 CommentsList.displayName = "CommentsList";
 
@@ -192,7 +203,7 @@ CommentsList.displayName = "CommentsList";
 const SignInPrompt = React.memo(() => (
   <div className="mb-8 p-4 bg-purple-500/10 rounded-md text-center">
     <p className="mb-3">Join the discussion by signing in!</p>
-    <Button 
+    <Button
       onClick={() => signIn("google")}
       className="bg-purple-600 hover:bg-purple-700 px-8 cursor-pointer"
     >
@@ -293,111 +304,122 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
   }, [liked, likes, session, workId]);
 
   // Stable callback function that doesn't change between renders
-  const handleComment = useCallback(async (commentText: string) => {
-    if (!session?.user) {
-      toast.error("You need to be signed in to comment");
-      return;
-    }
-
-    // Create a comment object for optimistic UI update
-    const optimisticComment: Comment = {
-      id: `temp-${Date.now()}`,
-      text: commentText,
-      userId: session.user.email!,
-      userImage: session.user.image || "",
-      userName: session.user.name || "",
-      createdAt: new Date().toISOString(),
-    };
-
-    // Optimistic UI update
-    setComments((prev) => [...prev, optimisticComment]);
-
-    try {
-      // Use absolute URL with base path
-      const response = await fetch(
-        `${window.location.origin}/api/works/comment`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            workId,
-            text: optimisticComment.text,
-          }),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to post comment");
+  const handleComment = useCallback(
+    async (commentText: string) => {
+      if (!session?.user) {
+        toast.error("You need to be signed in to comment");
+        return;
       }
 
-      // Replace the temp comment with the real one from server
-      setComments((prev) =>
-        prev.map((c) => (c.id === optimisticComment.id ? data.comment : c))
-      );
-    } catch (error) {
-      console.error("Error adding comment:", error);
-      // Remove the optimistic comment on error
-      setComments((prev) => prev.filter((c) => c.id !== optimisticComment.id));
-      toast.error("Failed to post comment. Please try again.");
-      toast.error("Failed to post comment. Please try again.");
-    }
-  }, [session, workId]);
+      // Create a comment object for optimistic UI update
+      const optimisticComment: Comment = {
+        id: `temp-${Date.now()}`,
+        text: commentText,
+        userId: session.user.email!,
+        userImage: session.user.image || "",
+        userName: session.user.name || "",
+        createdAt: new Date().toISOString(),
+      };
+
+      // Optimistic UI update
+      setComments((prev) => [...prev, optimisticComment]);
+
+      try {
+        // Use absolute URL with base path
+        const response = await fetch(
+          `${window.location.origin}/api/works/comment`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              workId,
+              text: optimisticComment.text,
+            }),
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to post comment");
+        }
+
+        // Replace the temp comment with the real one from server
+        setComments((prev) =>
+          prev.map((c) => (c.id === optimisticComment.id ? data.comment : c))
+        );
+      } catch (error) {
+        console.error("Error adding comment:", error);
+        // Remove the optimistic comment on error
+        setComments((prev) =>
+          prev.filter((c) => c.id !== optimisticComment.id)
+        );
+        toast.error("Failed to post comment. Please try again.");
+        toast.error("Failed to post comment. Please try again.");
+      }
+    },
+    [session, workId]
+  );
 
   // Add a new function to handle comment deletion
-  const handleDeleteComment = useCallback(async (commentId: string) => {
-    if (!session?.user?.email) {
-      toast.error("You need to be signed in to delete comments");
-      return;
-    }
+  const handleDeleteComment = useCallback(
+    async (commentId: string) => {
+      if (!session?.user?.email) {
+        toast.error("You need to be signed in to delete comments");
+        return;
+      }
 
-    // Optimistic UI update - remove the comment immediately
-    setComments((prev) => prev.filter((c) => c.id !== commentId));
+      // Optimistic UI update - remove the comment immediately
+      setComments((prev) => prev.filter((c) => c.id !== commentId));
 
-    try {
-      // Use absolute URL with base path
-      const response = await fetch(
-        `${window.location.origin}/api/works/comment/delete?workId=${workId}&commentId=${commentId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      try {
+        // Use absolute URL with base path
+        const response = await fetch(
+          `${window.location.origin}/api/works/comment/delete?workId=${workId}&commentId=${commentId}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to delete comment");
         }
-      );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to delete comment");
+        // Toast notification for success
+        toast.success("Comment deleted successfully");
+      } catch (error) {
+        console.error("Error deleting comment:", error);
+        // Fetch comments again to restore state on error
+        const docRef = doc(db, "works", workId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setComments(data.comments || []);
+        }
+        toast.error("Failed to delete comment. Please try again.");
       }
-
-      // Toast notification for success
-      toast.success("Comment deleted successfully");
-    } catch (error) {
-      console.error("Error deleting comment:", error);
-      // Fetch comments again to restore state on error
-      const docRef = doc(db, "works", workId);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setComments(data.comments || []);
-      }
-      toast.error("Failed to delete comment. Please try again.");
-    }
-  }, [session, workId]);
+    },
+    [session, workId]
+  );
 
   // Stable props for the like button - only change when needed
-  const likeButtonProps = useMemo(() => ({
-    liked,
-    likesCount: likes.length,
-    onLike: handleLike,
-    disabled: !session
-  }), [liked, likes.length, handleLike, session]);
-  
+  const likeButtonProps = useMemo(
+    () => ({
+      liked,
+      likesCount: likes.length,
+      onLike: handleLike,
+      disabled: !session,
+    }),
+    [liked, likes.length, handleLike, session]
+  );
+
   // Create the correct comment input component based on session state
   const commentInputComponent = useMemo(() => {
     if (!session) {
@@ -415,8 +437,8 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       </div>
 
       {commentInputComponent}
-      <CommentsList 
-        comments={comments} 
+      <CommentsList
+        comments={comments}
         onDeleteComment={handleDeleteComment}
         currentUserEmail={session?.user?.email || null}
         isAdmin={isAdmin}

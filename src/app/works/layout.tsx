@@ -7,7 +7,7 @@ export default function WorksLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="text-neutral-100">
+    <div className="min-h-screen bg-black text-neutral-100">
       <Navbar />
       {children}
       <Footer />

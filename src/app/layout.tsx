@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "sonner";
 import { NextAuthProvider } from "@/components/next-auth-provider";
+import { MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -25,29 +27,31 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={manrope.className}>
-        <NextAuthProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
-            disableTransitionOnChange
-          >
-            {children}
-            <Analytics />
-            <Toaster
-              theme="dark"
-              position="bottom-right"
-              expand={false}
-              richColors
-              closeButton
-              style={{
-                background: "hsl(var(--background))",
-                color: "hsl(var(--foreground))",
-                border: "1px solid hsl(var(--border))",
-              }}
-            />
-          </ThemeProvider>
-        </NextAuthProvider>
+        <MantineProvider defaultColorScheme="dark">
+          <NextAuthProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem={false}
+              disableTransitionOnChange
+            >
+              {children}
+              <Analytics />
+              <Toaster
+                theme="dark"
+                position="bottom-right"
+                expand={false}
+                richColors
+                closeButton
+                style={{
+                  background: "hsl(var(--background))",
+                  color: "hsl(var(--foreground))",
+                  border: "1px solid hsl(var(--border))",
+                }}
+              />
+            </ThemeProvider>
+          </NextAuthProvider>
+        </MantineProvider>
       </body>
     </html>
   );

@@ -146,13 +146,13 @@ export default function WorkPage({
         </header>
 
         <div className="prose prose-invert prose-purple max-w-none">
-          {contentParagraphs}
+          {work?.content && (
+            <div dangerouslySetInnerHTML={{ __html: work.content }} />
+          )}
         </div>
 
         <footer className="mt-8 pt-8 border-t border-purple-500/40">
-          <div className="flex flex-wrap gap-2 mb-8">
-            {tagBadges}
-          </div>
+          <div className="flex flex-wrap gap-2 mb-8">{tagBadges}</div>
 
           <WorkInteractions workId={work.id} />
         </footer>
