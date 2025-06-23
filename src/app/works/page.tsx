@@ -1,5 +1,5 @@
 "use client";
-
+import dynamic from "next/dynamic";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,6 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { format } from "date-fns";
 import Link from "next/link";
-import { WorksManagement } from "@/components/ui/works-management";
 import { useSession } from "next-auth/react";
 
 type Work = {
@@ -105,6 +104,8 @@ const WorksGrid = React.memo(({ works }: { works: Work[] }) => (
 ));
 
 WorksGrid.displayName = "WorksGrid";
+
+const WorksManagement = dynamic(() => import("@/components/ui/works-management").then(mod => mod.WorksManagement), { ssr: false });
 
 export default function WorksPage() {
   const [works, setWorks] = useState<Work[]>([]);
