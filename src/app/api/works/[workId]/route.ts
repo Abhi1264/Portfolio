@@ -5,7 +5,7 @@ import { authOptions } from "@/lib/auth";
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { workId: string } }
+  { params }: { params: Promise<{ workId: string }> }
 ) {
   try {
     // Get the authenticated user
@@ -27,7 +27,7 @@ export async function PUT(
     }
 
     // Get work ID from params
-    const { workId } = params;
+    const { workId } = await params;
     if (!workId) {
       return NextResponse.json(
         { error: "Work ID is required" },
