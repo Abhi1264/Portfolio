@@ -20,7 +20,7 @@ export function Footer() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full hover:bg-purple-500/10 hover:text-purple-400"
+              className="rounded-full hover:bg-purple-500/10 hover:text-purple-400 cursor-pointer"
             >
               <a
                 href="https://github.com/Abhi1264"
@@ -34,7 +34,7 @@ export function Footer() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full hover:bg-purple-500/10 hover:text-purple-400"
+              className="rounded-full hover:bg-purple-500/10 hover:text-purple-400 cursor-pointer"
             >
               <a
                 href="https://www.linkedin.com/in/abhi1264/"
@@ -48,7 +48,7 @@ export function Footer() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full hover:bg-purple-500/10 hover:text-purple-400"
+              className="rounded-full hover:bg-purple-500/10 hover:text-purple-400 cursor-pointer"
             >
               <a
                 href="https://x.com/abhi1264"
@@ -62,7 +62,7 @@ export function Footer() {
             <Button
               variant="ghost"
               size="icon"
-              className="rounded-full hover:bg-purple-500/10 hover:text-purple-400"
+              className="rounded-full hover:bg-purple-500/10 hover:text-purple-400 cursor-pointer"
             >
               <a
                 href="https://www.instagram.com/poetry_aficionado/"

@@ -70,12 +70,12 @@ const ScrollDownButton = React.memo(() => (
     <Button
       variant="ghost"
       size="icon"
-      className="rounded-full text-purple-400 hover:bg-purple-500/10"
+      className="rounded-full text-purple-400 hover:bg-purple-500/10 cursor-pointer"
       onClick={() =>
         document.getElementById("about")?.scrollIntoView({ behavior: "smooth" })
       }
     >
-      <MdArrowDownward className="h-6 w-6" />
+      <MdArrowDownward className="h-10 w-10" />
       <span className="sr-only">Scroll Down</span>
     </Button>
   </div>
@@ -86,7 +86,7 @@ ScrollDownButton.displayName = "ScrollDownButton";
 const ActionButtons = React.memo(() => (
   <div className="flex flex-wrap gap-5 mb-8">
     <Button
-      className="bg-purple-600 hover:bg-purple-700 text-white cursor-pointer hover:scale-105 transition-all duration-200"
+      className="bg-purple-600 hover:bg-purple-700 text-white cursor-pointer hover:scale-105 transition-all duration-200 px-5"
       size="lg"
       onClick={() =>
         document
@@ -98,7 +98,7 @@ const ActionButtons = React.memo(() => (
     </Button>
     <Button
       variant="outline"
-      className="border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 cursor-pointer hover:scale-105 transition-all duration-200"
+      className="border-purple-500 text-purple-400 hover:bg-purple-500/10 hover:text-purple-300 cursor-pointer hover:scale-105 transition-all duration-200 px-5"
       size="lg"
       asChild
     >
@@ -156,7 +156,7 @@ export function HeroSection() {
   return (
     <section
       id="home"
-      className="mx-auto relative min-h-screen flex flex-col justify-center items-center pt-16 pb-0"
+      className="mx-auto relative min-h-screen flex flex-col justify-center items-center pt-16"
     >
       <div className="absolute inset-0 z-0">
         <Particles

@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -33,7 +39,7 @@ const Logo = React.memo(() => (
     href="/"
     className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
   >
-    Abhi.1264
+    Abhinav
   </Link>
 ));
 
@@ -46,7 +52,7 @@ const UserMenu = React.memo(() => {
     () => signIn("google", { callbackUrl: "/" }),
     []
   );
-  
+
   if (!session) {
     return (
       <Button
@@ -58,7 +64,7 @@ const UserMenu = React.memo(() => {
       </Button>
     );
   }
-  
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -88,9 +94,7 @@ const UserMenu = React.memo(() => {
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium">
-              {session.user?.name}
-            </span>
+            <span className="text-sm font-medium">{session.user?.name}</span>
             <span className="text-xs text-muted-foreground">
               {session.user?.email}
             </span>
@@ -155,25 +159,25 @@ const MobileNav = React.memo<NavProps & { open: boolean }>(
       <nav className="bg-black/80 backdrop-blur-md border-b border-purple-500/40">
         <div className="flex flex-col items-center space-y-4 p-4">
           {navItems.map((item) =>
-        item.href.startsWith("#") ? (
-          <button
-            key={item.name}
-            type="button"
-            onClick={() => onSectionNav(item.href)}
-            className="px-3 py-2 text-lg hover:text-purple-400 transition-colors border-none"
-            style={{ background: "none" }}
-          >
-            {item.name}
-          </button>
-        ) : (
-          <Link
-            key={item.name}
-            href={item.href}
-            className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
-          >
-            {item.name}
-          </Link>
-        )
+            item.href.startsWith("#") ? (
+              <button
+                key={item.name}
+                type="button"
+                onClick={() => onSectionNav(item.href)}
+                className="px-3 py-2 text-lg hover:text-purple-400 transition-colors border-none"
+                style={{ background: "none" }}
+              >
+                {item.name}
+              </button>
+            ) : (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="px-3 py-2 text-lg hover:text-purple-400 transition-colors"
+              >
+                {item.name}
+              </Link>
+            )
           )}
         </div>
       </nav>
@@ -189,8 +193,8 @@ function debounce<T extends (...args: unknown[]) => unknown>(
   wait: number
 ): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
-  
-  return function(...args: Parameters<T>) {
+
+  return function (...args: Parameters<T>) {
     if (timeout) clearTimeout(timeout);
     timeout = setTimeout(() => func(...args), wait);
   };
@@ -202,10 +206,10 @@ export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
   const prevScrolledRef = useRef(false);
-  
+
   // Check if we're on a works page to avoid re-renders during works page transitions
   const isWorksPage = useMemo(() => {
-    return pathname?.startsWith('/works');
+    return pathname?.startsWith("/works");
   }, [pathname]);
 
   // If we're on a works page, always set the scroll state to true (dark background)
@@ -221,7 +225,7 @@ export function Navbar() {
     if (isWorksPage) return;
 
     const currentlyScrolled = window.scrollY > 10;
-    
+
     // Only update state if the value actually changes
     if (prevScrolledRef.current !== currentlyScrolled) {
       prevScrolledRef.current = currentlyScrolled;
@@ -231,7 +235,7 @@ export function Navbar() {
 
   // Debounced version of the scroll handler to reduce number of calls
   const debouncedHandleScroll = useMemo(
-    () => debounce(handleScroll, 10), 
+    () => debounce(handleScroll, 10),
     [handleScroll]
   );
 
@@ -262,32 +266,33 @@ export function Navbar() {
   const renderUser = useMemo(() => <UserMenu />, []);
 
   // Hamburger icon for mobile menu - memoized to prevent re-renders
-  const hamburgerIcon = useMemo(() => (
-    <div className="relative w-6 h-6">
-      <span
-        className={cn(
-          "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
-          mobileMenuOpen
-            ? "rotate-45 translate-y-0"
-            : "-translate-y-1.5"
-        )}
-      />
-      <span
-        className={cn(
-          "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
-          mobileMenuOpen
-            ? "-rotate-45 translate-y-0"
-            : "translate-y-1.5"
-        )}
-      />
-    </div>
-  ), [mobileMenuOpen]);
+  const hamburgerIcon = useMemo(
+    () => (
+      <div className="relative w-6 h-6">
+        <span
+          className={cn(
+            "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
+            mobileMenuOpen ? "rotate-45 translate-y-0" : "-translate-y-1.5"
+          )}
+        />
+        <span
+          className={cn(
+            "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
+            mobileMenuOpen ? "-rotate-45 translate-y-0" : "translate-y-1.5"
+          )}
+        />
+      </div>
+    ),
+    [mobileMenuOpen]
+  );
 
   // Create a stable style for the header that doesn't change between renders
   const headerClassName = useMemo(() => {
     return cn(
       "fixed top-0 z-50 w-full transition-all duration-300",
-      isScrolled || isWorksPage ? "bg-black/80 backdrop-blur-md" : "bg-transparent"
+      isScrolled || isWorksPage
+        ? "bg-black/80 backdrop-blur-md"
+        : "bg-transparent"
     );
   }, [isScrolled, isWorksPage]);
 
@@ -297,10 +302,7 @@ export function Navbar() {
       <div className="container mx-auto flex h-18 items-center justify-between pl-4">
         <Logo />
 
-        <DesktopNav
-          onSectionNav={handleSectionNav}
-          renderUser={renderUser}
-        />
+        <DesktopNav onSectionNav={handleSectionNav} renderUser={renderUser} />
 
         <div className="flex items-center lg:hidden">
           {renderUser}
