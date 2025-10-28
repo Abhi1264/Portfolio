@@ -14,7 +14,7 @@ const experiences = [
     company: "Recrivio",
     website: "https://www.recrivio.com",
     linkedin: "https://www.linkedin.com/company/recrivio",
-    period: "May 2025 - Present",
+    period: "May 2025 - Oct 2025",
     description: [
       "Collaborated on a scalable job board platform with a modern tech stack: Next.js, Tailwind CSS and Supabase/PostgreSQL.",
       "Achieved a 90% improvement in page load times through advanced Next.js optimization techniques and best practices like dynamic imports, suspense boundaries, static site generation, and server-side rendering.",
@@ -26,7 +26,7 @@ const experiences = [
     company: "Bloom Tide Consulting",
     website: "https://www.bloomtideconsulting.com",
     linkedin: "https://www.linkedin.com/company/bloom-tide-consulting",
-    period: "Feb 2025 - Present",
+    period: "Mar 2025 - Oct 2025",
     description: [
       "Collaborated on a full-stack web application using React.js, Vite, and Tailwind CSS for the front-end, Node.js/Express.js for the back-end, and MongoDB database, implementing RESTful APIs and modern UI/UX practices.",
       "Independently developed the entire front-end of a social media platform using TypeScript, React.js, Tailwind CSS, and Vite.",
