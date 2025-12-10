@@ -20,6 +20,26 @@ const projects = [
     type: "design-dev",
   },
   {
+    title: "InkSaver",
+    description:
+      "High-performance document processing tool using unsafe C# pointers for adaptive thresholding, reducing printer ink usage by binarizing images with features like real-time, in-memory processing, intensity slider and smart inversion logic for dark mode screenshots.",
+    image: "/inksaver.png",
+    tags: [
+      "C#",
+      "ASP.NET Core",
+      "SkiaSharp",
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+      "Shadcn/ui",
+      "Turborepo",
+    ],
+    liveLink: null,
+    githubLink: "https://github.com/Abhi1264/inksaver",
+    featured: false,
+    type: "development",
+  },
+  {
     title: "Bitotsav'25 Website",
     description:
       "Responsive website for BIT Mesra's annual techno-cultural fest, featuring event details, registration, and community engagement.",
@@ -175,7 +195,7 @@ export function ProjectsSection() {
                           asChild
                         >
                           <a
-                            href={project.liveLink}
+                            href={project.liveLink || ""}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
