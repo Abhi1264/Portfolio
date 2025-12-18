@@ -67,7 +67,7 @@ const projects = [
       "Responsive website for E-Summit 2025, featuring event details, registration, and community engagement.",
     image: "/esummit.png",
     tags: ["React", "Tailwind CSS", "Figma"],
-    liveLink: "https://esummit.edcbitmesra.in/",
+    liveLink: "https://e-summit-2025-blond.vercel.app/",
     githubLink: "https://github.com/EDC-BITM/E-Summit-2025",
     featured: true,
     type: "design-dev",
