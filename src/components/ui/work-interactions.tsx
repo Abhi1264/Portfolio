@@ -74,7 +74,7 @@ const UncontrolledCommentInput = React.memo(
         </Button>
       </div>
     );
-  }
+  },
 );
 
 UncontrolledCommentInput.displayName = "UncontrolledCommentInput";
@@ -105,7 +105,7 @@ const LikeButton = React.memo(
         </span>
       </Button>
     );
-  }
+  },
 );
 
 LikeButton.displayName = "LikeButton";
@@ -130,7 +130,7 @@ const DeleteButton = React.memo(
         <Trash2 size={16} />
       </Button>
     );
-  }
+  },
 );
 
 DeleteButton.displayName = "DeleteButton";
@@ -149,7 +149,7 @@ const CommentsList = React.memo(
     isAdmin: boolean;
   }) => {
     const [deletingCommentId, setDeletingCommentId] = useState<string | null>(
-      null
+      null,
     );
 
     const handleDelete = useCallback(
@@ -161,7 +161,7 @@ const CommentsList = React.memo(
           setDeletingCommentId(null);
         }
       },
-      [onDeleteComment]
+      [onDeleteComment],
     );
 
     return (
@@ -194,7 +194,7 @@ const CommentsList = React.memo(
         ))}
       </div>
     );
-  }
+  },
 );
 
 CommentsList.displayName = "CommentsList";
@@ -245,7 +245,7 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
           setLiked(
             session?.user?.email
               ? likesArray.includes(session.user.email)
-              : false
+              : false,
           );
         }
       } catch (error) {
@@ -337,7 +337,7 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
               workId,
               text: optimisticComment.text,
             }),
-          }
+          },
         );
 
         const data = await response.json();
@@ -348,19 +348,19 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
 
         // Replace the temp comment with the real one from server
         setComments((prev) =>
-          prev.map((c) => (c.id === optimisticComment.id ? data.comment : c))
+          prev.map((c) => (c.id === optimisticComment.id ? data.comment : c)),
         );
       } catch (error) {
         console.error("Error adding comment:", error);
         // Remove the optimistic comment on error
         setComments((prev) =>
-          prev.filter((c) => c.id !== optimisticComment.id)
+          prev.filter((c) => c.id !== optimisticComment.id),
         );
         toast.error("Failed to post comment. Please try again.");
         toast.error("Failed to post comment. Please try again.");
       }
     },
-    [session, workId]
+    [session, workId],
   );
 
   // Add a new function to handle comment deletion
@@ -383,7 +383,7 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         );
 
         const data = await response.json();
@@ -406,7 +406,7 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
         toast.error("Failed to delete comment. Please try again.");
       }
     },
-    [session, workId]
+    [session, workId],
   );
 
   // Stable props for the like button - only change when needed
@@ -417,7 +417,7 @@ export function WorkInteractions({ workId }: WorkInteractionsProps) {
       onLike: handleLike,
       disabled: !session,
     }),
-    [liked, likes.length, handleLike, session]
+    [liked, likes.length, handleLike, session],
   );
 
   // Create the correct comment input component based on session state

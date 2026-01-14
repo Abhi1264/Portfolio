@@ -116,7 +116,7 @@ export function SkillsSection() {
           ))}
         </div>
       )),
-    []
+    [],
   );
 
   return (

@@ -31,7 +31,7 @@ export function WorksSection() {
       const worksQuery = query(
         collection(db, "works"),
         orderBy("date", "desc"),
-        limit(4)
+        limit(4),
       );
       const worksSnapshot = await getDocs(worksQuery);
       const worksData = worksSnapshot.docs.map((doc) => ({
@@ -53,11 +53,16 @@ export function WorksSection() {
   // Memoize the work cards to prevent unnecessary re-renders
   const workCards = useMemo(() => {
     if (isLoading) {
-      return Array(4).fill(0).map((_, index) => (
-        <Card key={`loading-${index}`} className="bg-black/50 border border-purple-500/40 overflow-hidden animate-pulse">
-          <CardContent className="p-6 h-48"></CardContent>
-        </Card>
-      ));
+      return Array(4)
+        .fill(0)
+        .map((_, index) => (
+          <Card
+            key={`loading-${index}`}
+            className="bg-black/50 border border-purple-500/40 overflow-hidden animate-pulse"
+          >
+            <CardContent className="p-6 h-48"></CardContent>
+          </Card>
+        ));
     }
 
     return works.map((work) => (
@@ -65,9 +70,7 @@ export function WorksSection() {
         <Card className="bg-black/50 border border-purple-500/40 overflow-hidden hover:border-purple-500/40 hover:transform hover:scale-[1.02] transition-all duration-200 cursor-pointer">
           <CardContent className="p-6">
             <div className="flex justify-between items-start mb-4">
-              <h3 className="text-xl font-bold line-clamp-2">
-                {work.title}
-              </h3>
+              <h3 className="text-xl font-bold line-clamp-2">{work.title}</h3>
               <Badge
                 variant="outline"
                 className="border-purple-500/50 text-purple-300 capitalize"
@@ -115,7 +118,8 @@ export function WorksSection() {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
           <p className="max-w-5xl text-muted-foreground">
-            A collection of my literary works. Each piece reflects my thoughts, experiences, and creativity.
+            A collection of my literary works. Each piece reflects my thoughts,
+            experiences, and creativity.
           </p>
         </div>
 

@@ -26,6 +26,7 @@ This document serves as technical documentation for my personal portfolio websit
 ## 🛠️ Technical Architecture
 
 ### Frontend Technologies
+
 - **Next.js 15** - App Router architecture with server and client components
 - **React 19** - Using the latest React features including hooks and server components
 - **TypeScript** - For type safety and better developer experience
@@ -36,6 +37,7 @@ This document serves as technical documentation for my personal portfolio websit
 - **EmailJS** - For serverless email sending directly from client-side
 
 ### Backend Services & Implementation
+
 - **Firebase**
   - Firestore - NoSQL database storing works, comments, and user interactions
   - Authentication - Managing user authentication state
@@ -43,11 +45,13 @@ This document serves as technical documentation for my personal portfolio websit
 - **Next-Auth** - Handling authentication flow with various providers and session management
 
 ### State Management
+
 - React's Context API for global state management
 - Custom hooks for component-specific state logic
 - Server components for data fetching and initial state population
 
 ### API Architecture
+
 - API routes implemented using Next.js App Router
 - RESTful API endpoints for CRUD operations on works and comments
 - Protected routes using Next-Auth session validation
@@ -79,31 +83,39 @@ This document serves as technical documentation for my personal portfolio websit
 ## 🔍 Implementation Details
 
 ### Animation System
+
 The animation system is built using Framer Motion with custom hooks for scroll-based triggers. Key implementations:
+
 - Timeline animation in the Experience section uses `useScroll` and `useTransform` to create a growing line effect
 - Particles in the hero section use Three.js with custom shaders for the starfield effect
 - Card animations use variants with staggered children for sequential reveals
 
 ### Data Management
+
 - Works and interactions are stored in Firebase Firestore with the following structure:
   - `works` collection: Contains documents for each literary work
   - `comments` subcollection: Nested under each work for comment storage
   - `likes` field: Counter for tracking like interactions
 
 ### Responsive Design Strategy
+
 The UI adapts to different screen sizes through:
+
 - Mobile-first approach with responsive classes in Tailwind
 - Custom breakpoints for complex layout shifts
 - Component-specific media query handling for specialized behaviors
 
 ### Authentication Flow
+
 1. User signs in through Next-Auth providers
 2. Session is established and stored in cookies
 3. Protected actions check session validity before execution
 4. Admin-only routes verify user roles before allowing access
 
 ### Literary Works System
+
 The literary works system implements:
+
 - Categorization and tagging for content organization
 - Full text storage with formatting preservation
 - Client-side filtering and search capabilities
@@ -127,6 +139,7 @@ The literary works system implements:
 ## 🏎️ Deployment Architecture
 
 The project is deployed on Vercel with the following configuration:
+
 - Automatic preview deployments for branches
 - Edge functions for API routes
 - CDN caching for static assets
@@ -136,6 +149,7 @@ The project is deployed on Vercel with the following configuration:
 ## 💻 Development Environment
 
 This project was developed using:
+
 - Visual Studio Code with TypeScript and ESLint integration
 - Node.js v20.x
 - npm for package management

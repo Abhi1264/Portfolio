@@ -11,7 +11,7 @@ export async function DELETE(request: NextRequest) {
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Authentication required" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -20,18 +20,18 @@ export async function DELETE(request: NextRequest) {
     if (session.user.email !== authorizedEmail) {
       return NextResponse.json(
         { error: "You are not authorized to delete works" },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
     // Get work ID from request URL
     const url = new URL(request.url);
-    const workId = url.searchParams.get('id');
+    const workId = url.searchParams.get("id");
 
     if (!workId) {
       return NextResponse.json(
         { error: "Work ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -50,7 +50,7 @@ export async function DELETE(request: NextRequest) {
       // Return success
       return NextResponse.json({
         success: true,
-        message: "Work deleted successfully"
+        message: "Work deleted successfully",
       });
     } catch (dbError: unknown) {
       const errorMessage =
@@ -58,7 +58,7 @@ export async function DELETE(request: NextRequest) {
       console.error("Firestore operation error:", errorMessage);
       return NextResponse.json(
         { error: `Database error: ${errorMessage}` },
-        { status: 500 }
+        { status: 500 },
       );
     }
   } catch (error: unknown) {
@@ -67,7 +67,7 @@ export async function DELETE(request: NextRequest) {
     console.error("Error deleting work:", errorMessage);
     return NextResponse.json(
       { error: `Failed to delete work: ${errorMessage}` },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

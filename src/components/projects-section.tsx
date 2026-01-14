@@ -48,6 +48,17 @@ const projects = [
     type: "design-dev",
   },
   {
+    title: "rhf-sync-url",
+    description:
+      "A lightweight React hook that automatically synchronizes React Hook Form state with URL query parameters. Perfect for creating shareable form states, maintaining form state on page refresh, and building better UX with persistent form filters.",
+    image: "/rhf-sync-url.png",
+    tags: ["TypeScript", "React Hook Form"],
+    liveLink: "https://npmjs.org/package/rhf-sync-url",
+    githubLink: "https://github.com/Abhi1264/rhf-sync-url",
+    featured: false,
+    type: "development",
+  },
+  {
     title: "InkSaver",
     description:
       "High-performance document processing tool using unsafe C# pointers for adaptive thresholding, reducing printer ink usage by binarizing images with features like real-time, in-memory processing, intensity slider and smart inversion logic for dark mode screenshots.",
@@ -244,14 +255,16 @@ export function ProjectsSection() {
                           className="bg-black/50 border-white/20 backdrop-blur-sm"
                           asChild
                         >
-                          <a
-                            href={project.liveLink || ""}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            <FiExternalLink className="h-4 w-4 mr-2" />
-                            Live
-                          </a>
+                          {project.liveLink && (
+                            <a
+                              href={project.liveLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <FiExternalLink className="h-4 w-4 mr-2" />
+                              Live
+                            </a>
+                          )}
                         </Button>
                         <Button
                           size="sm"

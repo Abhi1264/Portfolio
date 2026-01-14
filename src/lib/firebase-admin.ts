@@ -19,7 +19,7 @@ const getFirebaseAdmin = () => {
     try {
       admin.initializeApp({
         credential: admin.credential.cert(
-          serviceAccount as admin.ServiceAccount
+          serviceAccount as admin.ServiceAccount,
         ),
       });
       console.log("Firebase Admin SDK initialized successfully");
@@ -31,7 +31,7 @@ const getFirebaseAdmin = () => {
       // If we're in development, provide more guidance
       if (process.env.NODE_ENV !== "production") {
         console.error(
-          "Ensure your .env.local file has FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY properly set"
+          "Ensure your .env.local file has FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, and FIREBASE_PRIVATE_KEY properly set",
         );
       }
 

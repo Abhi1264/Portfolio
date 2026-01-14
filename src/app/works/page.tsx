@@ -21,27 +21,29 @@ type Work = {
 };
 
 // Memoized category button component to prevent re-renders
-const CategoryButton = React.memo(({ 
-  category, 
-  isSelected, 
-  onClick 
-}: { 
-  category: string; 
-  isSelected: boolean; 
-  onClick: () => void;
-}) => (
-  <Button
-    variant={isSelected ? "default" : "outline"}
-    onClick={onClick}
-    className={
-      isSelected
-        ? "bg-purple-600 hover:bg-purple-700 cursor-pointer capitalize"
-        : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10 cursor-pointer capitalize"
-    }
-  >
-    {category === "all" ? "all categories" : category}
-  </Button>
-));
+const CategoryButton = React.memo(
+  ({
+    category,
+    isSelected,
+    onClick,
+  }: {
+    category: string;
+    isSelected: boolean;
+    onClick: () => void;
+  }) => (
+    <Button
+      variant={isSelected ? "default" : "outline"}
+      onClick={onClick}
+      className={
+        isSelected
+          ? "bg-purple-600 hover:bg-purple-700 cursor-pointer capitalize"
+          : "border-purple-500/50 text-purple-300 hover:bg-purple-500/10 cursor-pointer capitalize"
+      }
+    >
+      {category === "all" ? "all categories" : category}
+    </Button>
+  ),
+);
 
 CategoryButton.displayName = "CategoryButton";
 
@@ -76,13 +78,12 @@ const WorkCard = React.memo(({ work }: { work: Work }) => (
                 </span>
               ))}
               {work.tags.length > 3 && (
-                <span className="text-xs text-purple-400">+{work.tags.length - 3} more</span>
+                <span className="text-xs text-purple-400">
+                  +{work.tags.length - 3} more
+                </span>
               )}
             </div>
-            <time
-              dateTime={work.date}
-              className="text-sm text-purple-400"
-            >
+            <time dateTime={work.date} className="text-sm text-purple-400">
               {format(new Date(work.date), "MMMM d, yyyy")}
             </time>
           </div>
@@ -105,7 +106,13 @@ const WorksGrid = React.memo(({ works }: { works: Work[] }) => (
 
 WorksGrid.displayName = "WorksGrid";
 
-const WorksManagement = dynamic(() => import("@/components/ui/works-management").then(mod => mod.WorksManagement), { ssr: false });
+const WorksManagement = dynamic(
+  () =>
+    import("@/components/ui/works-management").then(
+      (mod) => mod.WorksManagement,
+    ),
+  { ssr: false },
+);
 
 export default function WorksPage() {
   const [works, setWorks] = useState<Work[]>([]);
@@ -119,7 +126,7 @@ export default function WorksPage() {
     try {
       const worksQuery = query(
         collection(db, "works"),
-        orderBy("date", "desc")
+        orderBy("date", "desc"),
       );
       const worksSnapshot = await getDocs(worksQuery);
       const worksData = worksSnapshot.docs.map((doc) => ({
@@ -130,7 +137,7 @@ export default function WorksPage() {
 
       // Extract unique categories
       const uniqueCategories = Array.from(
-        new Set(worksData.map((work) => work.category))
+        new Set(worksData.map((work) => work.category)),
       );
       setCategories(uniqueCategories);
     } catch (error) {
@@ -146,23 +153,24 @@ export default function WorksPage() {
   }, [fetchWorks]);
 
   // Memoize filtered works to prevent recalculation on every render
-  const filteredWorks = useMemo(() => 
-    selectedCategory === "all"
-      ? works
-      : works.filter((work) => work.category === selectedCategory),
-    [works, selectedCategory]
+  const filteredWorks = useMemo(
+    () =>
+      selectedCategory === "all"
+        ? works
+        : works.filter((work) => work.category === selectedCategory),
+    [works, selectedCategory],
   );
-  
+
   // Memoize category button click handlers to prevent recreation
   const categoryHandlers = useMemo(() => {
     const handlers: Record<string, () => void> = {
-      all: () => setSelectedCategory("all")
+      all: () => setSelectedCategory("all"),
     };
-    
-    categories.forEach(category => {
+
+    categories.forEach((category) => {
       handlers[category] = () => setSelectedCategory(category);
     });
-    
+
     return handlers;
   }, [categories]);
 
@@ -173,7 +181,7 @@ export default function WorksPage() {
         {session?.user && (
           <WorksManagement works={works} onWorksChanged={fetchWorks} />
         )}
-        
+
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
@@ -188,12 +196,12 @@ export default function WorksPage() {
 
         {/* Categories */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
-          <CategoryButton 
-            category="all" 
-            isSelected={selectedCategory === "all"} 
-            onClick={categoryHandlers.all} 
+          <CategoryButton
+            category="all"
+            isSelected={selectedCategory === "all"}
+            onClick={categoryHandlers.all}
           />
-          
+
           {categories.map((category) => (
             <CategoryButton
               key={category}
@@ -214,10 +222,12 @@ export default function WorksPage() {
         {/* Empty state */}
         {!isLoading && filteredWorks.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">No works found in this category.</p>
+            <p className="text-muted-foreground">
+              No works found in this category.
+            </p>
           </div>
         )}
-        
+
         {/* Works Grid - Only render when not loading and has works */}
         {!isLoading && filteredWorks.length > 0 && (
           <WorksGrid works={filteredWorks} />

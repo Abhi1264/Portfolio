@@ -50,7 +50,7 @@ const UserMenu = React.memo(() => {
   const { data: session } = useSession();
   const signInCb = useCallback(
     () => signIn("google", { callbackUrl: "/" }),
-    []
+    [],
   );
 
   if (!session) {
@@ -140,7 +140,7 @@ const DesktopNav = React.memo<NavProps>(({ onSectionNav, renderUser }) => (
         >
           {item.name}
         </Link>
-      )
+      ),
     )}
     {renderUser}
   </nav>
@@ -153,7 +153,7 @@ const MobileNav = React.memo<NavProps & { open: boolean }>(
     <div
       className={cn(
         "lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
-        open ? "max-h-130" : "max-h-0"
+        open ? "max-h-130" : "max-h-0",
       )}
     >
       <nav className="bg-black/80 backdrop-blur-md border-b border-purple-500/40">
@@ -177,12 +177,12 @@ const MobileNav = React.memo<NavProps & { open: boolean }>(
               >
                 {item.name}
               </Link>
-            )
+            ),
           )}
         </div>
       </nav>
     </div>
-  )
+  ),
 );
 
 MobileNav.displayName = "MobileNav";
@@ -190,7 +190,7 @@ MobileNav.displayName = "MobileNav";
 // Debounce utility function
 function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
-  wait: number
+  wait: number,
 ): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -236,7 +236,7 @@ export function Navbar() {
   // Debounced version of the scroll handler to reduce number of calls
   const debouncedHandleScroll = useMemo(
     () => debounce(handleScroll, 10),
-    [handleScroll]
+    [handleScroll],
   );
 
   // Add scroll listener only if we're not on a works page
@@ -259,7 +259,7 @@ export function Navbar() {
       }
       setMobileMenuOpen(false);
     },
-    [pathname, router]
+    [pathname, router],
   );
 
   // Create a stable renderUser element that won't change between renders
@@ -272,18 +272,18 @@ export function Navbar() {
         <span
           className={cn(
             "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
-            mobileMenuOpen ? "rotate-45 translate-y-0" : "-translate-y-1.5"
+            mobileMenuOpen ? "rotate-45 translate-y-0" : "-translate-y-1.5",
           )}
         />
         <span
           className={cn(
             "absolute top-1/2 left-0 w-full h-0.5 bg-white transition-transform duration-300",
-            mobileMenuOpen ? "-rotate-45 translate-y-0" : "translate-y-1.5"
+            mobileMenuOpen ? "-rotate-45 translate-y-0" : "translate-y-1.5",
           )}
         />
       </div>
     ),
-    [mobileMenuOpen]
+    [mobileMenuOpen],
   );
 
   // Create a stable style for the header that doesn't change between renders
@@ -292,7 +292,7 @@ export function Navbar() {
       "fixed top-0 z-50 w-full transition-all duration-300",
       isScrolled || isWorksPage
         ? "bg-black/80 backdrop-blur-md"
-        : "bg-transparent"
+        : "bg-transparent",
     );
   }, [isScrolled, isWorksPage]);
 

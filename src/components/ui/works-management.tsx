@@ -160,7 +160,7 @@ const AddWorkForm = React.memo(
         </DialogFooter>
       </form>
     );
-  }
+  },
 );
 
 AddWorkForm.displayName = "AddWorkForm";
@@ -230,7 +230,7 @@ const DeleteWorkForm = React.memo(
         </DialogFooter>
       </>
     );
-  }
+  },
 );
 
 DeleteWorkForm.displayName = "DeleteWorkForm";
@@ -354,7 +354,7 @@ const EditWorkForm = React.memo(
         </DialogFooter>
       </form>
     );
-  }
+  },
 );
 EditWorkForm.displayName = "EditWorkForm";
 
@@ -373,7 +373,7 @@ export function WorksManagement({
   const authorizedEmail = process.env.NEXT_PUBLIC_AUTHORIZED_EMAIL;
   const isAuthorized = useMemo(
     () => session?.user?.email === authorizedEmail,
-    [session?.user?.email, authorizedEmail]
+    [session?.user?.email, authorizedEmail],
   );
 
   // Form submission handlers - defined before any conditional returns
@@ -417,13 +417,13 @@ export function WorksManagement({
         toast.error(
           `Failed to add work: ${
             error instanceof Error ? error.message : "Unknown error"
-          }`
+          }`,
         );
       } finally {
         setIsSubmitting(false);
       }
     },
-    [onWorksChanged]
+    [onWorksChanged],
   );
 
   const handleDeleteWork = useCallback(
@@ -450,13 +450,13 @@ export function WorksManagement({
         toast.error(
           `Failed to delete work: ${
             error instanceof Error ? error.message : "Unknown error"
-          }`
+          }`,
         );
       } finally {
         setIsSubmitting(false);
       }
     },
-    [onWorksChanged]
+    [onWorksChanged],
   );
 
   const handleEditWork = useCallback(
@@ -494,13 +494,13 @@ export function WorksManagement({
         toast.error(
           `Failed to update work: ${
             error instanceof Error ? error.message : "Unknown error"
-          }`
+          }`,
         );
       } finally {
         setIsSubmitting(false);
       }
     },
-    [onWorksChanged]
+    [onWorksChanged],
   );
 
   // Don't render anything if not authorized

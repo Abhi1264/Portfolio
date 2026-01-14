@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class", "dark"],
@@ -76,12 +76,12 @@ const config = {
       typography: {
         DEFAULT: {
           css: {
-            maxWidth: 'none',
-            color: 'hsl(var(--foreground))',
+            maxWidth: "none",
+            color: "hsl(var(--foreground))",
             a: {
-              color: 'hsl(var(--primary))',
-              '&:hover': {
-                color: 'hsl(var(--primary))',
+              color: "hsl(var(--primary))",
+              "&:hover": {
+                color: "hsl(var(--primary))",
               },
             },
           },
@@ -90,6 +90,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

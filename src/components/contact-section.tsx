@@ -70,7 +70,7 @@ export function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -90,7 +90,7 @@ export function ContactSection() {
           subject: formData.subject,
           message: formData.message,
         },
-        "MqilJf3TJkMB9o45b"
+        "MqilJf3TJkMB9o45b",
       );
 
       toast.success("Message sent!", {

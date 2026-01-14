@@ -83,8 +83,8 @@ const AboutSection = ({ spotlightColor = "rgb(147 51 234 / 0.4)" }) => {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full mb-8" />
           <p className="max-w-5xl text-muted-foreground text-justify">
-            I am a passionate UI/UX designer and full-stack developer working with
-            the sole purpose of creating beautiful, functional, and
+            I am a passionate UI/UX designer and full-stack developer working
+            with the sole purpose of creating beautiful, functional, and
             user-centered digital experiences. My journey began in graphic
             design, but I quickly fell in love with the world of code, where I
             could bring my designs to life. Today, I work at the intersection of

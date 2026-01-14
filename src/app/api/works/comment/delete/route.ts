@@ -21,19 +21,19 @@ export async function DELETE(request: NextRequest) {
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Authentication required" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     // Get query params
     const url = new URL(request.url);
-    const workId = url.searchParams.get('workId');
-    const commentId = url.searchParams.get('commentId');
+    const workId = url.searchParams.get("workId");
+    const commentId = url.searchParams.get("commentId");
 
     if (!workId || !commentId) {
       return NextResponse.json(
         { error: "Work ID and comment ID are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -49,28 +49,30 @@ export async function DELETE(request: NextRequest) {
       // Get existing comments
       const workData = workDoc.data();
       const comments = workData?.comments || [];
-      
+
       // Find the comment
-      const commentIndex = comments.findIndex((c: Comment) => c.id === commentId);
-      
+      const commentIndex = comments.findIndex(
+        (c: Comment) => c.id === commentId,
+      );
+
       if (commentIndex === -1) {
         return NextResponse.json(
           { error: "Comment not found" },
-          { status: 404 }
+          { status: 404 },
         );
       }
-      
+
       const comment = comments[commentIndex];
-      
+
       // Check if current user is authorized to delete this comment
       // User can delete their own comments OR if they are the admin
       const authorizedEmail = process.env.AUTHORIZED_EMAIL;
       const isAdmin = session.user.email === authorizedEmail;
-      
+
       if (comment.userId !== session.user.email && !isAdmin) {
         return NextResponse.json(
           { error: "You are not authorized to delete this comment" },
-          { status: 403 }
+          { status: 403 },
         );
       }
 
@@ -93,7 +95,7 @@ export async function DELETE(request: NextRequest) {
       console.error("Firestore operation error:", errorMessage);
       return NextResponse.json(
         { error: `Database error: ${errorMessage}` },
-        { status: 500 }
+        { status: 500 },
       );
     }
   } catch (error: unknown) {
@@ -102,7 +104,7 @@ export async function DELETE(request: NextRequest) {
     console.error("Error deleting comment:", errorMessage);
     return NextResponse.json(
       { error: `Internal server error: ${errorMessage}` },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

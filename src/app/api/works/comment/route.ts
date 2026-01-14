@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Authentication required" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     if (!workId || !text?.trim()) {
       return NextResponse.json(
         { error: "Work ID and comment text are required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       console.error("Firestore operation error:", errorMessage);
       return NextResponse.json(
         { error: `Database error: ${errorMessage}` },
-        { status: 500 }
+        { status: 500 },
       );
     }
   } catch (error: unknown) {
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
     console.error("Error adding comment:", errorMessage);
     return NextResponse.json(
       { error: `Internal server error: ${errorMessage}` },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

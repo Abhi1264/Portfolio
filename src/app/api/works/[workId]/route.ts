@@ -5,7 +5,7 @@ import { authOptions } from "@/lib/auth";
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ workId: string }> }
+  { params }: { params: Promise<{ workId: string }> },
 ) {
   try {
     // Get the authenticated user
@@ -13,7 +13,7 @@ export async function PUT(
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Authentication required" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -22,7 +22,7 @@ export async function PUT(
     if (session.user.email !== authorizedEmail) {
       return NextResponse.json(
         { error: "You are not authorized to update works" },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -31,7 +31,7 @@ export async function PUT(
     if (!workId) {
       return NextResponse.json(
         { error: "Work ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -43,7 +43,7 @@ export async function PUT(
     if (!title || !content || !excerpt || !category || !tags) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -74,7 +74,7 @@ export async function PUT(
     console.error("Error updating work:", errorMessage);
     return NextResponse.json(
       { error: `Failed to update work: ${errorMessage}` },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -10,9 +10,9 @@ function createSlugFromTitle(title: string): string {
   return title
     .toLowerCase()
     .trim()
-    .replace(/[^\w\s-]/g, '')  // Remove special characters
-    .replace(/[\s_-]+/g, '-')  // Replace spaces and underscores with hyphens
-    .replace(/^-+|-+$/g, '');  // Remove leading/trailing hyphens
+    .replace(/[^\w\s-]/g, "") // Remove special characters
+    .replace(/[\s_-]+/g, "-") // Replace spaces and underscores with hyphens
+    .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
 }
 
 // Helper function to check if a document with the given ID already exists
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
     if (!session?.user?.email) {
       return NextResponse.json(
         { error: "Authentication required" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     if (session.user.email !== authorizedEmail) {
       return NextResponse.json(
         { error: "You are not authorized to add works" },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
@@ -51,14 +51,14 @@ export async function POST(request: NextRequest) {
     if (!title || !content || !excerpt || !category || !tags) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     try {
       // Create a slug from the title
       let slug = createSlugFromTitle(title);
-      
+
       // Check if work with same slug exists, if so add timestamp to make it unique
       const slugExists = await checkIfIdExists(slug);
       if (slugExists) {
@@ -76,13 +76,13 @@ export async function POST(request: NextRequest) {
         date: new Date().toISOString(),
         tags,
         likes: [],
-        comments: []
+        comments: [],
       });
 
       // Return success with the new work ID
       return NextResponse.json({
         success: true,
-        id: slug
+        id: slug,
       });
     } catch (dbError: unknown) {
       const errorMessage =
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       console.error("Firestore operation error:", errorMessage);
       return NextResponse.json(
         { error: `Database error: ${errorMessage}` },
-        { status: 500 }
+        { status: 500 },
       );
     }
   } catch (error: unknown) {
@@ -99,7 +99,7 @@ export async function POST(request: NextRequest) {
     console.error("Error adding work:", errorMessage);
     return NextResponse.json(
       { error: `Failed to add work: ${errorMessage}` },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
