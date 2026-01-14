@@ -9,14 +9,42 @@ import { FiExternalLink, FiGithub } from "react-icons/fi";
 
 const projects = [
   {
-    title: "Fairly",
+    title: "Vidforge",
     description:
-      "Progressive Web App to track shared expenses and split bills with friends with features like split equally, by percentage, by amount, by share, currency conversion, and more.",
-    image: "/fairly-black.svg",
-    tags: ["React", "Vite", "Tailwind CSS", "Shadcn/ui", "Firebase"],
-    liveLink: "https://usefairly.vercel.app/",
-    githubLink: "https://github.com/Abhi1264/fairly",
+      "Cross-platform Go-based TUI video downloader with concurrent, resumable downloads, explicit quality profiles, and SponsorBlock integration, distributed via Homebrew and GitHub Releases.",
+    image: "/vidforge.jpeg",
+    tags: [
+      "Go",
+      "Bubble Tea",
+      "Lip Gloss",
+      "yt-dlp",
+      "FFmpeg",
+      "GoReleaser",
+      "Homebrew",
+      "GitHub Releases",
+    ],
+    liveLink: null,
+    githubLink: "https://github.com/Abhi1264/vidforge",
     featured: false,
+    type: "development",
+  },
+  {
+    title: "OneLink",
+    description:
+      "Multi-tenant link-in-bio SaaS platform featuring custom subdomain routing, drag-and-drop link organization, social authentication, and click analytics.",
+    image: "/onelink.jpeg",
+    tags: [
+      "TypeScript",
+      "Next.js",
+      "Tailwind CSS",
+      "Shadcn/ui",
+      "PostHog",
+      "Supabase",
+      "Drizzle ORM",
+    ],
+    liveLink: "https://onelink.abhinavkc.tech./",
+    githubLink: "https://github.com/Abhi1264/onelink",
+    featured: true,
     type: "design-dev",
   },
   {
@@ -38,6 +66,28 @@ const projects = [
     githubLink: "https://github.com/Abhi1264/inksaver",
     featured: false,
     type: "development",
+  },
+  {
+    title: "Fairly",
+    description:
+      "Progressive Web App to track shared expenses and split bills with friends with features like split equally, by percentage, by amount, by share, currency conversion, and more.",
+    image: "/fairly-black.svg",
+    tags: ["React", "Vite", "Tailwind CSS", "Shadcn/ui", "Firebase"],
+    liveLink: "https://fairly.abhinavkc.tech./",
+    githubLink: "https://github.com/Abhi1264/fairly",
+    featured: true,
+    type: "design-dev",
+  },
+  {
+    title: "FurFam",
+    description:
+      "FurFam is a website that allows you to adopt pet dogs online. It was built for a client as a freelance project.",
+    image: "/furfam.jpeg",
+    tags: ["TypeScript", "Next.js", "Tailwind CSS", "Shadcn/ui", "Supabase"],
+    liveLink: "https://furfam.vercel.app/",
+    githubLink: "https://github.com/Abhi1264/furfam",
+    featured: true,
+    type: "design-dev",
   },
   {
     title: "Bitotsav'25 Website",

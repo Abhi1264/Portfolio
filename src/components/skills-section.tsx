@@ -1,11 +1,10 @@
 import { useMemo } from "react";
 import Image from "next/image";
 
-// Move images array outside component to prevent recreation on each render
 const images = [
   // { name: "AfterEffects", src: "/Skills-logos/AfterEffects.svg" },
   // { name: "AlpineJS", src: "/Skills-logos/AlpineJS.svg" },
-  // { name: "AndroidStudio", src: "/Skills-logos/AndroidStudio.svg" },
+  { name: "AndroidStudio", src: "/Skills-logos/AndroidStudio.svg" },
   // { name: "Angular", src: "/Skills-logos/Angular.svg" },
   { name: "AWS", src: "/Skills-logos/AWS.svg" },
   // { name: "Azure", src: "/Skills-logos/Azure.svg" },
@@ -28,6 +27,7 @@ const images = [
   { name: "Git", src: "/Skills-logos/Git.svg" },
   { name: "GitHub", src: "/Skills-logos/GitHub.svg" },
   { name: "GitLab", src: "/Skills-logos/GitLab.svg" },
+  { name: "Go", src: "/Skills-logos/Go.svg" },
   { name: "HTML", src: "/Skills-logos/HTML.svg" },
   { name: "Illustrator", src: "/Skills-logos/Illustrator.svg" },
   { name: "Java", src: "/Skills-logos/Java.svg" },
@@ -53,13 +53,13 @@ const images = [
   // { name: "Ruby", src: "/Skills-logos/Ruby.svg" },
   // { name: "SASS", src: "/Skills-logos/SASS.svg" },
   // { name: "SolidJS", src: "/Skills-logos/SolidJS.svg" },
-  // { name: "Spring", src: "/Skills-logos/Spring.svg" },
+  { name: "Spring", src: "/Skills-logos/Spring.svg" },
   // { name: "SQLite", src: "/Skills-logos/SQLite.svg" },
   // { name: "StackOverFlow", src: "/Skills-logos/StackOverFlow.svg" },
-  // { name: "Swift", src: "/Skills-logos/Swift.svg" },
+  { name: "Swift", src: "/Skills-logos/Swift.svg" },
   { name: "TailwindCSS", src: "/Skills-logos/TailwindCSS.svg" },
   { name: "Typescript", src: "/Skills-logos/Typescript.svg" },
-  // { name: "Visual Studio Code", src: "/Skills-logos/VSCode.svg" },
+  { name: "Visual Studio Code", src: "/Skills-logos/VSCode.svg" },
   // { name: "VueJS", src: "/Skills-logos/VueJS.svg" },
   { name: "Vite", src: "/Skills-logos/Vite.svg" },
   { name: "Webflow", src: "/Skills-logos/Webflow.svg" },
